@@ -10,6 +10,16 @@ justLinks = allLinksHolder.find_all('a') #all anchor tags within that table
 
 allItalicLinkChildren = allLinksHolder.find_all('i')
 
+
+
+allNewsNamesHolder = allLinksHolder.find_all('td')
+for name in allNewsNamesHolder:
+    if name.contents[0]=='<a href="newspapers?q=4893">Tecumseh Herald</a>':
+        print(name.contents[0])
+        #if name.get('class')[0]=='w-50':
+        #    print(name.contents[0])
+
+        
 ##firstClassMatch = bs.find(class_='w-50')
 ##allNewsNamesHolder = allLinksHolder.find_all('td')
 ##for nameC in allNewsNamesHolder:
