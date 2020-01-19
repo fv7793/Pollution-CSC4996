@@ -6,12 +6,8 @@ bs = BeautifulSoup(page.text, 'html.parser') #instantiate object with these para
 #other parsers exist other than this one
 
 allLinksHolder = bs.find(class_='table table-sm') #just the table
-justLinks = allLinksHolder.find_all('a') #all anchor tags within that table
 
-allItalicLinkChildren = allLinksHolder.find_all('i')
-
-
-#THIS LOOP SUCCESSFULLY FINDS AND PRINTS ONLY THE NAMES
+#THIS LOOP SUCCESSFULLY FINDS AND PRINTS THE NAMES WITH THE LINKS
 allNewsNamesHolder = allLinksHolder.find_all('td')
 for row in allNewsNamesHolder:
     if row.get('class') is not None and row.get('class')[0] == 'w-50':
@@ -19,6 +15,12 @@ for row in allNewsNamesHolder:
         for name in nameA:
             n = name.contents[0]
             print(n)
+    elif row.get('class') is not None and row.get('class')[0] == 'w-10':
+        allLinks = row.find_all('a')
+        for link in allLinks:
+            l = link.contents[0]
+            if l.get('class')[1]=='fa-link':
+                print(link.get('href'))
 
 
 #failed attemptes to do what the above loop does
@@ -43,14 +45,15 @@ for row in allNewsNamesHolder:
 
 
 #THIS LOOP SUCCESSFULLY ONLY MINES THE LINKS TO THE NEWS WEBSITES
-for italicChild in allItalicLinkChildren:
-    z=italicChild.get('class')
-    for link in justLinks:
-        x=link.contents[0]
-        if x is italicChild and italicChild.get('class')[1] == 'fa-link':
-            y = link.get('href')
-            print(y)
-    
+##for italicChild in allItalicLinkChildren:
+##    z=italicChild.get('class')
+##    for link in justLinks:
+##        x=link.contents[0]
+##        if x is italicChild and italicChild.get('class')[1] == 'fa-link':
+##            y = link.get('href')
+##            print(y)
+#end of successful code
+                
     #ALL OF THESE WERE AN ATTEMPT AT SAYING:
     #if the child item of the 'a' tag (link.contents[0])
         #has the class 'fas fa-link', show it, else don't
