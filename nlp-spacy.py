@@ -2,6 +2,7 @@ import spacy
 from spacy import displacy
 from collections import Counter
 import en_core_web_sm
+from nltk import tokenize
 from bs4 import BeautifulSoup
 import requests
 
@@ -24,10 +25,18 @@ for paragraph in splitContent:
         #print(type(stringPara)) #str
         arrayOfPs.append(stringPara)
         i=i+1
-    
+
+tokenizedSent = []  
 #nltk tokenize
 for eachPara in arrayOfPs:
-    print(eachPara)
+    #print(eachPara)
+    listOfSent =(tokenize.sent_tokenize(eachPara))
+    for sent in listOfSent:
+        tokenizedSent.append(sent)
+    
+
+for sentence in tokenizedSent:
+    print(sentence)
 
     
 #print([(X.text, X.label_) for X in doc.ents])
