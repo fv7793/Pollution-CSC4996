@@ -36,7 +36,14 @@ for eachPara in arrayOfPs:
     
 
 for sentence in tokenizedSent:
+    nER = nlp(sentence)
     print(sentence)
+    for entity in nER.ents:
+        print(entity.text, entity.label_)
+    for word in nER:
+        if(word.ent_iob_!='O'):
+            print(word.idx, word.ent_iob_)
+    
 
     
 #print([(X.text, X.label_) for X in doc.ents])
