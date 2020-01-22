@@ -21,9 +21,9 @@ from nltk import tokenize
 from bs4 import BeautifulSoup
 import requests
 
-page = requests.get('https://www.freep.com/story/news/local/michigan/oakland/2020/01/10/madison-heights-green-ooze-slime-pfas/4437379002/')
+page = requests.get('https://www.mlive.com/news/grand-rapids/2019/08/coal-ash-from-west-michigan-power-plant-might-be-contaminating-drinking-water-wells.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='asset-double-wide')
+content=bs.find(class_='entry-content')#'asset-double-wide')
 
 nlp = en_core_web_sm.load()
 
@@ -50,35 +50,39 @@ for eachPara in arrayOfPs:
     for sent in listOfSent:
         tokenizedSent.append(sent)
 
-# Matches "love cats" or "likes flowers"
-expat = [{"LEMMA": {"IN": ["like", "love"]}},
-            {"POS": "NOUN"}]
+patternsOfPOS = []
+#(high) levels of (the) ____
+patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"},{"POS": "ADP"},{"POS": "DET","OP":"*"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
 ##print every noun and past tense verb!
-pattern1 = [{"POS":"NOUN"},{"POS":"VBD"}]
+patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}]) #lemmatized words (said/discussed/etc.)
+
+patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
 ##print every preposition and object of preposition!!
-pattern2 = [{"POS":"prep"},{"POS":"pobj"}]
-pattern3 = [{"POS":"pobj"},{"POS":"prep"}]
-##print every proper noun object of the preposition and preposition!!
-pattern4 = [{"POS": "NNP"}, {"POS": "prep"}]
-pattern5 = [{"POS": "prep"}, {"POS": "NNP"}]
+    ##SPECIFY (way too abiguous
+patternsOfPOS.append([{"POS":"ADP"},{"POS":"NOUN"}])
+patternsOfPOS.append([{"POS":"NOUN"},{"POS":"ADP"}])
+patternsOfPOS.append([{"POS":"NOUN"},{"POS":"ADP"},{"POS":"NOUN"}])
+##print every proper noun object of the preposition and preposition!! (??)
+    ##near the/a
+patternsOfPOS.append([{"POS": "NNP"}, {"POS": "ADP"}])
+patternsOfPOS.append([{"POS": "ADP"}, {"POS": "NNP"}])
 ##adjective proper nouns
-pattern6 = [{"POS": "ADJ"}, {"POS": "NNP"}]
+patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
 
 listOfMatchPats = Matcher(nlp.vocab)
-listOfMatchPats.add("p1", None, pattern1) #p1 = matchID, no callback, matches the pattern
-listOfMatchPats.add("p2", None, pattern2)
-listOfMatchPats.add("p3", None, pattern3)
-listOfMatchPats.add("p4", None, pattern4)
-listOfMatchPats.add("p5", None, pattern5)
-listOfMatchPats.add("p6", None, pattern6)
 
+#ADDS ALL PATTERNS TO THE MATCHER VOCAB LIST
+pNum = 0
+for pattern in patternsOfPOS:
+    listOfMatchPats.add("p"+str(pNum), None, pattern) #p1 = matchID, no callback, matches the pattern
+    pNum=pNum+1
 
 for sentence in tokenizedSent:
     nER = nlp(sentence)
     #print(sentence)
     matchesInSent = listOfMatchPats(nER)
     if matchesInSent:
-        print("xxxxx")
+        print("----------------------")
     for mID, s, e in matchesInSent:
         strID = nlp.vocab.strings[mID]  #convert from span object to string
         startToEnd = nER[s:e]  #string match idx from start to end
