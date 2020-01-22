@@ -34,15 +34,19 @@ for eachPara in arrayOfPs:
     for sent in listOfSent:
         tokenizedSent.append(sent)
     
+doc = nlp('I just bought 2 shares at 9 a.m. because the stock went up 30% in just 2 days according to the WSJ')
+displacy.render(doc, style='ent', jupyter=True)
 
 for sentence in tokenizedSent:
     nER = nlp(sentence)
+    #displacy.serve(nER, style='ent') #this starts a server, don't use
+    #displacy.render(nER, style="ent")
     print(sentence)
     for entity in nER.ents:
         print(entity.text, entity.label_)
     for word in nER:
         if(word.ent_iob_!='O'):
-            print(word.idx, word.ent_iob_)
+            print(word.idx, word.pos_, word.tag_, word.ent_iob_)
     
 
     
