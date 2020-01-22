@@ -50,11 +50,13 @@ for eachPara in arrayOfPs:
     for sent in listOfSent:
         tokenizedSent.append(sent)
 
+
 patternsOfPOS = []
 #(high) levels of (the) ____
 patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"},{"POS": "ADP"},{"POS": "DET","OP":"*"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
 ##print every noun and past tense verb!
-patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}]) #lemmatized words (said/discussed/etc.)
+
+patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say"]}}])  #lemmatized words (said/discussed/etc.)
 
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
 ##print every preposition and object of preposition!!
