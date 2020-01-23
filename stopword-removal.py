@@ -14,6 +14,8 @@ content=bs.find(class_='entry-content')#'asset-double-wide')
 
 nlp = en_core_web_sm.load()
 
+
+##START SCRAPING AND PARSING -----------------------------------------
 splitContent = content.find_all('p')
 arrayOfPs = []
 
@@ -27,7 +29,8 @@ for eachPara in arrayOfPs:
     listOfSent =(tokenize.sent_tokenize(eachPara))
     for sent in listOfSent:
         tokenizedSent.append(sent)
-        
+
+##FILTER OUT STOPWORDS -----------------------------------------------
 newSentences = []
 for sent in tokenizedSent:
     NLPtxt = nlp(sent)
@@ -41,9 +44,6 @@ for sent in tokenizedSent:
     newSentences.append(filtered)
 
 ##--->RESULT: newSentences is an array of strings (each string is a sentence)
-for sent in newSentences:
-    print(sent)
-
 
 
 
@@ -84,7 +84,7 @@ for pattern in patternsOfPOS:
     listOfMatchPats.add("p"+str(pNum), None, pattern) #p1 = matchID, no callback, matches the pattern
     pNum=pNum+1
 
-#MATCH AND PRINT ALL PATTERNS
+#MATCH AND PRINT ALL PATTERNS ----------------------------------------
 for sentence in newSentences:
     nER = nlp(sentence)
     #print(sentence)
