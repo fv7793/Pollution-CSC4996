@@ -78,7 +78,10 @@ patternsOfPOS.append([{"POS": "ADP"},{"POS": "NNP"}])
 patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
 patternsOfPOS.append([{"POS": "NNP"}])
 ##--->near intersection (road names)
-
+patternsOfPOS.append([{"LEMMA": "intersection"},{"POS": "NOUN"},{"POS": "NOUN"}])
+patternsOfPOS.append([{"LEMMA": "intersection"},{"POS": "NNP"},{"POS": "NNP"}])
+##--->address
+patternsOfPOS.append([{"POS": "NUM"}, {"POS": "NNP"}])
 
 listOfMatchPats = Matcher(nlp.vocab)
 
