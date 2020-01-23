@@ -50,7 +50,7 @@ patternsOfPOS = []
 #(high)* levels of (a/the)* _____ chemical
 patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
 #--->reported/found/occured on Month #
-patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["reported","began", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
 ##--->in a statement
 patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______

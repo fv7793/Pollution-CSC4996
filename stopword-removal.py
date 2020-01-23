@@ -8,9 +8,11 @@ from bs4 import BeautifulSoup
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
 
-page = requests.get('https://www.mlive.com/news/grand-rapids/2019/08/coal-ash-from-west-michigan-power-plant-might-be-contaminating-drinking-water-wells.html')
+page = requests.get('https://www.lansingstatejournal.com/story/news/2019/10/14/11-million-gallons-sewage-water-dumped-grand-red-cedar-river/3975129002/')
+                    #https://www.mlive.com/news/grand-rapids/2019/08/coal-ash-from-west-michigan-power-plant-might-be-contaminating-drinking-water-wells.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='entry-content')#'asset-double-wide')
+content=bs.find(class_='asset-double-wide')
+                    #'entry-content')
 
 nlp = en_core_web_sm.load()
 
@@ -58,15 +60,15 @@ patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ"
 #(chemical) levels
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": "levels"}])
 #--->reported/found/occured on Month #
-patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
-##--->in a statement
+patternsOfPOS.append([{"LEMMA": {"IN": ["reported","began", "found", "occurred", "sighted"]}}])
+##in a statement
 patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______
     ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
-#--->according to the _______
-patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NOUN"}])
-patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NNP"}])
+#according to the _______ (can be proper or not)
+patternsOfPOS.append([{"LEMMA": "accord"},{"POS": "NOUN"}])
+patternsOfPOS.append([{"LEMMA": "accord"},{"POS": "NNP"}])
 #??? ---> ??? highly dangerous chemical / testing showed ___ levels
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ"},{"POS":"NOUN"}])
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
@@ -74,6 +76,8 @@ patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ"
 patternsOfPOS.append([{"POS": "ADP"},{"POS": "NNP"}])
 ##direction (of)* city
 patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
+patternsOfPOS.append([{"POS": "NNP"}])
+##--->near intersection (road names)
 
 
 listOfMatchPats = Matcher(nlp.vocab)
