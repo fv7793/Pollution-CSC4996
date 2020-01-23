@@ -40,8 +40,71 @@ for sent in tokenizedSent:
             filtered=filtered+str(word)
     newSentences.append(filtered)
 
+##--->RESULT: newSentences is an array of strings (each string is a sentence)
 for sent in newSentences:
     print(sent)
+
+
+
+
+
+
+
+##START OF RULES --------------------------------------------------
+
+patternsOfPOS = []
+#(high)* levels of (a/the)* _____ chemical
+patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
+#(chemical) levels
+patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": "levels"}])
+#--->reported/found/occured on Month #
+patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
+##--->in a statement
+patternsOfPOS.append([{"LEMMA": "statement"}])
+#officials said/announced/etc ______
+    ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
+patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
+#--->according to the _______
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NOUN"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NNP"}])
+#??? ---> ??? highly dangerous chemical / testing showed ___ levels
+patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ"},{"POS":"NOUN"}])
+patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
+#near (the)* (proper noun location)
+patternsOfPOS.append([{"POS": "ADP"},{"POS": "NNP"}])
+##direction (of)* city
+patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
+
+
+listOfMatchPats = Matcher(nlp.vocab)
+
+#ADDS ALL PATTERNS TO THE MATCHER VOCAB LIST ----------------------------------------------
+pNum = 0
+for pattern in patternsOfPOS:
+    listOfMatchPats.add("p"+str(pNum), None, pattern) #p1 = matchID, no callback, matches the pattern
+    pNum=pNum+1
+
+#MATCH AND PRINT ALL PATTERNS
+for sentence in newSentences:
+    nER = nlp(sentence)
+    #print(sentence)
+    matchesInSent = listOfMatchPats(nER)
+    if matchesInSent:
+        print("----------------------")
+    for mID, s, e in matchesInSent:
+        strID = nlp.vocab.strings[mID]  #convert from span object to string
+        startToEnd = nER[s:e]  #string match idx from start to end
+        print(mID, strID, s, e, startToEnd.text)
+
+
+
+
+
+
+
+
+
+
 
 
 

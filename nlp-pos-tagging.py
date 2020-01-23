@@ -48,32 +48,23 @@ for eachPara in arrayOfPs:
 
 patternsOfPOS = []
 #(high)* levels of (a/the)* _____ chemical
-patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"},{"POS": "ADP"},{"POS": "DET","OP":"*"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
-#--->reported/found/occured on (are months proper nouns?)
-
+patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
+#--->reported/found/occured on Month #
+patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
 ##--->in a statement
-
+patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______
+    ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
 #--->according to the _______
-patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "DET","OP":"*"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NOUN"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NNP"}])
 #??? ---> ??? highly dangerous chemical / testing showed ___ levels
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
 #near (the)* (proper noun location)
-patternsOfPOS.append([{"POS": "ADP"}, {"POS": "DET","OP":"*"},{"POS": "NNP"}])
+patternsOfPOS.append([{"POS": "ADP"},{"POS": "NNP"}])
 ##direction (of)* city
-patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "ADP","OP":"*"},{"POS": "NNP"}])
-
-
-
-##print every preposition and object of preposition!!
-    ##SPECIFY (way too abiguous
-
-#patternsOfPOS.append([{"POS":"ADP"},{"POS":"NOUN"}])
-#patternsOfPOS.append([{"POS":"NOUN"},{"POS":"ADP"}])
-#patternsOfPOS.append([{"POS":"NOUN"},{"POS":"ADP"},{"POS":"NOUN"}])
-##print every proper noun object of the preposition and preposition!! (??)
-    ##near the/a
+patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
 
 
 listOfMatchPats = Matcher(nlp.vocab)
