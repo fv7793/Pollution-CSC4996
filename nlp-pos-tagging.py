@@ -30,17 +30,11 @@ nlp = en_core_web_sm.load()
 splitContent = content.find_all('p')
 arrayOfPs = []
 
-i=0;
-##THIS LINE LIMIT WILL BE GONE WHEN WE ARE HANDED CLEAN DATA
 for paragraph in splitContent:
-    if i > 4: #only want the 1st ~10 sentences of the article *for now* (avoid the filtering of the embedded tags and tricky format stuff
-        break
-    else:
-        #print(type(paragraph.contents[0])) #type = navigable string (beautiful soup type)
-        stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
-        #print(type(stringPara)) #str
-        arrayOfPs.append(stringPara)
-        i=i+1
+    #print(type(paragraph.contents[0])) #type = navigable string (beautiful soup type)
+    stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
+    #print(type(stringPara)) #str
+    arrayOfPs.append(stringPara)
 
 tokenizedSent = []  
 #nltk tokenize
@@ -50,35 +44,47 @@ for eachPara in arrayOfPs:
     for sent in listOfSent:
         tokenizedSent.append(sent)
 
+##START OF RULES --------------------------------------------------
 
 patternsOfPOS = []
-#(high) levels of (the) ____
+#(high)* levels of (a/the)* _____ chemical
 patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"},{"POS": "ADP"},{"POS": "DET","OP":"*"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
-##print every noun and past tense verb!
+#--->reported/found/occured on (are months proper nouns?)
 
-patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say"]}}])  #lemmatized words (said/discussed/etc.)
+##--->in a statement
 
+#officials said/announced/etc ______
+patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
+#--->according to the _______
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "DET","OP":"*"}])
+#??? ---> ??? highly dangerous chemical / testing showed ___ levels
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
+#near (the)* (proper noun location)
+patternsOfPOS.append([{"POS": "ADP"}, {"POS": "DET","OP":"*"},{"POS": "NNP"}])
+##direction (of)* city
+patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "ADP","OP":"*"},{"POS": "NNP"}])
+
+
+
 ##print every preposition and object of preposition!!
     ##SPECIFY (way too abiguous
-patternsOfPOS.append([{"POS":"ADP"},{"POS":"NOUN"}])
-patternsOfPOS.append([{"POS":"NOUN"},{"POS":"ADP"}])
-patternsOfPOS.append([{"POS":"NOUN"},{"POS":"ADP"},{"POS":"NOUN"}])
+
+#patternsOfPOS.append([{"POS":"ADP"},{"POS":"NOUN"}])
+#patternsOfPOS.append([{"POS":"NOUN"},{"POS":"ADP"}])
+#patternsOfPOS.append([{"POS":"NOUN"},{"POS":"ADP"},{"POS":"NOUN"}])
 ##print every proper noun object of the preposition and preposition!! (??)
     ##near the/a
-patternsOfPOS.append([{"POS": "NNP"}, {"POS": "ADP"}])
-patternsOfPOS.append([{"POS": "ADP"}, {"POS": "NNP"}])
-##adjective proper nouns
-patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
+
 
 listOfMatchPats = Matcher(nlp.vocab)
 
-#ADDS ALL PATTERNS TO THE MATCHER VOCAB LIST
+#ADDS ALL PATTERNS TO THE MATCHER VOCAB LIST ----------------------------------------------
 pNum = 0
 for pattern in patternsOfPOS:
     listOfMatchPats.add("p"+str(pNum), None, pattern) #p1 = matchID, no callback, matches the pattern
     pNum=pNum+1
 
+#MATCH AND PRINT ALL PATTERNS
 for sentence in tokenizedSent:
     nER = nlp(sentence)
     #print(sentence)
