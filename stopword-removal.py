@@ -29,7 +29,7 @@ tokenizedSent = []
 for eachPara in arrayOfPs:
     NLPtxt = nlp(eachPara)
     for eachSent in NLPtxt.sents:
-        tokenizedSent.append(eachSent)
+        tokenizedSent.append(eachSent.string.strip())
 
 
 ##FILTER OUT STOPWORDS -----------------------------------------------
