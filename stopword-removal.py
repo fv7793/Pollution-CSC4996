@@ -3,7 +3,6 @@ from spacy import displacy
 from spacy.matcher import Matcher
 from collections import Counter
 import en_core_web_sm
-from nltk import tokenize
 from bs4 import BeautifulSoup
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
@@ -26,11 +25,12 @@ for paragraph in splitContent:
     arrayOfPs.append(stringPara)
 
 tokenizedSent = []  
-#nltk tokenize
+#nltk tokenize 
 for eachPara in arrayOfPs:
-    listOfSent =(tokenize.sent_tokenize(eachPara))
-    for sent in listOfSent:
-        tokenizedSent.append(sent)
+    NLPtxt = nlp(eachPara)
+    for eachSent in NLPtxt.sents:
+        tokenizedSent.append(eachSent)
+
 
 ##FILTER OUT STOPWORDS -----------------------------------------------
 newSentences = []
