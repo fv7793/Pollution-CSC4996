@@ -1,9 +1,13 @@
 import spacy
+import random
+from spacy.util import minibatch, compounding
 
+#take training data from the external file
+td = []
 
 initialRun = True
 try:
-    nerModel = spacy.load("NER-model")
+    nerModel = spacy.load("NER-model-test")
     initialRun=False
 except:
     nerModel = spacy.blank("en")  # create blank Language class
@@ -42,17 +46,33 @@ if(found==False):
 for new in newLabels:
     NERpipe.add_label(new)
 
-##REWRITE <------------------------
+##TODO REWRITE <------------------------
 #ctrl c
 other_pipes = [pipe for pipe in nerModel.pipe_names if pipe != 'ner'] 
 with nerModel.disable_pipes(*other_pipes):  # only train NER
     if initialRun==True:
-        optimizer = nerModel.begin_training()
+        opt = nerModel.begin_training()
     else:
-        optimizer = nerModel.resume_training()
+        opt = nerModel.resume_training()
+#------------------------------------------------------
+    for i in range(0, 25):
+        l={}
+        random.shuffle(td)
+        bRes = minibatch(td, compounding(1., 10., 1.001)) #TODO CHANGE THESE VALUES
+            #compounding -> start, end, multiply current value by this until it reaches the end
+        for b in bRes:
+            for t, a in td:
+                nerModel.update([t], [a], opt, .2, l=losses)
+        print(l)
 
 
+#nerModel.to_disk("NER-model-test")
 
+for sent in tokenizedSent:
+    resultNER = nerModel(sent)
+    print(sent)
+    for NER in resultNER.ents:
+        print(ent.text, ent.label_)
 
 
 
