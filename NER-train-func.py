@@ -1,6 +1,7 @@
 import spacy
 import random
 from spacy.util import minibatch, compounding
+import nlp-spacy
 
 
 def trainModel(nerM, trainingD, o, l={}):
@@ -13,18 +14,26 @@ def trainModel(nerM, trainingD, o, l={}):
     print(l)
 
     #return nerM -- only needed if the update is considered a local change to the model and is not given to the global model
+#______________________________________________________
 
+def runModelonSent(tS, nModel):
+    results = []
+    for sent in tS:
+        resultNER = nModel(sent)
+        print(sent)
+        sentNER = []
+        for NER in resultNER.ents:
+            #print(NER.text, NER.label_)
+            sentNER.append(NER)
+        results.append(sentNER)
+    return results
+#returns a 2Dim array, each sent is 1 dim, each of those has an array of each NER and the label
+#______________________________________________________________
+
+#INITIALIZATION
+initialRun = True
 #take training data from the external file
 td = []
-
-##CHANGE THIS FILE:
-    #GET SCRAPED OBJECT FROM SAULAR'S .py SCRIPT
-    #EXTRACT THE TEXT, hand it to the tokenizing function
-
-#call tokenizing function from nlp-spacy.py
-tokenizedSent = []
-
-initialRun = True
 try:
     nerModel = spacy.load("NER-model-test")
     initialRun=False
@@ -45,6 +54,8 @@ newLabels.append(ENT3)
 newLabels.append(ENT4)
 newLabels.append(ENT5)
 
+
+#START THE TESTING SETUP________________________________________
 found = False
 if not nerModel.pipe_names:
     for pipe in nerModel.pipe_names:
@@ -57,39 +68,48 @@ if(found==False):
     print("Created NER pipe")
     nerModel.add_pipe(NERpipe, last=True) 
 
-##for _, annotations in TRAIN_DATA:
-##    for ent in annotations.get('entities'):
-##        ner.add_label(ent[2])
-    
-#the above code is doing the same thing as below
 for new in newLabels:
     NERpipe.add_label(new)
 
-#nonNERpipes = []
 for p in nerModel.pipe_names:
     if p!='ner':
         nerModel.disable_pipes(p)
-        #nonNERpipes.append(p)
-#DONE ABOVE
-#with nerModel.disable_pipes(*nonNERpipes):  # only train NER
+
 if initialRun==True:
     opt = nerModel.begin_training()
 else:
     opt = nerModel.resume_training()
+#END TRAINING SETUP _____________________________________________
 
 
-for i in range(0, 25):
-    trainModel(nerModel,td,opt)
+
+##CHANGE THIS FILE:
+    #GET SCRAPED OBJECT FROM SAULAR'S .py SCRIPT
+    #EXTRACT THE TEXT, hand it to the tokenizing function
+#get scraped object ______________________________________________
+crawler = FreepCrawler("pollution", "contamination")
+crawler.crawlURLs()
+crawler.scrapeURLs()
+
+#_________________________________________________________________
+
+nerResults = []
+for article in crawler.getScrapedArticles():
+    #call tokenizing function from nlp-spacy.py
+    tokenizedSent = nlp-spacy.convertScrapedtoSent(article)
+    for i in range(0, 25):
+        trainModel(nerModel,td,opt)
     ##TODO: determine if the update stays in the model without an assignment?
     #if we do an assign, does it overwrite previous updates to the model??
     #pass by reference??
+    nerResults = runModelonSent(tokenizedSent, nerModel)
+    for sent in nerResults:
+        for NER in sent:
+            print(NER.text, NER.label_)
+    
         
 
 
 #nerModel.to_disk("NER-model-test")
 
-for sent in tokenizedSent:
-    resultNER = nerModel(sent)
-    print(sent)
-    for NER in resultNER.ents:
-        print(ent.text, ent.label_)
+
