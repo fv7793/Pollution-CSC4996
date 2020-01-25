@@ -2,6 +2,21 @@ import spacy
 import random
 from spacy.util import minibatch, compounding
 
+
+def trainModel(nerM, trainingD, o, l={}):
+    random.shuffle(trainingD)
+    bRes = minibatch(trainingD, compounding(1., 10., 1.001)) #TODO CHANGE THESE VALUES
+        #compounding -> start, end, multiply current value by this until it reaches the end
+    for b in bRes:
+        for t, a in trainingD:
+            nerM.update([t], [a], o, .2, l=losses)
+    print(l)
+
+    #return nerM -- only needed if the update is considered a local change to the model and is not given to the global model
+
+
+
+
 #take training data from the external file
 td = []
 
@@ -46,24 +61,25 @@ if(found==False):
 for new in newLabels:
     NERpipe.add_label(new)
 
-##TODO REWRITE <------------------------
-#ctrl c
-other_pipes = [pipe for pipe in nerModel.pipe_names if pipe != 'ner'] 
-with nerModel.disable_pipes(*other_pipes):  # only train NER
-    if initialRun==True:
-        opt = nerModel.begin_training()
-    else:
-        opt = nerModel.resume_training()
-#------------------------------------------------------
-    for i in range(0, 25):
-        l={}
-        random.shuffle(td)
-        bRes = minibatch(td, compounding(1., 10., 1.001)) #TODO CHANGE THESE VALUES
-            #compounding -> start, end, multiply current value by this until it reaches the end
-        for b in bRes:
-            for t, a in td:
-                nerModel.update([t], [a], opt, .2, l=losses)
-        print(l)
+#nonNERpipes = []
+for p in nerModel.pipe_names:
+    if p!='ner':
+        nerModel.disable_pipes(p)
+        #nonNERpipes.append(p)
+#DONE ABOVE
+#with nerModel.disable_pipes(*nonNERpipes):  # only train NER
+if initialRun==True:
+    opt = nerModel.begin_training()
+else:
+    opt = nerModel.resume_training()
+
+
+for i in range(0, 25):
+    trainModel(nerModel,td,opt)
+    ##TODO: determine if the update stays in the model without an assignment?
+    #if we do an assign, does it overwrite previous updates to the model??
+    #pass by reference??
+        
 
 
 #nerModel.to_disk("NER-model-test")
