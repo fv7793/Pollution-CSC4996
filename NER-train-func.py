@@ -3,6 +3,8 @@ import random
 from spacy.util import minibatch, compounding
 import nlp-spacy
 
+#TODO ----->>>> IMPORT THE CRAWLER FILE
+
 
 def trainModel(nerM, trainingD, o, l={}):
     random.shuffle(trainingD)
@@ -92,7 +94,8 @@ crawler.crawlURLs()
 crawler.scrapeURLs()
 
 #_________________________________________________________________
-
+#RIGHT NOW WE RETRAIN FOR EVERY ARTICLE
+#TODO ---->>>> TEST WITH ONLY TRAINING ONCE FOR ALL ARTICLES
 nerResults = []
 for article in crawler.getScrapedArticles():
     #call tokenizing function from nlp-spacy.py
