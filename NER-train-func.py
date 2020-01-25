@@ -14,11 +14,15 @@ def trainModel(nerM, trainingD, o, l={}):
 
     #return nerM -- only needed if the update is considered a local change to the model and is not given to the global model
 
-
-
-
 #take training data from the external file
 td = []
+
+##CHANGE THIS FILE:
+    #GET SCRAPED OBJECT FROM SAULAR'S .py SCRIPT
+    #EXTRACT THE TEXT, hand it to the tokenizing function
+
+#call tokenizing function from nlp-spacy.py
+tokenizedSent = []
 
 initialRun = True
 try:

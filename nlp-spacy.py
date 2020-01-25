@@ -14,6 +14,11 @@ nlp = en_core_web_sm.load()
 splitContent = content.find_all('p')
 arrayOfPs = []
 
+##CHANGE THIS FILE:
+    #MAKE A FUNCTION
+    #given the scraped text object
+    #returns the tokenizedSent array
+
 for paragraph in splitContent:
     #type = navigable string (beautiful soup type)
     stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
