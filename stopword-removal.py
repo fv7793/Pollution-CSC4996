@@ -3,15 +3,15 @@ from spacy import displacy
 from spacy.matcher import Matcher
 from collections import Counter
 import en_core_web_sm
+
+from nltk import tokenize
 from bs4 import BeautifulSoup
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
 
-page = requests.get('https://www.lansingstatejournal.com/story/news/2019/10/14/11-million-gallons-sewage-water-dumped-grand-red-cedar-river/3975129002/')
-                    #https://www.mlive.com/news/grand-rapids/2019/08/coal-ash-from-west-michigan-power-plant-might-be-contaminating-drinking-water-wells.html')
+page = requests.get('https://www.mlive.com/news/grand-rapids/2019/08/coal-ash-from-west-michigan-power-plant-might-be-contaminating-drinking-water-wells.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='asset-double-wide')
-                    #'entry-content')
+content=bs.find(class_='entry-content')#'asset-double-wide')
 
 nlp = en_core_web_sm.load()
 
@@ -25,12 +25,11 @@ for paragraph in splitContent:
     arrayOfPs.append(stringPara)
 
 tokenizedSent = []  
-#nltk tokenize 
+#nltk tokenize
 for eachPara in arrayOfPs:
-    NLPtxt = nlp(eachPara)
-    for eachSent in NLPtxt.sents:
-        tokenizedSent.append(eachSent.string.strip())
-
+    listOfSent =(tokenize.sent_tokenize(eachPara))
+    for sent in listOfSent:
+        tokenizedSent.append(sent)
 
 ##FILTER OUT STOPWORDS -----------------------------------------------
 newSentences = []
@@ -60,15 +59,15 @@ patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ"
 #(chemical) levels
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": "levels"}])
 #--->reported/found/occured on Month #
-patternsOfPOS.append([{"LEMMA": {"IN": ["reported","began", "found", "occurred", "sighted"]}}])
-##in a statement
+patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
+##--->in a statement
 patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______
     ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
-#according to the _______ (can be proper or not)
-patternsOfPOS.append([{"LEMMA": "accord"},{"POS": "NOUN"}])
-patternsOfPOS.append([{"LEMMA": "accord"},{"POS": "NNP"}])
+#--->according to the _______
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NOUN"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NNP"}])
 #??? ---> ??? highly dangerous chemical / testing showed ___ levels
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ"},{"POS":"NOUN"}])
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
@@ -76,12 +75,24 @@ patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ"
 patternsOfPOS.append([{"POS": "ADP"},{"POS": "NNP"}])
 ##direction (of)* city
 patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
-patternsOfPOS.append([{"POS": "NNP"}])
-##--->near intersection (road names)
-patternsOfPOS.append([{"LEMMA": "intersection"},{"POS": "NOUN"},{"POS": "NOUN"}])
-patternsOfPOS.append([{"LEMMA": "intersection"},{"POS": "NNP"},{"POS": "NNP"}])
-##--->address
-patternsOfPOS.append([{"POS": "NUM"}, {"POS": "NNP"}])
+
+##POLLUTION-RELATED RULES
+#polluted/contaminated the (1) proper noun (2) regular noun
+patternsOfPOS.append([{"LEMMA": {"IN": ["polluted", "contaminated"]}},{"POS": "NNP"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["polluted", "contaminated"]}},{"POS": "NOUN"}])
+#pollution/contamination at the (1) proper noun (2) regular noun
+patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate"]}},{"POS": "NNP"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate"]}},{"POS": "NOUN"}])
+#spilled/poured into the (1) proper noun (2) regular noun
+patternsOfPOS.append([{"LEMMA": {"IN": ["spilled", "poured"]}}, {"POS": "NNP"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["spilled", "poured"]}}, {"POS": "NOUN"}])
+#spill/contamination found near (1) proper noun (2) regular noun
+patternsOfPOS.append([{"LEMMA": {"IN": ["spill", "contamination"]}}, {"POS": "NNP"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["spill", "contamination"]}}, {"POS": "NOUN"}])
+## rules for units examplehttps://www.lansingstatejournal.com/story/news/2019/10/14/11-million-gallons-sewage-water-dumped-grand-red-cedar-river/3975129002/
+# number UNIT of
+patternsOfPOS.append([{"POS": "CD"},{"LEMMA": {"IN": ["spill", "contamination"]}}, {"POS": "NOUN"}])
+# number UNIT poured/spilled/polluted/contaminated
 
 listOfMatchPats = Matcher(nlp.vocab)
 

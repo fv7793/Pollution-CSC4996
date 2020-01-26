@@ -50,7 +50,11 @@ patternsOfPOS = []
 #(high)* levels of (a/the)* _____ chemical
 patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
 #--->reported/found/occured on Month #
+#<<<<<<< HEAD
+patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
+#=======
 patternsOfPOS.append([{"LEMMA": {"IN": ["reported","began", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
+#>>>>>>> 8453f63e5950da592328c274e237f4ff182e2723
 ##--->in a statement
 patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______
@@ -66,6 +70,12 @@ patternsOfPOS.append([{"POS": "ADP"},{"POS": "NNP"}])
 ##direction (of)* city
 patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
 
+<<<<<<< HEAD
+#LATER
+#lemmatize key words for pollution
+#units
+=======
+>>>>>>> fb39793ca5a1ba2abb929cc160adc0f41c778e3a
 
 listOfMatchPats = Matcher(nlp.vocab)
 
