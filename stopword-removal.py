@@ -58,13 +58,17 @@ patternsOfPOS.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["p
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 
 ##ADDITIONAL RULES FOR STOPWORDS
-#believed/originated
 #detected and NOUN
+patternsOfPOS.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS": "NOUN"}])
+#lemma toxic + op adj + noun
+patternsOfPOS.append([{"LEMMA": {"IN": ["toxic"]}},{"POS":"ADJ","OP":"?"},{"POS": "NOUN"}])
+#discovered/found + any # of adj + substance/chemical/level + op noun
+patternsOfPOS.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS":"ADJ","OP":"*"},{"LEMMA": {"IN": ["substance", "chemical", "level"]}}, {"POS": "NOUN","OP":"?"}])
+
 #after source/cause, add unknown
 #adj + chemical + op noun
 #op adj + chemical + noun
-#lemma toxic + op adj + noun
-#discovered/found + any # of adj + substance/chemical/level + op noun
+
 #official op
 
 
