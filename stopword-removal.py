@@ -9,9 +9,9 @@ from bs4 import BeautifulSoup
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
 
-page = requests.get('https://www.mlive.com/news/grand-rapids/2019/08/coal-ash-from-west-michigan-power-plant-might-be-contaminating-drinking-water-wells.html')
+page = requests.get('https://www.mininggazette.com/news/2019/08/mass-city-mercury-spill-contained/')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='entry-content')#'asset-double-wide')
+content=bs.find(class_='article')#'entry-content')#'asset-double-wide')
 
 nlp = en_core_web_sm.load()
 
@@ -50,52 +50,63 @@ for sent in tokenizedSent:
 
 
 
-
 ##START OF RULES --------------------------------------------------
 
 patternsOfPOS = []
 #(high)* levels of (a/the)* _____ chemical
+#W = 1
 patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
 #(chemical) levels
+#W = 1
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": "levels"}])
 #--->reported/found/occured on Month #
+#W = .5
 patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
 ##--->in a statement
+#W = .25
 patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______
+#W = .75
     ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
-patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
+patternsOfPOS.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
 #--->according to the _______
-patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NOUN"}])
-patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NNP"}])
+#W = .5
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "NOUN"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "NNP"}])
 #??? ---> ??? highly dangerous chemical / testing showed ___ levels
+#W = .1 (TOOOOOOOO GENERAL)
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ"},{"POS":"NOUN"}])
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
-#near (the)* (proper noun location)
-patternsOfPOS.append([{"POS": "ADP"},{"POS": "NNP"}])
-##direction (of)* city
-patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
 
 ##POLLUTION-RELATED RULES
-#polluted/contaminated the (1) proper noun (2) regular noun
-patternsOfPOS.append([{"LEMMA": {"IN": ["polluted", "contaminated"]}},{"POS": "NNP"}])
-patternsOfPOS.append([{"LEMMA": {"IN": ["polluted", "contaminated"]}},{"POS": "NOUN"}])
-#pollution/contamination at the (1) proper noun (2) regular noun
-patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate"]}},{"POS": "NNP"}])
-patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate"]}},{"POS": "NOUN"}])
-#spilled/poured into the (1) proper noun (2) regular noun
-patternsOfPOS.append([{"LEMMA": {"IN": ["spilled", "poured"]}}, {"POS": "NNP"}])
-patternsOfPOS.append([{"LEMMA": {"IN": ["spilled", "poured"]}}, {"POS": "NOUN"}])
-#spill/contamination found near (1) proper noun (2) regular noun
-patternsOfPOS.append([{"LEMMA": {"IN": ["spill", "contamination"]}}, {"POS": "NNP"}])
-patternsOfPOS.append([{"LEMMA": {"IN": ["spill", "contamination"]}}, {"POS": "NOUN"}])
+#polluted/contaminated ___ proper noun or regular noun
+#W = 1 (BUT ONLY IF THEY PASS THE SECOND TEST!!!)
+patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS": "NNP"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS": "NOUN"}])
+
+#11 or 12, then go look in original
+
 ## rules for units examplehttps://www.lansingstatejournal.com/story/news/2019/10/14/11-million-gallons-sewage-water-dumped-grand-red-cedar-river/3975129002/
 # number UNIT of
-patternsOfPOS.append([{"POS": "CD"},{"LEMMA": {"IN": ["spill", "contamination"]}}, {"POS": "NOUN"}])
-# number UNIT poured/spilled/polluted/contaminated
+#W = .75
+patternsOfPOS.append([{"POS": "CD"},{"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
+#W = .75
+patternsOfPOS.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
+#W = 1
+patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
+
 
 listOfMatchPats = Matcher(nlp.vocab)
+pPt = Matcher(nlp.vocab)
 
+pollPats = []
+pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "NNP"}])
+pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "NOUN"}])
+i=0
+for pat in pollPats:
+    pPt.add("pat"+str(i),None,pat)
+    i=i+1
+    
 #ADDS ALL PATTERNS TO THE MATCHER VOCAB LIST ----------------------------------------------
 pNum = 0
 for pattern in patternsOfPOS:
@@ -103,6 +114,7 @@ for pattern in patternsOfPOS:
     pNum=pNum+1
 
 #MATCH AND PRINT ALL PATTERNS ----------------------------------------
+k = 0
 for sentence in newSentences:
     nER = nlp(sentence)
     #print(sentence)
@@ -111,8 +123,21 @@ for sentence in newSentences:
         print("----------------------")
     for mID, s, e in matchesInSent:
         strID = nlp.vocab.strings[mID]  #convert from span object to string
+        if(strID=="p9" or strID=="p10"):
+            ##if it was one of the pollution patterns
+            testStr=tokenizedSent[k]
+            posPol = nlp(testStr)
+            matches = pPt(posPol)
+            if matches:
+                print("******************")
+            for m, st, en in matches:
+                sID = nlp.vocab.strings[m]
+                sTE = posPol[st:en]
+                print(m, sID, st, en, sTE.text)
+                print("******************")
         startToEnd = nER[s:e]  #string match idx from start to end
         print(mID, strID, s, e, startToEnd.text)
+    k=k+1
 
 
 
