@@ -10,67 +10,8 @@ from spacy.lang.en.stop_words import STOP_WORDS
 
 import nlp_spacy
 
-def switchStmt(pattern):
-    patWeight= {
-        "p0": 1.0,
-        "p1":1.0,
-        "p2":.5,
-        "p3":.25,
-        "p4":.75,
-        "p5":.5,
-        "p6":.5,
-        "p7":.1,
-        "p8":.1,
-        #"p9", #SPECIAL
-        #"p10", #SPECIAL
-        "p11":.75,
-        "p12":.75,
-        "p13":1.0
-    }
-    return patWeight.get(pattern, 0.0)
-
-
-
-
-
-
-page = requests.get('https://www.mininggazette.com/news/2019/08/mass-city-mercury-spill-contained/')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='article')#'entry-content')#'asset-double-wide')
 
 nlp = en_core_web_sm.load()
-
-
-##START SCRAPING AND PARSING -----------------------------------------
-splitContent = content.find_all('p')
-arrayOfPs = []
-
-for paragraph in splitContent:
-    stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
-    arrayOfPs.append(stringPara)
-tokenizedSent = nlp_spacy.convertScrapedtoSent(arrayOfPs)
-
-##FILTER OUT STOPWORDS -----------------------------------------------
-newSentences = []
-numSentences = 0
-for sent in tokenizedSent:
-    numSentences = numSentences+1
-    NLPtxt = nlp(sent)
-    filtered = ""
-    for word in NLPtxt:
-        #testWord = nlp.vocab[word]
-        if word.is_stop == False and word.is_punct==False:
-            filtered=filtered+" "+str(word)
-        elif str(word)=='"' or str(word)=='.':
-            filtered=filtered+str(word)
-    newSentences.append(filtered)
-
-##--->RESULT: newSentences is an array of strings (each string is a sentence)
-
-
-
-
-
 ##START OF RULES --------------------------------------------------
 
 patternsOfPOS = []
@@ -134,56 +75,210 @@ for pattern in patternsOfPOS:
     listOfMatchPats.add("p"+str(pNum), None, pattern) #p1 = matchID, no callback, matches the pattern
     pNum=pNum+1
 
+##END OF RULES -----------------------------------------------------------------------
+
+
+    
+def switchStmt(pattern):
+    patWeight= {
+        "p0": 1.0,
+        "p1":1.0,
+        "p2":.5,
+        "p3":.25,
+        "p4":.75,
+        "p5":.5,
+        "p6":.5,
+        "p7":.1,
+        "p8":.1,
+        #"p9", #SPECIAL
+        #"p10", #SPECIAL
+        "p11":.75,
+        "p12":.75,
+        "p13":1.0
+    }
+    return patWeight.get(pattern, 0.0)
+
+
+
+
+def contentToOutput(content):
+##START SCRAPING AND PARSING -----------------------------------------
+    splitContent = content.find_all('p')
+    arrayOfPs = []
+
+    for paragraph in splitContent:
+        stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
+        arrayOfPs.append(stringPara)
+    tokenizedSent = nlp_spacy.convertScrapedtoSent(arrayOfPs)
+
+##FILTER OUT STOPWORDS -----------------------------------------------
+    newSentences = []
+    numSentences = 0
+    for sent in tokenizedSent:
+        numSentences = numSentences+1
+        NLPtxt = nlp(sent)
+        filtered = ""
+        for word in NLPtxt:
+            #testWord = nlp.vocab[word]
+            if word.is_stop == False and word.is_punct==False:
+                filtered=filtered+" "+str(word)
+            elif str(word)=='"' or str(word)=='.':
+                filtered=filtered+str(word)
+        newSentences.append(filtered)
+
+##--->RESULT: newSentences is an array of strings (each string is a sentence)
+
 #MATCH AND PRINT ALL PATTERNS ----------------------------------------
-totalArtVal = 0.0
-k = 0
-for sentence in newSentences:
-    nER = nlp(sentence)
-    #print(sentence)
-    matchesInSent = listOfMatchPats(nER)
-    if matchesInSent:
-        print("----------------------")
-    for mID, s, e in matchesInSent:
-        strID = nlp.vocab.strings[mID]  #convert from span object to string
-        if(strID=="p9" or strID=="p10"):
-            ##if it was one of the pollution patterns
-            testStr=tokenizedSent[k]
-            posPol = nlp(testStr)
-            matches = pPt(posPol)
-            if matches:
-                print("******************")
-            for m, st, en in matches:
-                sID = nlp.vocab.strings[m]
-                sTE = posPol[st:en]
-                print(m, sID, st, en, sTE.text)
-                print("******************")
-                totalArtVal = totalArtVal+1.0
-        else:
-            ##if it was NOT one of the pollution patterns
-            totalArtVal = totalArtVal+switchStmt(strID)
-        startToEnd = nER[s:e]  #string match idx from start to end
-        print(mID, strID, s, e, startToEnd.text)
-    k=k+1
+    totalArtVal = 0.0
+    k = 0
+    for sentence in newSentences:
+        nER = nlp(sentence)
+        #print(sentence)
+        matchesInSent = listOfMatchPats(nER)
+        if matchesInSent:
+            print("----------------------")
+        for mID, s, e in matchesInSent:
+            strID = nlp.vocab.strings[mID]  #convert from span object to string
+            if(strID=="p9" or strID=="p10"):
+                ##if it was one of the pollution patterns
+                testStr=tokenizedSent[k]
+                posPol = nlp(testStr)
+                matches = pPt(posPol)
+                if matches:
+                    print("******************")
+                for m, st, en in matches:
+                    sID = nlp.vocab.strings[m]
+                    sTE = posPol[st:en]
+                    print(m, sID, st, en, sTE.text)
+                    print("******************")
+                    totalArtVal = totalArtVal+1.0
+            else:
+                ##if it was NOT one of the pollution patterns
+                totalArtVal = totalArtVal+switchStmt(strID)
+            startToEnd = nER[s:e]  #string match idx from start to end
+            print(mID, strID, s, e, startToEnd.text)
+        k=k+1
 
-print("NUM SENT:", numSentences)
-print("RESULTING VALUE: ", totalArtVal)
+    print("NUM SENT:", numSentences)
+    print("RESULTING VALUE: ", totalArtVal)
 
+#2
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
 
+#3
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
 
+#4
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
 
+#5
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
 
+#6
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
 
+#7
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
 
+#8
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
 
+#9
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
 
+#10
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
 
+contentToOutput(content)
+
+#11
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
+
+contentToOutput(content)
+
+#12
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
+
+contentToOutput(content)
+
+#13
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
+
+contentToOutput(content)
+
+#14
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
+
+contentToOutput(content)
+
+#15
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
+
+contentToOutput(content)
+
+#16
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
+
+contentToOutput(content)
+
+#17
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
+
+contentToOutput(content)
+
+#18
+page = requests.get('')
+bs = BeautifulSoup(page.text, 'html.parser')
+content=bs.find(class_='')
+
+contentToOutput(content)
 
 
