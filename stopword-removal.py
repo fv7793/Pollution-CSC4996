@@ -170,18 +170,38 @@ def contentToOutput(content):
             startToEnd = nER[s:e]  #string match idx from start to end
             print(mID, strID, s, e, startToEnd.text)
         k=k+1
-
-    if(numSentences<=20):
+        
+    print("NUM SENT:", numSentences)
+    print("RESULTING VALUE: ", totalArtVal)
+    if numSentences<=20:
         numShort = numShort+1
         avgShort = avgShort+totalArtVal
+        if totalArtVal>= ______________:
+            print("YES")
+            return True
+        else:
+            print("NO")
+            return False
     elif numSentences>50:
         numLong = numLong+1
         avgLong= avgLong+totalArtVal
+        if totalArtVal>= ______________:
+            print("YES")
+            return True
+        else:
+            print("NO")
+            return False
     else:
         numMed = numMed+1
         avgMed= avgMed+totalArtVal
-    print("NUM SENT:", numSentences)
-    print("RESULTING VALUE: ", totalArtVal)
+        if totalArtVal>= ______________:
+            print("YES")
+            return True
+        else:
+            print("NO")
+            return False
+
+
 
 
 
