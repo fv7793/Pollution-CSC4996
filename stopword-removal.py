@@ -219,65 +219,65 @@ content=bs.find(class_='')
 contentToOutput(content)
 
 #10
-page = requests.get('')
+page = requests.get('https://www.mlive.com/news/kalamazoo/2019/03/contamination-plume-leaves-manufacturing-property-in-kalamazoo-township.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='entry-content')
 
 contentToOutput(content)
 
 #11
-page = requests.get('')
+page = requests.get('https://www.mlive.com/news/detroit/2018/10/detroit_schools_to_spend_38_mi.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='entry-content')
 
 contentToOutput(content)
 
 #12
-page = requests.get('')
+page = requests.get('https://www.mlive.com/news/2019/03/toxic-pollution-at-wolverine-tannery-is-extensive-data-confirms.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='entry-content')
 
 contentToOutput(content)
 
 #13
-page = requests.get('')
+page = requests.get('https://www.mlive.com/news/grand-rapids/2019/08/coal-ash-from-west-michigan-power-plant-might-be-contaminating-drinking-water-wells.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='entry-content')
 
 contentToOutput(content)
 
 #14
-page = requests.get('')
+page = requests.get('https://www.candgnews.com/news/officials-investigate-plumbrook-drain-oil-report--111626')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='article-body-text')
 
 contentToOutput(content)
 
 #15
-page = requests.get('')
+page = requests.get('https://www.candgnews.com/news/royal-oak-warns-residents-of-action-level-lead-in-water-115688')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='col-xs-12')
 
 contentToOutput(content)
 
 #16
-page = requests.get('')
+page = requests.get('https://www.mininggazette.com/news/2019/08/mass-city-mercury-spill-contained/')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='article-content')
 
 contentToOutput(content)
 
 #17
-page = requests.get('')
+page = requests.get('https://www.freep.com/story/news/local/michigan/oakland/2020/01/10/madison-heights-green-ooze-slime-pfas/4437379002/')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='asset-double-wide')
 
 contentToOutput(content)
 
 #18
-page = requests.get('')
+page = requests.get('https://www.freep.com/story/news/local/michigan/2017/03/24/mercury-rising-scientists-puzzled-metals-jump-great-lakes-fish/99306786/')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='asset-double-wide')
 
 contentToOutput(content)
 
