@@ -13,9 +13,9 @@ def convertScrapedtoSent(splitContent):
     tokenizedSent = []  
     #tokenize
     for eachPara in splitContent:
-	NLPtxt = nlp(eachPara)
-	for eachSent in NLPtxt.sents:
-		tokenizedSent.append(eachSent.string.strip())
+        NLPtxt = nlp(eachPara)
+        for eachSent in NLPtxt.sents:
+            tokenizedSent.append(eachSent.string.strip())
     return tokenizedSent
 
 

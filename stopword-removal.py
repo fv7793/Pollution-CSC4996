@@ -4,13 +4,14 @@ from spacy.matcher import Matcher
 from collections import Counter
 import en_core_web_sm
 
-from nltk import tokenize
 from bs4 import BeautifulSoup
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
 
+import nlp_spacy
+
 def switchStmt(pattern):
-     patWeight= {
+    patWeight= {
         "p0": 1.0,
         "p1":1.0,
         "p2":.5,
@@ -47,17 +48,13 @@ arrayOfPs = []
 for paragraph in splitContent:
     stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
     arrayOfPs.append(stringPara)
-
-tokenizedSent = []  
-#nltk tokenize
-for eachPara in arrayOfPs:
-    listOfSent =(tokenize.sent_tokenize(eachPara))
-    for sent in listOfSent:
-        tokenizedSent.append(sent)
+tokenizedSent = nlp_spacy.convertScrapedtoSent(arrayOfPs)
 
 ##FILTER OUT STOPWORDS -----------------------------------------------
 newSentences = []
+numSentences = 0
 for sent in tokenizedSent:
+    numSentences = numSentences+1
     NLPtxt = nlp(sent)
     filtered = ""
     for word in NLPtxt:
@@ -168,6 +165,7 @@ for sentence in newSentences:
         print(mID, strID, s, e, startToEnd.text)
     k=k+1
 
+print("NUM SENT:", numSentences)
 print("RESULTING VALUE: ", totalArtVal)
 
 
