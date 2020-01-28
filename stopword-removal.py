@@ -77,7 +77,12 @@ for pattern in patternsOfPOS:
 
 ##END OF RULES -----------------------------------------------------------------------
 
-
+numShort = 0
+numMed = 0
+numLong = 0
+avgShort = 0.0
+avgMed = 0.0
+avgLong = 0.0
     
 def switchStmt(pattern):
     patWeight= {
@@ -102,6 +107,13 @@ def switchStmt(pattern):
 
 
 def contentToOutput(content):
+    global numShort
+    global numMed
+    global numLong
+
+    global avgShort
+    global avgMed
+    global avgLong
 ##START SCRAPING AND PARSING -----------------------------------------
     splitContent = content.find_all('p')
     arrayOfPs = []
@@ -127,7 +139,7 @@ def contentToOutput(content):
         newSentences.append(filtered)
 
 ##--->RESULT: newSentences is an array of strings (each string is a sentence)
-
+    print("----------------------")
 #MATCH AND PRINT ALL PATTERNS ----------------------------------------
     totalArtVal = 0.0
     k = 0
@@ -135,8 +147,8 @@ def contentToOutput(content):
         nER = nlp(sentence)
         #print(sentence)
         matchesInSent = listOfMatchPats(nER)
-        if matchesInSent:
-            print("----------------------")
+        #if matchesInSent:
+            #print("----------------------")
         for mID, s, e in matchesInSent:
             strID = nlp.vocab.strings[mID]  #convert from span object to string
             if(strID=="p9" or strID=="p10"):
@@ -144,23 +156,36 @@ def contentToOutput(content):
                 testStr=tokenizedSent[k]
                 posPol = nlp(testStr)
                 matches = pPt(posPol)
-                if matches:
-                    print("******************")
+                #if matches:
+                    #print("******************")
                 for m, st, en in matches:
                     sID = nlp.vocab.strings[m]
                     sTE = posPol[st:en]
-                    print(m, sID, st, en, sTE.text)
-                    print("******************")
+                    #print(m, sID, st, en, sTE.text)
+                    #print("******************")
                     totalArtVal = totalArtVal+1.0
             else:
                 ##if it was NOT one of the pollution patterns
                 totalArtVal = totalArtVal+switchStmt(strID)
             startToEnd = nER[s:e]  #string match idx from start to end
-            print(mID, strID, s, e, startToEnd.text)
+            #print(mID, strID, s, e, startToEnd.text)
         k=k+1
 
+    if(numSentences<=20):
+        numShort = numShort+1
+        avgShort = avgShort+totalArtVal
+    elif numSentences>50:
+        numLong = numLong+1
+        avgLong= avgLong+totalArtVal
+    else:
+        numMed = numMed+1
+        avgMed= avgMed+totalArtVal
     print("NUM SENT:", numSentences)
     print("RESULTING VALUE: ", totalArtVal)
+
+
+
+
 
 #2
 page = requests.get('https://www.crainsdetroit.com/article/20180309/news01/654831/toxic-chemicals-found-in-new-baltimore-mount-clemens-ira-township')
@@ -281,4 +306,9 @@ content=bs.find(class_='asset-double-wide')
 
 contentToOutput(content)
 
-
+avgShort = avgShort/numShort
+avgMed = avgMed/numMed
+avgLong = avgLong/numLong
+print("SHORT: ", numShort, "AVG: ", avgShort)
+print("MED: ", numMed, "AVG: ", avgMed)
+print("LONG: ", numLong, "AVG: ", avgLong)
