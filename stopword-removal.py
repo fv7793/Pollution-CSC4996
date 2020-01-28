@@ -256,14 +256,14 @@ contentToOutput(content)
 #15
 page = requests.get('https://www.candgnews.com/news/royal-oak-warns-residents-of-action-level-lead-in-water-115688')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='col-xs-12')
+content=bs.find(class_='article-body-text')
 
 contentToOutput(content)
 
 #16
 page = requests.get('https://www.mininggazette.com/news/2019/08/mass-city-mercury-spill-contained/')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='article-content')
+content=bs.find(class_='article')
 
 contentToOutput(content)
 
