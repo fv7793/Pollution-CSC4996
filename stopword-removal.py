@@ -163,58 +163,58 @@ def contentToOutput(content):
     print("RESULTING VALUE: ", totalArtVal)
 
 #2
-page = requests.get('')
+page = requests.get('https://www.crainsdetroit.com/article/20180309/news01/654831/toxic-chemicals-found-in-new-baltimore-mount-clemens-ira-township')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='field--name-field-paragraph-body')
 
 contentToOutput(content)
 
 #3
-page = requests.get('')
+page = requests.get('https://www.crainsdetroit.com/article/20180417/news01/658401/testing-finds-contaminated-wells-near-grand-rapids-area-airport')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='field--name-field-paragraph-body')
 
 contentToOutput(content)
 
 #4
-page = requests.get('')
+page = requests.get('https://www.crainsdetroit.com/article/20180403/news01/656966/synthetic-coolant-leaks-from-power-cables-in-michigan-waters')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='field--name-field-paragraph-body')
 
 contentToOutput(content)
 
 #5
-page = requests.get('')
+page = requests.get('https://www.dailytribune.com/news/concerns-grow-over-tainted-sewage-sludge-spread-on-lapeer-croplands/article_6c8bc1a6-a71c-5775-a3b9-f6db18248d26.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='asset-content')
 
 contentToOutput(content)
 
 #6
-page = requests.get('')
+page = requests.get('http://www.pressandguide.com/news/tlaib-statement-on-revere-copper-site-collapse-into-detroit-river/article_c1ef5fa8-1a0e-11ea-a18b-3b3e5b366236.html')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='asset-content')
 
 contentToOutput(content)
 
 #7
-page = requests.get('')
+page = requests.get('https://www.candgnews.com/news/officials-search-for-petroleum-leak-source-into-clinton-river-116417')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='article-body-text')
 
 contentToOutput(content)
 
 #8
-page = requests.get('')
+page = requests.get('https://www.lansingstatejournal.com/story/news/2019/10/14/11-million-gallons-sewage-water-dumped-grand-red-cedar-river/3975129002/')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='asset-double-wide')
 
 contentToOutput(content)
 
 #9
-page = requests.get('')
+page = requests.get('https://www.lansingstatejournal.com/story/news/local/2019/04/22/racer-trust-proposes-fix-dioxane-pollution-lansing-township-gm-water-quality/3330212002/')
 bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='')
+content=bs.find(class_='asset-double-wide')
 
 contentToOutput(content)
 
