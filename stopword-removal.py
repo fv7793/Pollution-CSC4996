@@ -30,11 +30,11 @@ patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______
 #W = .75
     ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
-patternsOfPOS.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
+patternsOfPOS.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}]) #lemmatized words (said/discussed/etc.)
 #--->according to the _______
 #W = .5
 patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "NOUN"}])
-patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "NNP"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "PROPN"}])
 #??? ---> ??? highly dangerous chemical / testing showed ___ levels
 #W = .1 (TOOOOOOOO GENERAL)
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ"},{"POS":"NOUN"}])
@@ -43,7 +43,7 @@ patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ"
 ##POLLUTION-RELATED RULES
 #polluted/contaminated ___ proper noun or regular noun
 #W = 1 (BUT ONLY IF THEY PASS THE SECOND TEST!!!)
-patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS": "NNP"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS": "PROPN"}])
 patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS": "NOUN"}])
 
 #9 or 10, then go look in original
@@ -51,18 +51,28 @@ patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour"
 ## rules for units examplehttps://www.lansingstatejournal.com/story/news/2019/10/14/11-million-gallons-sewage-water-dumped-grand-red-cedar-river/3975129002/
 # number UNIT of
 #W = .75
-patternsOfPOS.append([{"POS": "CD"},{"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
+patternsOfPOS.append([{"POS": "NUM"},{"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
 #W = .75
 patternsOfPOS.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 #W = 1
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
+
+##ADDITIONAL RULES FOR STOPWORDS
+#believed/originated
+#detected and NOUN
+#after source/cause, add unknown
+#adj + chemical + op noun
+#op adj + chemical + noun
+#lemma toxic + op adj + noun
+#discovered/found + any # of adj + substance/chemical/level + op noun
+#official op
 
 
 listOfMatchPats = Matcher(nlp.vocab)
 pPt = Matcher(nlp.vocab)
 
 pollPats = []
-pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "NNP"}])
+pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "PROPN"}])
 pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "NOUN"}])
 i=0
 for pat in pollPats:
@@ -147,8 +157,8 @@ def contentToOutput(content):
         nER = nlp(sentence)
         #print(sentence)
         matchesInSent = listOfMatchPats(nER)
-        #if matchesInSent:
-            #print("----------------------")
+        if matchesInSent:
+            print("----------------------")
         for mID, s, e in matchesInSent:
             strID = nlp.vocab.strings[mID]  #convert from span object to string
             if(strID=="p9" or strID=="p10"):
@@ -156,19 +166,19 @@ def contentToOutput(content):
                 testStr=tokenizedSent[k]
                 posPol = nlp(testStr)
                 matches = pPt(posPol)
-                #if matches:
-                    #print("******************")
+                if matches:
+                    print("******************")
                 for m, st, en in matches:
                     sID = nlp.vocab.strings[m]
                     sTE = posPol[st:en]
-                    #print(m, sID, st, en, sTE.text)
-                    #print("******************")
+                    print(m, sID, st, en, sTE.text)
+                    print("******************")
                     totalArtVal = totalArtVal+1.0
             else:
                 ##if it was NOT one of the pollution patterns
                 totalArtVal = totalArtVal+switchStmt(strID)
             startToEnd = nER[s:e]  #string match idx from start to end
-            #print(mID, strID, s, e, startToEnd.text)
+            print(mID, strID, s, e, startToEnd.text)
         k=k+1
 
     if(numSentences<=20):
