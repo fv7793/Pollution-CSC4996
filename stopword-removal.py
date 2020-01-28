@@ -54,33 +54,29 @@ for sent in tokenizedSent:
 ##START OF RULES --------------------------------------------------
 
 patternsOfPOS = []
-#(high)* levels of (a/the)* _____ chemical
+#(high)* levels of (a/the)* _____ chemical (1)
 patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
-#(chemical) levels
+#(chemical) levels (1)
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": "levels"}])
-#--->reported/found/occured on Month #
+#--->reported/found/occured on Month # (.5)
 patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
-##--->in a statement
+##--->in a statement (.25)
 patternsOfPOS.append([{"LEMMA": "statement"}])
-#officials said/announced/etc ______
+#officials said/announced/etc ______ (.75)
     ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}])  #lemmatized words (said/discussed/etc.)
-#--->according to the _______
+#--->according to the _______ (.5)
 patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NOUN"}])
 patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "ADP"},{"POS": "NNP"}])
-#??? ---> ??? highly dangerous chemical / testing showed ___ levels
+#??? ---> ??? highly dangerous chemical / testing showed ___ levels (1)
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV","OP":"*"}, {"POS":"ADJ"},{"POS":"NOUN"}])
 patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ","OP":"*"},{"POS":"NOUN"}])
-#near (the)* (proper noun location)
-patternsOfPOS.append([{"POS": "ADP"},{"POS": "NNP"}])
-##direction (of)* city
-patternsOfPOS.append([{"POS": "ADJ"}, {"POS": "NNP"}])
 
 ##POLLUTION-RELATED RULES
-#polluted/contaminated the (1) proper noun (2) regular noun
+#polluted/contaminated the (1) proper noun (2) regular noun  (1)
 patternsOfPOS.append([{"LEMMA": {"IN": ["polluted", "contaminated"]}},{"POS": "NNP"}])
 patternsOfPOS.append([{"LEMMA": {"IN": ["polluted", "contaminated"]}},{"POS": "NOUN"}])
-#pollution/contamination at the (1) proper noun (2) regular noun
+#pollution/contamination at the (1) proper noun (2) regular noun 
 patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate"]}},{"POS": "NNP"}])
 patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate"]}},{"POS": "NOUN"}])
 #spilled/poured into the (1) proper noun (2) regular noun
