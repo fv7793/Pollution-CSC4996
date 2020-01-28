@@ -59,16 +59,19 @@ patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate"
 
 ##ADDITIONAL RULES FOR STOPWORDS
 #detected and NOUN
-
+#W = .75
 patternsOfPOS.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS": "NOUN"}])
 #lemma toxic + op adj + noun
+#W = .75
 patternsOfPOS.append([{"LEMMA": {"IN": ["toxic"]}},{"POS":"ADJ","OP":"?"},{"POS": "NOUN"}])
 #discovered/found + any # of adj + substance/chemical/level + op noun
+#W = 1
 patternsOfPOS.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS":"ADJ","OP":"*"},{"LEMMA": {"IN": ["substance", "chemical", "level"]}}, {"POS": "NOUN","OP":"?"}])
 #adj + chemical + op noun
+#W = .5
 patternsOfPOS.append([{"POS":"ADJ"},{"LEMMA": "chemical"},{"POS":"NOUN","OP":"?"}])
 #op adj + chemical + noun
-
+#W = .5
 patternsOfPOS.append([{"POS":"ADJ","OP":"?"},{"LEMMA": "chemical"},{"POS":"NOUN"}])
 
 
@@ -114,7 +117,12 @@ def switchStmt(pattern):
         #"p10", #SPECIAL
         "p11":.75,
         "p12":.75,
-        "p13":1.0
+        "p13":1.0,
+        "p14":.75,
+        "p15":.75,
+        "p16":1.0.
+        "p17":.5,
+        "p18":.5
     }
     return patWeight.get(pattern, 0.0)
 
