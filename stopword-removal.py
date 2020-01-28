@@ -149,7 +149,7 @@ def contentToOutput(content):
         newSentences.append(filtered)
 
 ##--->RESULT: newSentences is an array of strings (each string is a sentence)
-    print("----------------------")
+    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<---------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 #MATCH AND PRINT ALL PATTERNS ----------------------------------------
     totalArtVal = 0.0
     k = 0
