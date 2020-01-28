@@ -17,10 +17,10 @@ nlp = en_core_web_sm.load()
 patternsOfPOS = []
 #(high)* levels of (a/the)* _____ chemical
 #W = 1
-patternsOfPOS.append([{"POS": "ADJ","OP":"?"},{"LEMMA": "levels"}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["high"]}},{"LEMMA": {"IN": ["levels"]}}, {"POS": "ADJ","OP":"?"},{"POS": "NOUN"}])
 #(chemical) levels
 #W = 1
-patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": "levels"}])
+patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["levels","contamination"]}}])
 #--->reported/found/occured on Month #
 #W = .5
 patternsOfPOS.append([{"LEMMA": {"IN": ["reported", "found", "occurred", "sighted"]}}, {"POS":"NOUN"}, {"POS":"NUM", "OP":"*"}])
@@ -30,7 +30,7 @@ patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______
 #W = .75
     ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
-patternsOfPOS.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"],"OP":"?"}}]) #lemmatized words (said/discussed/etc.)
+patternsOfPOS.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]},"OP":"?"}]) #lemmatized words (said/discussed/etc.)
 #--->according to the _______
 #W = .5
 patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "NOUN"}])
@@ -170,8 +170,8 @@ def contentToOutput(content):
         nER = nlp(sentence)
         #print(sentence)
         matchesInSent = listOfMatchPats(nER)
-        if matchesInSent:
-            print("----------------------")
+        #if matchesInSent:
+            #print("----------------------")
         for mID, s, e in matchesInSent:
             strID = nlp.vocab.strings[mID]  #convert from span object to string
             if(strID=="p9" or strID=="p10"):
@@ -179,19 +179,19 @@ def contentToOutput(content):
                 testStr=tokenizedSent[k]
                 posPol = nlp(testStr)
                 matches = pPt(posPol)
-                if matches:
-                    print("******************")
+                #if matches:
+                    #print("******************")
                 for m, st, en in matches:
                     sID = nlp.vocab.strings[m]
                     sTE = posPol[st:en]
-                    print(m, sID, st, en, sTE.text)
-                    print("******************")
-                    totalArtVal = totalArtVal+1.0
+                    #print(m, sID, st, en, sTE.text)
+                    #print("******************")
+                    totalArtVal = totalArtVal+4.0
             else:
                 ##if it was NOT one of the pollution patterns
                 totalArtVal = totalArtVal+switchStmt(strID)
             startToEnd = nER[s:e]  #string match idx from start to end
-            print(mID, strID, s, e, startToEnd.text)
+            #print(mID, strID, s, e, startToEnd.text)
         k=k+1
         
     print("NUM SENT:", numSentences)
@@ -199,30 +199,30 @@ def contentToOutput(content):
     if numSentences<=20:
         numShort = numShort+1
         avgShort = avgShort+totalArtVal
-##        if totalArtVal>= ______________:
-##            print("YES")
-##            return True
-##        else:
-##            print("NO")
-##            return False
+        if totalArtVal>= 2.0:
+            print("YES")
+            return True
+        else:
+            print("NO")
+            return False
     elif numSentences>50:
         numLong = numLong+1
         avgLong= avgLong+totalArtVal
-##        if totalArtVal>= ______________:
-##            print("YES")
-##            return True
-##        else:
-##            print("NO")
-##            return False
+        if totalArtVal>= 10.0:
+            print("YES")
+            return True
+        else:
+            print("NO")
+            return False
     else:
         numMed = numMed+1
         avgMed= avgMed+totalArtVal
-##        if totalArtVal>= ______________:
-##            print("YES")
-##            return True
-##        else:
-##            print("NO")
-##            return False
+        if totalArtVal>= 5.0:
+            print("YES")
+            return True
+        else:
+            print("NO")
+            return False
 
 
 
@@ -293,7 +293,7 @@ content=bs.find(class_='entry-content')
 
 contentToOutput(content)
 
-#11
+11
 page = requests.get('https://www.mlive.com/news/detroit/2018/10/detroit_schools_to_spend_38_mi.html')
 bs = BeautifulSoup(page.text, 'html.parser')
 content=bs.find(class_='entry-content')
