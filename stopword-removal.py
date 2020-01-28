@@ -30,7 +30,7 @@ patternsOfPOS.append([{"LEMMA": "statement"}])
 #officials said/announced/etc ______
 #W = .75
     ###IDEA!!! On finding this phrase, go back to original text and just store the whole sentence
-patternsOfPOS.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]}}]) #lemmatized words (said/discussed/etc.)
+patternsOfPOS.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"],"OP":"?"}}]) #lemmatized words (said/discussed/etc.)
 #--->according to the _______
 #W = .5
 patternsOfPOS.append([{"LEMMA": {"IN": ["accord"]}},{"POS": "NOUN"}])
@@ -53,19 +53,21 @@ patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour"
 #W = .75
 patternsOfPOS.append([{"POS": "NUM"},{"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
 #W = .75
-patternsOfPOS.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
+patternsOfPOS.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["unknown","pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 #W = 1
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 
 ##ADDITIONAL RULES FOR STOPWORDS
-#believed/originated
-#detected and NOUN
-#after source/cause, add unknown
+#detected NOUN
+#after source/cause, add unknown x
 #adj + chemical + op noun
+patternsOfPOS.append([{"POS":"ADJ"},{"LEMMA": "chemical"},{"POS":"NOUN","OP":"?"}])
 #op adj + chemical + noun
+patternsOfPOS.append([{"POS":"ADJ","OP":"?"},{"LEMMA": "chemical"},{"POS":"NOUN"}])
 #lemma toxic + op adj + noun
 #discovered/found + any # of adj + substance/chemical/level + op noun
-#official op
+
+#official op x
 
 
 listOfMatchPats = Matcher(nlp.vocab)
@@ -186,30 +188,30 @@ def contentToOutput(content):
     if numSentences<=20:
         numShort = numShort+1
         avgShort = avgShort+totalArtVal
-        if totalArtVal>= ______________:
-            print("YES")
-            return True
-        else:
-            print("NO")
-            return False
+##        if totalArtVal>= ______________:
+##            print("YES")
+##            return True
+##        else:
+##            print("NO")
+##            return False
     elif numSentences>50:
         numLong = numLong+1
         avgLong= avgLong+totalArtVal
-        if totalArtVal>= ______________:
-            print("YES")
-            return True
-        else:
-            print("NO")
-            return False
+##        if totalArtVal>= ______________:
+##            print("YES")
+##            return True
+##        else:
+##            print("NO")
+##            return False
     else:
         numMed = numMed+1
         avgMed= avgMed+totalArtVal
-        if totalArtVal>= ______________:
-            print("YES")
-            return True
-        else:
-            print("NO")
-            return False
+##        if totalArtVal>= ______________:
+##            print("YES")
+##            return True
+##        else:
+##            print("NO")
+##            return False
 
 
 
