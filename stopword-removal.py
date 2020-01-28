@@ -9,6 +9,30 @@ from bs4 import BeautifulSoup
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
 
+def switchStmt(pattern):
+     patWeight= {
+        "p0": 1.0,
+        "p1":1.0,
+        "p2":.5,
+        "p3":.25,
+        "p4":.75,
+        "p5":.5,
+        "p6":.5,
+        "p7":.1,
+        "p8":.1,
+        #"p9", #SPECIAL
+        #"p10", #SPECIAL
+        "p11":.75,
+        "p12":.75,
+        "p13":1.0
+    }
+    return patWeight.get(pattern, 0.0)
+
+
+
+
+
+
 page = requests.get('https://www.mininggazette.com/news/2019/08/mass-city-mercury-spill-contained/')
 bs = BeautifulSoup(page.text, 'html.parser')
 content=bs.find(class_='article')#'entry-content')#'asset-double-wide')
@@ -84,7 +108,7 @@ patternsOfPOS.append([{"POS":"NOUN"},{"POS":"VERB"}, {"POS":"ADV"}, {"POS":"ADJ"
 patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS": "NNP"}])
 patternsOfPOS.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS": "NOUN"}])
 
-#11 or 12, then go look in original
+#9 or 10, then go look in original
 
 ## rules for units examplehttps://www.lansingstatejournal.com/story/news/2019/10/14/11-million-gallons-sewage-water-dumped-grand-red-cedar-river/3975129002/
 # number UNIT of
@@ -114,6 +138,7 @@ for pattern in patternsOfPOS:
     pNum=pNum+1
 
 #MATCH AND PRINT ALL PATTERNS ----------------------------------------
+totalArtVal = 0.0
 k = 0
 for sentence in newSentences:
     nER = nlp(sentence)
@@ -135,9 +160,15 @@ for sentence in newSentences:
                 sTE = posPol[st:en]
                 print(m, sID, st, en, sTE.text)
                 print("******************")
+                totalArtVal = totalArtVal+1.0
+        else:
+            ##if it was NOT one of the pollution patterns
+            totalArtVal = totalArtVal+switchStmt(strID)
         startToEnd = nER[s:e]  #string match idx from start to end
         print(mID, strID, s, e, startToEnd.text)
     k=k+1
+
+print("RESULTING VALUE: ", totalArtVal)
 
 
 
