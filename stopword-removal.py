@@ -58,16 +58,19 @@ patternsOfPOS.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["u
 patternsOfPOS.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 
 ##ADDITIONAL RULES FOR STOPWORDS
-#detected NOUN
-#after source/cause, add unknown x
+#detected and NOUN
+
+patternsOfPOS.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS": "NOUN"}])
+#lemma toxic + op adj + noun
+patternsOfPOS.append([{"LEMMA": {"IN": ["toxic"]}},{"POS":"ADJ","OP":"?"},{"POS": "NOUN"}])
+#discovered/found + any # of adj + substance/chemical/level + op noun
+patternsOfPOS.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS":"ADJ","OP":"*"},{"LEMMA": {"IN": ["substance", "chemical", "level"]}}, {"POS": "NOUN","OP":"?"}])
 #adj + chemical + op noun
 patternsOfPOS.append([{"POS":"ADJ"},{"LEMMA": "chemical"},{"POS":"NOUN","OP":"?"}])
 #op adj + chemical + noun
-patternsOfPOS.append([{"POS":"ADJ","OP":"?"},{"LEMMA": "chemical"},{"POS":"NOUN"}])
-#lemma toxic + op adj + noun
-#discovered/found + any # of adj + substance/chemical/level + op noun
 
-#official op x
+patternsOfPOS.append([{"POS":"ADJ","OP":"?"},{"LEMMA": "chemical"},{"POS":"NOUN"}])
+
 
 
 listOfMatchPats = Matcher(nlp.vocab)
