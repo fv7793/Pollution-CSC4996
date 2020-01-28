@@ -139,7 +139,7 @@ def contentToOutput(content):
         newSentences.append(filtered)
 
 ##--->RESULT: newSentences is an array of strings (each string is a sentence)
-    print("----------------------")
+    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<---------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 #MATCH AND PRINT ALL PATTERNS ----------------------------------------
     totalArtVal = 0.0
     k = 0
@@ -147,8 +147,8 @@ def contentToOutput(content):
         nER = nlp(sentence)
         #print(sentence)
         matchesInSent = listOfMatchPats(nER)
-        #if matchesInSent:
-            #print("----------------------")
+        if matchesInSent:
+            print("----------------------")
         for mID, s, e in matchesInSent:
             strID = nlp.vocab.strings[mID]  #convert from span object to string
             if(strID=="p9" or strID=="p10"):
@@ -156,19 +156,19 @@ def contentToOutput(content):
                 testStr=tokenizedSent[k]
                 posPol = nlp(testStr)
                 matches = pPt(posPol)
-                #if matches:
-                    #print("******************")
+                if matches:
+                    print("******************")
                 for m, st, en in matches:
                     sID = nlp.vocab.strings[m]
                     sTE = posPol[st:en]
-                    #print(m, sID, st, en, sTE.text)
-                    #print("******************")
+                    print(m, sID, st, en, sTE.text)
+                    print("******************")
                     totalArtVal = totalArtVal+1.0
             else:
                 ##if it was NOT one of the pollution patterns
                 totalArtVal = totalArtVal+switchStmt(strID)
             startToEnd = nER[s:e]  #string match idx from start to end
-            #print(mID, strID, s, e, startToEnd.text)
+            print(mID, strID, s, e, startToEnd.text)
         k=k+1
 
     if(numSentences<=20):
