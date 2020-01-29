@@ -4,6 +4,8 @@ from spacy.matcher import Matcher
 from collections import Counter
 import en_core_web_sm
 
+from freepCrawler import FreepCrawler
+
 from bs4 import BeautifulSoup
 import requests
 from spacy.lang.en.stop_words import STOP_WORDS
@@ -95,12 +97,6 @@ for pattern in patternsOfPOS:
 
 ##END OF RULES -----------------------------------------------------------------------
 
-numShort = 0
-numMed = 0
-numLong = 0
-avgShort = 0.0
-avgMed = 0.0
-avgLong = 0.0
     
 def switchStmt(pattern):
     patWeight= {
@@ -130,21 +126,9 @@ def switchStmt(pattern):
 
 
 def contentToOutput(content):
-    global numShort
-    global numMed
-    global numLong
 
-    global avgShort
-    global avgMed
-    global avgLong
 ##START SCRAPING AND PARSING -----------------------------------------
-    splitContent = content.find_all('p')
-    arrayOfPs = []
-
-    for paragraph in splitContent:
-        stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
-        arrayOfPs.append(stringPara)
-    tokenizedSent = nlp_spacy.convertScrapedtoSent(arrayOfPs)
+    tokenizedSent = nlp_spacy.convertScrapedtoSent(content)
 
 ##FILTER OUT STOPWORDS -----------------------------------------------
     newSentences = []
@@ -162,7 +146,7 @@ def contentToOutput(content):
         newSentences.append(filtered)
 
 ##--->RESULT: newSentences is an array of strings (each string is a sentence)
-    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<---------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+#    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<---------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
 #MATCH AND PRINT ALL PATTERNS ----------------------------------------
     totalArtVal = 0.0
     k = 0
@@ -197,161 +181,31 @@ def contentToOutput(content):
     print("NUM SENT:", numSentences)
     print("RESULTING VALUE: ", totalArtVal)
     if numSentences<=20:
-        numShort = numShort+1
-        avgShort = avgShort+totalArtVal
         if totalArtVal>= 2.0:
-            print("YES")
             return True
         else:
-            print("NO")
             return False
     elif numSentences>50:
-        numLong = numLong+1
-        avgLong= avgLong+totalArtVal
         if totalArtVal>= 10.0:
-            print("YES")
             return True
         else:
-            print("NO")
             return False
     else:
-        numMed = numMed+1
-        avgMed= avgMed+totalArtVal
-        if totalArtVal>= 5.0:
-            print("YES")
+        if totalArtVal>= 28.0:
             return True
         else:
-            print("NO")
             return False
 
 
+crawler = FreepCrawler("pollution", "contamination", "toxic")
+crawler.crawlURLs()
+crawler.scrapeURLs()
+
+print("Article Titles")
+print("---------------------------------------------------")
+for article in crawler.getScrapedArticles():
+    print(article.getArticleTitle())
+    print(contentToOutput(article.getArticleBody()))
+    print("____________________________________")
 
 
-
-
-
-#2
-page = requests.get('https://www.crainsdetroit.com/article/20180309/news01/654831/toxic-chemicals-found-in-new-baltimore-mount-clemens-ira-township')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='field--name-field-paragraph-body')
-
-contentToOutput(content)
-
-#3
-page = requests.get('https://www.crainsdetroit.com/article/20180417/news01/658401/testing-finds-contaminated-wells-near-grand-rapids-area-airport')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='field--name-field-paragraph-body')
-
-contentToOutput(content)
-
-#4
-page = requests.get('https://www.crainsdetroit.com/article/20180403/news01/656966/synthetic-coolant-leaks-from-power-cables-in-michigan-waters')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='field--name-field-paragraph-body')
-
-contentToOutput(content)
-
-#5
-page = requests.get('https://www.dailytribune.com/news/concerns-grow-over-tainted-sewage-sludge-spread-on-lapeer-croplands/article_6c8bc1a6-a71c-5775-a3b9-f6db18248d26.html')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='asset-content')
-
-contentToOutput(content)
-
-#6
-page = requests.get('http://www.pressandguide.com/news/tlaib-statement-on-revere-copper-site-collapse-into-detroit-river/article_c1ef5fa8-1a0e-11ea-a18b-3b3e5b366236.html')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='asset-content')
-
-contentToOutput(content)
-
-#7
-page = requests.get('https://www.candgnews.com/news/officials-search-for-petroleum-leak-source-into-clinton-river-116417')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='article-body-text')
-
-contentToOutput(content)
-
-#8
-page = requests.get('https://www.lansingstatejournal.com/story/news/2019/10/14/11-million-gallons-sewage-water-dumped-grand-red-cedar-river/3975129002/')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='asset-double-wide')
-
-contentToOutput(content)
-
-#9
-page = requests.get('https://www.lansingstatejournal.com/story/news/local/2019/04/22/racer-trust-proposes-fix-dioxane-pollution-lansing-township-gm-water-quality/3330212002/')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='asset-double-wide')
-
-contentToOutput(content)
-
-#10
-page = requests.get('https://www.mlive.com/news/kalamazoo/2019/03/contamination-plume-leaves-manufacturing-property-in-kalamazoo-township.html')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='entry-content')
-
-contentToOutput(content)
-
-11
-page = requests.get('https://www.mlive.com/news/detroit/2018/10/detroit_schools_to_spend_38_mi.html')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='entry-content')
-
-contentToOutput(content)
-
-#12
-page = requests.get('https://www.mlive.com/news/2019/03/toxic-pollution-at-wolverine-tannery-is-extensive-data-confirms.html')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='entry-content')
-
-contentToOutput(content)
-
-#13
-page = requests.get('https://www.mlive.com/news/grand-rapids/2019/08/coal-ash-from-west-michigan-power-plant-might-be-contaminating-drinking-water-wells.html')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='entry-content')
-
-contentToOutput(content)
-
-#14
-page = requests.get('https://www.candgnews.com/news/officials-investigate-plumbrook-drain-oil-report--111626')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='article-body-text')
-
-contentToOutput(content)
-
-#15
-page = requests.get('https://www.candgnews.com/news/royal-oak-warns-residents-of-action-level-lead-in-water-115688')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='article-body-text')
-
-contentToOutput(content)
-
-#16
-page = requests.get('https://www.mininggazette.com/news/2019/08/mass-city-mercury-spill-contained/')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='article')
-
-contentToOutput(content)
-
-#17
-page = requests.get('https://www.freep.com/story/news/local/michigan/oakland/2020/01/10/madison-heights-green-ooze-slime-pfas/4437379002/')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='asset-double-wide')
-
-contentToOutput(content)
-
-#18
-page = requests.get('https://www.freep.com/story/news/local/michigan/2017/03/24/mercury-rising-scientists-puzzled-metals-jump-great-lakes-fish/99306786/')
-bs = BeautifulSoup(page.text, 'html.parser')
-content=bs.find(class_='asset-double-wide')
-
-contentToOutput(content)
-
-avgShort = avgShort/numShort
-avgMed = avgMed/numMed
-avgLong = avgLong/numLong
-print("SHORT: ", numShort, "AVG: ", avgShort)
-print("MED: ", numMed, "AVG: ", avgMed)
-print("LONG: ", numLong, "AVG: ", avgLong)

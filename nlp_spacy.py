@@ -16,14 +16,16 @@ def convertScrapedtoSent(splitContent):
         NLPtxt = nlp(eachPara)
         for eachSent in NLPtxt.sents:
             tokenizedSent.append(eachSent.string.strip())
+
+##    for sentence in tokenizedSent:
+##        nER = nlp(sentence)
+##        print(sentence)
+##        for entity in nER.ents:
+##            print(entity.text, entity.label_)
     return tokenizedSent
 
 
-##for sentence in tokenizedSent:
-##    nER = nlp(sentence)
-##    print(sentence)
-##    for entity in nER.ents:
-##        print(entity.text, entity.label_)
+
 ##    for word in nER:
 ##        if(word.ent_iob_!='O'):
 ##            print(word.idx, word.pos_, word.tag_, word.ent_iob_)
