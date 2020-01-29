@@ -1,0 +1,15 @@
+gov
+governor
+dir
+director
+manager
+CEO
+COO
+spokesperson
+spokeswoman
+rep
+representitive
+official
+mayor
+engineer
+expert
