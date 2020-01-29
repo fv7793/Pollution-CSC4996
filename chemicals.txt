@@ -1,0 +1,39 @@
+Arsenic
+Barium
+Cadmium
+Chromium
+Lead
+Mercury
+Selenium
+Silver
+Endrin
+Lindane
+Methoxychlor
+Toxaphene
+2,4,5-TP
+Benzene
+Carbon tetrachloride
+Chlordane
+Chlorobenzene
+Chloroform
+o-Cresol
+m-Cresol
+p-Cresol
+Cresol
+1,4-Dichlorobenzene
+1,2-Dichloroethane
+1,1-Dichloroethylene
+2,4-Dinitrotoluene
+Heptachlor (and epoxide)
+Hexachlorobenzene
+Hexachlorobutadiene
+Hexachloroethane
+Methyl ethyl ketone
+Nitrobenzene
+Pentachlorophenol
+Pyridine
+Tetrachloroethylene
+Trichloroethylene
+2,4,5-Trichlorophenol
+2,4,6-Trichlorophenol
+Vinyl chloride 
