@@ -12,6 +12,7 @@ from spacy.lang.en.stop_words import STOP_WORDS
 
 import nlp_spacy
 
+#MAKE SURE TO COMPLETE CASTING TO LOWERCASE
 
 nlp = en_core_web_sm.load()
 ##START OF RULES --------------------------------------------------
@@ -71,10 +72,14 @@ patternsOfPOS.append([{"LEMMA": {"IN": ["toxic"]}},{"POS":"ADJ","OP":"?"},{"POS"
 patternsOfPOS.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS":"ADJ","OP":"*"},{"LEMMA": {"IN": ["substance", "chemical", "level"]}}, {"POS": "NOUN","OP":"?"}])
 #adj + chemical + op noun
 #W = .5
-patternsOfPOS.append([{"POS":"ADJ"},{"LEMMA": "chemical"},{"POS":"NOUN","OP":"?"}])
+patternsOfPOS.append([{"POS":"ADJ"},{"LEMMA": {"IN": ["chemical"]}},{"POS":"NOUN","OP":"?"}])
 #op adj + chemical + noun
 #W = .5
-patternsOfPOS.append([{"POS":"ADJ","OP":"?"},{"LEMMA": "chemical"},{"POS":"NOUN"}])
+patternsOfPOS.append([{"POS":"ADJ","OP":"?"},{"LEMMA": {"IN": ["chemical"]}},{"POS":"NOUN"}])
+
+#RULES FOR SUPERFUNDS
+#op noun + superfund + op noun
+patternsOfPOS.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["superfund"]}},{"POS":"NOUN","OP":"?"}])
 
 
 
@@ -121,9 +126,6 @@ def switchStmt(pattern):
         "p18":.5
     }
     return patWeight.get(pattern, 0.0)
-
-
-
 
 def contentToOutput(content):
 
