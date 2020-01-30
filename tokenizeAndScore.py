@@ -128,11 +128,12 @@ for article in articleObjs:
     if result==article.isEvent():
         numCorrect = numCorrect+1
     #determine T/F by function call of rules
+
 #calculate accuracy
 accuracy = numCorrect/totalNum
 print("FINAL ACCURACY = "+str(accuracy))
-    #num of obj correctly found T/F / num total obj
-    #num false +, num false -, num true +, num true -
+#num of obj correctly found T/F / num total obj
+#num false +, num false -, num true +, num true -
     
 
 
