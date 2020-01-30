@@ -8,24 +8,26 @@ import requests
 
 nlp = en_core_web_sm.load()
 
-#Dictionary
-#{'url':'Y'or'N'}
-#18 positives, DFP crawler results, 5-10 clear negatives
+#article class
+    #URL
+    #numSent
+    #array of tokenized sent
+    #class breakdown name (html)
+    #T/F (is or is not an actual event)
 
-#global array of large articles (urls)
-    #global array of scores with same indices (l)
-#global array of med articles (urls)
-    #global array of scores with same indices (m)
-#global array of small articles (urls)
-    #global array of scores with same indices (s)
+    #get tokSent
+    #constructor - URL, class breakdown name, T/F
+        #run BS, get p blocks
+        #call tokenizing and store in object's tS array
+        #calculate numsent by len() of tS
+        #T/F
+    #isEvent
+        #returns T/F
 
-#function that given "s","m","l" (based on numSent) can return the ideal float (0-50) for correctly identifying the highest number of articles of that size
-    #loop 0-50 by .1
-        #loop over that global array of urls
-            #match each url with score (say Y/N based on val of loop)
-            #see if Y/N was correct (add to correct or incorrect)
-        #calculate the accuracy of this weight limit (# correct/#total articles of that size) -> (store if the best)
-    #return best limit
+
+#function - given article object
+    #run at least 2 rules on it
+    #returns if it was found to be T/F
         
 
 #takes a full article, returns full sentences
@@ -49,13 +51,12 @@ def convertScrapedtoSent(splitContent):
 
 #main
 #for each URL
-    #get every URL and break into 'p' blocks
-
-    #tokenization by convertScrapedtoSent
-    #determine s/m/l -> add url to that global array
-    #calculate the weight (rules/nlp/POS tagging) -> add weight to that global array
-
-#calculate accuracy/best weight limit for s, then m, then l
+    #initialize an article class obj
+    
+    #determine T/F by function call of rules
+#calculate accuracy
+    #num of obj correctly found T/F / num total obj
+    #num false +, num false -, num true +, num true -
     
 
 
