@@ -30,13 +30,15 @@ class articleClass:
         self.classN = classBRN
         self.event = isEvent
         page = requests.get(URL)
+        print("Parsing "+URL)
         bs = BeautifulSoup(page.text, 'html.parser')
         content=bs.find(class_=classBRN)
         splitContent = content.find_all('p')
         arrayOfPs = []
         for paragraph in splitContent:
-            stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
-            arrayOfPs.append(stringPara)
+            if(paragraph.contents):
+                stringPara = str(paragraph.contents[0]) #CONVERT TO UNICODE
+                arrayOfPs.append(stringPara)
         self.tokSent = convertScrapedtoSent(arrayOfPs)
         self.numSent = len(self.tokSent)
 
@@ -208,7 +210,7 @@ articleObjs.append(articleClass('https://www.freep.com/story/sports/nfl/lions/20
 #10
 articleObjs.append(articleClass('https://www.freep.com/story/news/local/michigan/detroit/2020/01/30/moses-champion-fbi-fast-food-robber-busted-after-terrorizing-suburbs-and-taco-bell/2855508001/', 'asset-double-wide', False))
 #11
-articleObjs.append(articleClass('https://www.candgnews.com/news/why-regular-baths-are-important-pet-health-94126', 'asset-double-wide', False))
+#articleObjs.append(articleClass('https://www.candgnews.com/news/why-regular-baths-are-important-pet-health-94126', 'asset-double-wide', False))
 #12
 articleObjs.append(articleClass('https://www.mlive.com/news/2020/01/michigan-based-lipari-foods-recalls-sandwiches-over-listeria-contamination-concerns.html', 'entry-content', False))
 #13
