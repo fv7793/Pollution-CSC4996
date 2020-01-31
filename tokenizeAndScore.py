@@ -16,7 +16,10 @@ pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","dis
 
 pollPats.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["levels","contamination"]}}])
 pollPats.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
-
+pollPats.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS":"ADJ","OP":"*"},{"LEMMA": {"IN": ["substance", "chemical", "level"]}}, {"POS": "NOUN","OP":"?"}])
+pollPats.append([{"POS":"ADJ"},{"LEMMA": {"IN": ["chemical"]}},{"POS":"NOUN","OP":"?"}])
+pollPats.append([{"POS":"ADJ","OP":"?"},{"LEMMA": {"IN": ["chemical"]}},{"POS":"NOUN"}])
+pollPats.append([{"POS": "NUM"},{"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
 
 i=0
 for pat in pollPats:
@@ -62,7 +65,7 @@ def isArticleEvent(articleObj):
         for mID, s, e in matchesInSent:
             strID = nlp.vocab.strings[mID]  #convert from span object to string
             startToEnd = nER[s:e]
-            #print(mID, strID, s, e, startToEnd.text)
+            print(mID, strID, s, e, startToEnd.text)
     return isEvent
     #run at least 2 rules on it
     #returns if it was found to be T/F
