@@ -21,6 +21,22 @@ pollPats.append([{"POS":"ADJ"},{"LEMMA": {"IN": ["chemical"]}},{"POS":"NOUN","OP
 pollPats.append([{"POS":"ADJ","OP":"?"},{"LEMMA": {"IN": ["chemical"]}},{"POS":"NOUN"}])
 pollPats.append([{"POS": "NUM"},{"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
 
+#TO IDENTIFY NEGATIVES
+#identifying lawsuit/sue
+pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["lawsuit","sue","charge"]}},{"POS":"NOUN","OP":"?"}])
+# op verb + automobile, car, vehicle, motor
+pollPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}}])
+# op noun + automobile, car, vehicle, motor + op verb
+pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}},{"POS":"VERB","OP":"?"}])
+# op verb + championship, game, tournament, competition
+pollPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game","tournament","competition"]}}])
+# op verb + food, fruit, meal, produce, meat + op adverb
+pollPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["food","fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
+# op noun + food, fruit, meal, produce, meat + op adverb
+pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["food","fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
+# op verb + application, password, data, technology + op verb
+pollPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","data","technology"]}},{"POS":"VERB","OP":"?"}])
+
 i=0
 for pat in pollPats:
     pPt.add("pat"+str(i),None,pat)
