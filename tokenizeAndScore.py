@@ -33,11 +33,11 @@ negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["automobile","car","ve
 # op verb + championship, game, tournament, competition
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game","tournament","competition"]}}])
 # op verb + food, fruit, meal, produce, meat + op adverb
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["food","fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
 # op noun + food, fruit, meal, produce, meat + op adverb
-negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["food","fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
+negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
 # op verb + application, password, data, technology + op verb
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","data","technology"]}},{"POS":"VERB","OP":"?"}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","technology"]}},{"POS":"VERB","OP":"?"}])
 
 i=0
 for pat in pollPats:
