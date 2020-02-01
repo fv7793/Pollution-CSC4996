@@ -33,9 +33,9 @@ negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["automobile","car","ve
 # op verb + championship, game, tournament, competition
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game","tournament","competition"]}}])
 # op verb + food, fruit, meal, produce, meat + op adverb
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
 # op noun + food, fruit, meal, produce, meat + op adverb
-negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
+negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
 # op verb + application, password, data, technology + op verb
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","technology"]}},{"POS":"VERB","OP":"?"}])
 
@@ -93,7 +93,7 @@ def isArticleEvent(articleObj):
                 startToEnd = nER[s:e]
                 #print("NEGATIVE ", mID, strID, s, e, startToEnd.text)
                 numNeg = numNeg+1
-            return False
+            #return False
         elif matchesInSent:
             #isEvent = True
             for mID, s, e in matchesInSent:
@@ -101,7 +101,7 @@ def isArticleEvent(articleObj):
                 startToEnd = nER[s:e]
                 #print("POSITIVE ", mID, strID, s, e, startToEnd.text)
                 numPos = numPos+1
-            return True
+            #return True
     print("_______________________________________")
     print("NUM NEG = ",numNeg," + NUM POS = ",numPos)
     if numPos !=0 and numPos>=numNeg:
