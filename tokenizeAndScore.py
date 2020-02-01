@@ -21,25 +21,32 @@ pollPats.append([{"POS":"ADJ"},{"LEMMA": {"IN": ["chemical"]}},{"POS":"NOUN","OP
 pollPats.append([{"POS":"ADJ","OP":"?"},{"LEMMA": {"IN": ["chemical"]}},{"POS":"NOUN"}])
 pollPats.append([{"POS": "NUM"},{"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
 
+negP = Matcher(nlp.vocab)
+negPats = []
 #TO IDENTIFY NEGATIVES
 #identifying lawsuit/sue
-pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["lawsuit","sue","charge"]}},{"POS":"NOUN","OP":"?"}])
+negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["lawsuit","sue","charge"]}},{"POS":"NOUN","OP":"?"}])
 # op verb + automobile, car, vehicle, motor
-pollPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}}])
 # op noun + automobile, car, vehicle, motor + op verb
-pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}},{"POS":"VERB","OP":"?"}])
+negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}},{"POS":"VERB","OP":"?"}])
 # op verb + championship, game, tournament, competition
-pollPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game","tournament","competition"]}}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game","tournament","competition"]}}])
 # op verb + food, fruit, meal, produce, meat + op adverb
-pollPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["food","fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["food","fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
 # op noun + food, fruit, meal, produce, meat + op adverb
-pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["food","fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
+negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["food","fruit","meal","produce","meat"]}},{"POS":"ADV","OP":"?"}])
 # op verb + application, password, data, technology + op verb
-pollPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","data","technology"]}},{"POS":"VERB","OP":"?"}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","data","technology"]}},{"POS":"VERB","OP":"?"}])
 
 i=0
 for pat in pollPats:
     pPt.add("pat"+str(i),None,pat)
+    i=i+1
+
+i=0
+for pat in negPats:
+    negP.add("neg"+str(i),None,pat)
     i=i+1
 
 #article class
@@ -71,18 +78,37 @@ class articleClass:
 
 #function - given article object
 def isArticleEvent(articleObj):
-    isEvent = False
+    #isEvent = False
     temp = articleObj.getTS()
+    numPos = 0
+    numNeg = 0
     for sentence in temp:
         nER = nlp(sentence)
+        negInSent = negP(nER)
         matchesInSent = pPt(nER)
-        if matchesInSent:
-            isEvent = True
-        for mID, s, e in matchesInSent:
-            strID = nlp.vocab.strings[mID]  #convert from span object to string
-            startToEnd = nER[s:e]
-            print(mID, strID, s, e, startToEnd.text)
-    return isEvent
+        if negInSent:
+            #isEvent = False
+            for mID, s, e in negInSent:
+                strID = nlp.vocab.strings[mID]  #convert from span object to string
+                startToEnd = nER[s:e]
+                #print("NEGATIVE ", mID, strID, s, e, startToEnd.text)
+                numNeg = numNeg+1
+            return False
+        elif matchesInSent:
+            #isEvent = True
+            for mID, s, e in matchesInSent:
+                strID = nlp.vocab.strings[mID]  #convert from span object to string
+                startToEnd = nER[s:e]
+                #print("POSITIVE ", mID, strID, s, e, startToEnd.text)
+                numPos = numPos+1
+            return True
+    print("_______________________________________")
+    print("NUM NEG = ",numNeg," + NUM POS = ",numPos)
+    if numPos !=0 and numPos>=numNeg:
+        return True
+    else:
+        return False
+    #return isEvent
     #run at least 2 rules on it
     #returns if it was found to be T/F
         
