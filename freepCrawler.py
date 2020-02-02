@@ -40,12 +40,14 @@ class FreepCrawler():
                 driver = webdriver.Chrome(chromeDriverPath, options=options)
                 driver.get(url)
 
-                 while lessThanYear:
-                    page.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    source = page.page_source
-                    #Will call the function that holds dates and catch a date that is from 2018 and end the loop, therefore only grabbing articles after 12/31/2018
-                    lessThanYear = self.getSearchPageDates(source)
-                    time.sleep(1)
+                while lessThanYear:
+                    i = 0
+                    while i < 4:
+                        page.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        source = page.page_source
+                        # Will call the function that holds dates and catch a date that is from 2018 and end the loop, therefore only grabbing articles after 12/31/2018
+                        lessThanYear = self.getSearchPageDates(source)
+                        i += 1
 
                 soup_page = soup(source, 'html.parser')
                 links = soup_page.find_all('a', href=True)
@@ -58,6 +60,7 @@ class FreepCrawler():
             print("[-] Connection refused: too man requests")
 
     def getSearchPageDates(self, source):
+
         dates = True
         page = soup(source, 'html.parser')
         articleDates = page.find_all(class_="date-created meta-info-text")
