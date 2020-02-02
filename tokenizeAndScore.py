@@ -36,7 +36,7 @@ negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game",
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
 # op noun + food, fruit, meal, produce, meat + op adverb
 negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
-# op verb + application, password, data, technology + op verb
+# op verb + application, password, technology + op verb
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","technology"]}},{"POS":"VERB","OP":"?"}])
 
 i=0
