@@ -40,13 +40,10 @@ class FreepCrawler():
 
                 while lessThanYear:
                     page.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-                    time.sleep(4)
                     source = page.page_source
-                    #Will call the gunction that holds dates and catch a date that is from 2018 and end the loop, therefore only grabbing articles after 12/31/2019
-                    dates = self.getSearchPageDates(source)
-                    for date in dates:
-                        if "2018" in date:
-                            lessThanYear = False
+                    #Will call the function that holds dates and catch a date that is from 2018 and end the loop, therefore only grabbing articles after 12/31/2018
+                    lessThanYear = self.getSearchPageDates(source)
+                    time.sleep(4)
 
                 soup_page = soup(source, 'html.parser')
                 links = soup_page.find_all('a', href=True)
@@ -68,11 +65,12 @@ class FreepCrawler():
         print("\n\n")
 
     def getSearchPageDates(self, source):
+        dates = True
         page = soup(source, 'html.parser')
-        articleDates = page.find_all(class_= 'date_created meta-info-text')
-        dates = []
+        articleDates = page.find_all(class_="date-created meta-info-text")
         for date in articleDates:
-            dates.append(date.get_text())
+            if "2018" in date.get_text():
+                dates = False
         return(dates)
 
     def getURLs(self):
