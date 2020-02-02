@@ -29,6 +29,7 @@ class FreepCrawler():
     def crawlURLs(self):
         try:
             for url in self.baseURLs:
+                withinLastYear = True
                 if platform == "darwin":
                     chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_mac"
                 else:
@@ -39,21 +40,13 @@ class FreepCrawler():
                 driver = webdriver.Chrome(chromeDriverPath, options=options)
                 driver.get(url)
 
-                withinLastYear = True
+                 while lessThanYear:
+                    page.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                    source = page.page_source
+                    #Will call the function that holds dates and catch a date that is from 2018 and end the loop, therefore only grabbing articles after 12/31/2018
+                    lessThanYear = self.getSearchPageDates(source)
+                    time.sleep(1)
 
-                while withinLastYear:
-                    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-                    soup_page = soup(driver.page_source, 'html.parser')
-                    articleDates = soup_page.find_all(class_="date-created meta-info-text")
-
-                    for date in articleDates:
-                        if "2018" in date.get_text():
-                            withinLastYear = False
-
-                    time.sleep(4)
-
-                source = driver.page_source
                 soup_page = soup(source, 'html.parser')
                 links = soup_page.find_all('a', href=True)
 
@@ -64,6 +57,14 @@ class FreepCrawler():
         except requests.exceptions.ConnectionError:
             print("[-] Connection refused: too man requests")
 
+    def getSearchPageDates(self, source):
+        dates = True
+        page = soup(source, 'html.parser')
+        articleDates = page.find_all(class_="date-created meta-info-text")
+        for date in articleDates:
+            if "2018" in date.get_text():
+                dates = False
+        return(dates)
 
     def getURLs(self):
         return self.urls
