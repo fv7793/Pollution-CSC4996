@@ -14,6 +14,10 @@ pollPats = []
 pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "PROPN"}])
 pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "NOUN"}])
 
+#pollPats.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["unknown","pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
+pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["superfund"]}},{"POS":"NOUN","OP":"?"}])
+#pollPats.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]},"OP":"?"}]) #lemmatized words (said/discussed/etc.)
+
 pollPats.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["levels","contamination"]}}])
 pollPats.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 pollPats.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS":"ADJ","OP":"*"},{"LEMMA": {"IN": ["substance", "chemical", "level"]}}, {"POS": "NOUN","OP":"?"}])
