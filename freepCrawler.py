@@ -31,9 +31,9 @@ class FreepCrawler():
         # so crawlURLs() will retrieve article urls from that page and append them to the urls list
 
     def crawlURLs(self):
-        lessThanYear = True
         try:
             for url in self.baseURLs:
+                lessThanYear = True
                 page = webdriver.Chrome(ChromeDriverManager().install())
                 page.get(url)
         # This will visit any web browser you want, go to the url, and scroll the predetermined amount of times and then grab the page source after scrolling which will have all of the article links
@@ -43,7 +43,7 @@ class FreepCrawler():
                     source = page.page_source
                     #Will call the function that holds dates and catch a date that is from 2018 and end the loop, therefore only grabbing articles after 12/31/2018
                     lessThanYear = self.getSearchPageDates(source)
-                    time.sleep(4)
+                    time.sleep(1)
 
                 soup_page = soup(source, 'html.parser')
                 links = soup_page.find_all('a', href=True)
