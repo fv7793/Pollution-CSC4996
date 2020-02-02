@@ -29,7 +29,7 @@ class FreepCrawler():
     def crawlURLs(self):
         try:
             for url in self.baseURLs:
-                withinLastYear = True
+                lessThanYear = True
                 if platform == "darwin":
                     chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_mac"
                 else:
