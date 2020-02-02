@@ -42,6 +42,10 @@ negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]
 negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
 # op verb + application, password, technology + op verb
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","technology"]}},{"POS":"VERB","OP":"?"}])
+# op verb + theater, performance, venue + op verb
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["theater","performance","venue"]}},{"POS":"VERB","OP":"?"}])
+# op verb + theater, performance, venue + op noun
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["theater","performance","venue"]}},{"POS":"NOUN","OP":"?"}])
 
 i=0
 for pat in pollPats:
