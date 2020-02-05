@@ -29,15 +29,15 @@ negP = Matcher(nlp.vocab)
 negPats = []
 #TO IDENTIFY NEGATIVES
 #identifying lawsuit/sue
-negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["lawsuit","sue","charge"]}},{"POS":"NOUN","OP":"?"}])
+negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["legislation","lawsuit","sue","charge"]}},{"POS":"NOUN","OP":"?"}])
 # op verb + automobile, car, vehicle, motor
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["noise","automobile","car","vehicle"]}}])
 # op noun + automobile, car, vehicle, motor + op verb
 negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}},{"POS":"VERB","OP":"?"}])
 # op verb + championship, game, tournament, competition
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game","tournament","competition"]}}])
 # op verb + fruit, meal, produce, meat + op adverb
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["recall","fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
 # op noun + fruit, meal, produce, meat + op adverb
 negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
 # op verb + application, password, technology + op verb
@@ -110,8 +110,8 @@ def isArticleEvent(articleObj):
                 #print("POSITIVE ", mID, strID, s, e, startToEnd.text)
                 numPos = numPos+1
             #return True
-    print("_______________________________________")
-    print("NUM NEG = ",numNeg," + NUM POS = ",numPos)
+    #print("_______________________________________")
+    #print("NUM NEG = ",numNeg," + NUM POS = ",numPos)
     if numPos !=0 and numPos>=numNeg:
         return True
     else:
