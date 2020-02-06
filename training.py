@@ -27,6 +27,7 @@ while line:
         
     line = f.readline()
     cnt += 1
+f.close()
 
 
 
