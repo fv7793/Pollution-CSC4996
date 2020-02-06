@@ -1,4 +1,3 @@
-
 t_s = []
 f = open("CSVtest.csv","r")
 line = f.readline()
