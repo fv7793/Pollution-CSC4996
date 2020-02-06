@@ -14,7 +14,7 @@ pollPats = []
 pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "PROPN"}])
 pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "NOUN"}])
 
-#pollPats.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["unknown","pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
+pollPats.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["unknown","pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["superfund"]}},{"POS":"NOUN","OP":"?"}])
 #pollPats.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]},"OP":"?"}]) #lemmatized words (said/discussed/etc.)
 
@@ -35,7 +35,7 @@ negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["noise","automobile","
 # op noun + automobile, car, vehicle, motor + op verb
 negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}},{"POS":"VERB","OP":"?"}])
 # op verb + championship, game, tournament, competition
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game","tournament","competition"]}}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["sport","basketball","championship","game","tournament","competition"]}}])
 # op verb + fruit, meal, produce, meat + op adverb
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["recall","fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
 # op noun + fruit, meal, produce, meat + op adverb
@@ -346,17 +346,35 @@ articleObjs.append(articleClass('https://www.dailytribune.com/news/anti-impeachm
 totalNum = len(articleObjs)
 numCorrect = 0
 n=0
+numTP = 0
+numTN = 0
+numFP = 0
+numFN = 0
 for article in articleObjs:
     n=n+1
     result = isArticleEvent(article)
     print(""+str(n)+" " + str(result))
     if result==article.isEvent():
         numCorrect = numCorrect+1
+        if result==True:
+            numTP+=1
+        else:
+            numTN+=1
+    else:
+        if result==True:
+            numFP+=1
+        else:
+            numFN+=1
     #determine T/F by function call of rules
 
 #calculate accuracy
 accuracy = numCorrect/totalNum
 print("FINAL ACCURACY = "+str(accuracy))
+print("TRUE pos = "+str(numTP/numCorrect))
+print("TRUE neg = "+str(numTN/numCorrect))
+
+print("FALSE pos = "+str(numFP/(totalNum-numCorrect)))
+print("FALSE neg = "+str(numFN/(totalNum-numCorrect)))
 #num of obj correctly found T/F / num total obj
 #num false +, num false -, num true +, num true -
     
