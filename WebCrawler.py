@@ -34,7 +34,7 @@ def readFromFileWebLinks(key):
             with open("Keyword.txt", "r") as keyFile:
                 for key in keyFile:
                     line.replace("Pollution", key)
-                    for numbers in range(16,17):
+                    for numbers in range(23 ,24):
                         urls.append(line.replace("pageNum", str(numbers)).rstrip())
     print("Urls")
     print(urls)
