@@ -114,4 +114,7 @@ crf = sklearn_crfsuite.CRF(
 )
 crf.fit(X_train, y_train)
 
-
+labels = list(crf.classes_)
+y_pred = crf.predict(X_test)
+metrics.flat_f1_score(y_test, y_pred,
+                      average='weighted', labels=labels)
