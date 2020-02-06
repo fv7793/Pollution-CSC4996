@@ -1,8 +1,3 @@
-import sklearn
-
-import sklearn_crfsuite
-from sklearn_crfsuite import scorers
-from sklearn_crfsuite import metrics
 
 t_s = []
 f = open("CSVtest.csv","r")
@@ -21,12 +16,13 @@ while line:
 
     #test for ,,, FIRST (if it doesn't find it, use the general case)
     if ",,," in line:
-        tuple = (",",line[-3])
+        split = line.split(",")
+        tuple = (",",split[3],split[4])
         sent.append(tuple)
     #else we know this won't be a comma so we can just use split
     else:
         split = line.split(",")
-        tuple = (split[1],split[2])
+        tuple = (split[1],split[2],split[3])
         sent.append(tuple)
     #put it in a tuple and append to sent
         
@@ -50,6 +46,7 @@ while line:
 
 def word2features(sent, i):
     word = sent[i][0]
+    postag = sent[i][1]
 
     features = {
         'bias': 1.0,
@@ -59,23 +56,31 @@ def word2features(sent, i):
         'word.isupper()': word.isupper(),
         'word.istitle()': word.istitle(),
         'word.isdigit()': word.isdigit(),
+        'postag': postag,
+        'postag[:2]': postag[:2],
     }
     if i > 0:
         word1 = sent[i-1][0]
+        postag1 = sent[i-1][1]
         features.update({
             '-1:word.lower()': word1.lower(),
             '-1:word.istitle()': word1.istitle(),
-            '-1:word.isupper()': word1.isupper()
+            '-1:word.isupper()': word1.isupper(),
+            '-1:postag': postag1,
+            '-1:postag[:2]': postag1[:2],
         })
     else:
         features['BOS'] = True
 
     if i < len(sent)-1:
         word1 = sent[i+1][0]
+        postag1 = sent[i+1][1]
         features.update({
             '+1:word.lower()': word1.lower(),
             '+1:word.istitle()': word1.istitle(),
-            '+1:word.isupper()': word1.isupper()
+            '+1:word.isupper()': word1.isupper(),
+            '+1:postag': postag1,
+            '+1:postag[:2]': postag1[:2],
         })
     else:
         features['EOS'] = True
@@ -87,10 +92,10 @@ def sent2features(sent):
     return [word2features(sent, i) for i in range(len(sent))]
 
 def sent2labels(sent):
-    return [label for token, label in sent]
+    return [label for token, postag, label in sent]
 
 def sent2tokens(sent):
-    return [token for token, label in sent]
+    return [token for token, postag, label in sent]
 
 
 
