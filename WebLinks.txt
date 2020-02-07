@@ -8,5 +8,4 @@ https://www.sturgisjournal.com/search?text=Pollution&start=pageNum
 https://www.hollandsentinel.com/search?text=Pollution&start=pageNum
 https://www.monroenews.com/search?text=Pollution&start=pageNum
 https://www.stignacenews.com/page/pageNum/?s=Pollution
-https://thesuntimesnews.com/page/pageNum/?s=Pollution
 https://www.ourmidland.com/search/?action=search&searchindex=solr&query=Pollution&page=pageNum

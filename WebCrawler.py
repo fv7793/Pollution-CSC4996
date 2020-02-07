@@ -34,7 +34,7 @@ def readFromFileWebLinks(key):
             with open("Keyword.txt", "r") as keyFile:
                 for key in keyFile:
                     line.replace("Pollution", key)
-                    for numbers in range(23 ,24):
+                    for numbers in range(35 ,36):
                         urls.append(line.replace("pageNum", str(numbers)).rstrip())
     print("Urls")
     print(urls)
@@ -50,7 +50,7 @@ def readFromFileClasses():
 
 def mapClassesToTUrls(finalClasses):
     dict = {}
-    for x in range(len(finalClasses)):
+    for x in range(len(finalClasses)-1):
         className = finalClasses[x]
         url = finalUrls[x]
         dict1 = {url: className}
