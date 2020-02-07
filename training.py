@@ -26,12 +26,15 @@ while line:
     #test for ,,, FIRST (if it doesn't find it, use the general case)
     if ",,," in line:
         split = line.split(",")
-        tuple = (",",split[len(split)-2],split[len(split)-1])
+        tag = split[len(split)-1].split('\n')
+        tuple = (",",split[len(split)-2],tag[0])
         sent.append(tuple)
     #else we know this won't be a comma so we can just use split
     else:
+        #TODO: account for commas being used between #s (million) in sample corpus
         split = line.split(",")
-        tuple = (split[len(split)-3],split[len(split)-2],split[len(split)-1])
+        tag = split[len(split)-1].split('\n')
+        tuple = (split[len(split)-3],split[len(split)-2],tag[0])
         sent.append(tuple)
     #put it in a tuple and append to sent
         

@@ -17,11 +17,14 @@ def paragraphToWords(splitContent):
     NLPtxt = nlp(splitContent)
     for eachWord in NLPtxt:
         tokenizedWords.append(eachWord.text)
-        POS.append(eachWord.pos_)
+        POS.append(eachWord.tag_)
     return tokenizedWords, POS
 
 def newsTextToCSV(text, CSVfile):
     #open CSV
+
+#TODO: REMOVE COMMAS FROM THE GIVEN TEXT BEFORE INSERTING INTO CSV
+    
     file = open(CSVfile, 'a+')
     tS = convertScrapedtoSent(text)
     sentNum = 1
