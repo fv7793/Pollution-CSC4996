@@ -1,5 +1,15 @@
+import sklearn
+import scipy.stats
+from sklearn.metrics import make_scorer
+#from sklearn.cross_validation import cross_val_score
+#from sklearn.grid_search import RandomizedSearchCV
+
+import sklearn_crfsuite
+from sklearn_crfsuite import scorers
+from sklearn_crfsuite import metrics
+
 t_s = []
-f = open("CSVtest.csv","r")
+f = open("ner_dataset.csv","r")
 line = f.readline()
 cnt = 1
 
@@ -10,18 +20,18 @@ while line:
     if(line[0]=="S"): #start of a new sentence
         if len(sent)!=0:
             t_s.append(sent)
-            print(sent)
+            #print(sent)
             sent = []
 
     #test for ,,, FIRST (if it doesn't find it, use the general case)
     if ",,," in line:
         split = line.split(",")
-        tuple = (",",split[3],split[4])
+        tuple = (",",split[len(split)-2],split[len(split)-1])
         sent.append(tuple)
     #else we know this won't be a comma so we can just use split
     else:
         split = line.split(",")
-        tuple = (split[1],split[2],split[3])
+        tuple = (split[len(split)-3],split[len(split)-2],split[len(split)-1])
         sent.append(tuple)
     #put it in a tuple and append to sent
         
@@ -115,6 +125,7 @@ crf = sklearn_crfsuite.CRF(
 crf.fit(X_train, y_train)
 
 labels = list(crf.classes_)
+print(labels)
 y_pred = crf.predict(X_test)
-metrics.flat_f1_score(y_test, y_pred,
-                      average='weighted', labels=labels)
+print(metrics.flat_f1_score(y_test, y_pred,
+                      average='weighted', labels=labels))
