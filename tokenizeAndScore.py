@@ -523,12 +523,12 @@ for article in articleObjs:
 
 #calculate accuracy
 accuracy = numCorrect/totalNum
-print("FINAL ACCURACY = "+str(accuracy))
-print("TRUE pos = "+str(numTP/numCorrect))
-print("TRUE neg = "+str(numTN/numCorrect))
+print("FINAL ACCURACY = "+str(accuracy)+" ("+str(numCorrect)+"/"+str(totalNum)+")")
+print("TRUE pos = "+str(numTP/numCorrect)+" ("+str(numTP)+")")
+print("TRUE neg = "+str(numTN/numCorrect)+" ("+str(numTN)+")")
 
-print("FALSE pos = "+str(numFP/(totalNum-numCorrect)))
-print("FALSE neg = "+str(numFN/(totalNum-numCorrect)))
+print("FALSE pos = "+str(numFP/(totalNum-numCorrect))+" ("+str(numFP)+")")
+print("FALSE neg = "+str(numFN/(totalNum-numCorrect))+" ("+str(numFN)+")")
 #num of obj correctly found T/F / num total obj
 #num false +, num false -, num true +, num true -
     
