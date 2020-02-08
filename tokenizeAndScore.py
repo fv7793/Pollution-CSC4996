@@ -86,7 +86,6 @@ class articleClass:
 
 #function - given article object
 def isArticleEvent(articleObj):
-    #isEvent = False
     temp = articleObj.getTS()
     numPos = 0
     numNeg = 0
@@ -95,29 +94,16 @@ def isArticleEvent(articleObj):
         negInSent = negP(nER)
         matchesInSent = pPt(nER)
         if negInSent:
-            #isEvent = False
-            for mID, s, e in negInSent:
-                strID = nlp.vocab.strings[mID]  #convert from span object to string
-                startToEnd = nER[s:e]
-                #print("NEGATIVE ", mID, strID, s, e, startToEnd.text)
+            for mID in negInSent:
                 numNeg = numNeg+1
-            #return False
         elif matchesInSent:
-            #isEvent = True
-            for mID, s, e in matchesInSent:
-                strID = nlp.vocab.strings[mID]  #convert from span object to string
-                startToEnd = nER[s:e]
-                #print("POSITIVE ", mID, strID, s, e, startToEnd.text)
+            for mID in matchesInSent:
                 numPos = numPos+1
-            #return True
-    #print("_______________________________________")
-    #print("NUM NEG = ",numNeg," + NUM POS = ",numPos)
     if numPos !=0 and numPos>=numNeg:
         return True
     else:
         return False
-    #return isEvent
-    #run at least 2 rules on it
+    #run rules on it
     #returns if it was found to be T/F
         
 
@@ -253,27 +239,33 @@ articleObjs.append(articleClass('https://www.thedailyreporter.com/ZZ/news/201912
 articleObjs.append(articleClass('https://www.timesunion.com/7day-state/article/Pollution-cleanup-set-for-Washington-Avenue-dry-12913285.php','article--body',True))
 
 articleObjs.append(articleClass('https://www.timesunion.com/allnews/article/Pollution-project-set-for-former-Troy-steel-site-11303112.php','article--body',True))
+#error
 #articleObjs.append(articleClass('https://www.bloomberg.com/news/articles/2018-10-03/duke-cited-for-arsenic-pollution-in-second-north-carolina-river','body-copy-v2',True))
 articleObjs.append(articleClass('https://www.expressnews.com/business/article/Pollution-cleanup-planned-for-South-Troy-site-13577218.php','body',True))
 articleObjs.append(articleClass('https://www.newstimes.com/business/article/Pollution-cleanup-planned-for-Watervliet-plating-12703887.php','article-body',True))
 articleObjs.append(articleClass('https://www.expressnews.com/business/article/Pollution-cleanup-to-continue-for-Green-Island-13197116.php','body',True))
 articleObjs.append(articleClass('https://www.houstonchronicle.com/business/article/Pollution-cleanups-planned-for-two-dry-cleaning-13780764.php','body',True))
 articleObjs.append(articleClass('https://www.sfchronicle.com/business/article/Pollution-control-work-continues-at-Green-Island-13352075.php','body',True))
+#unsure
 #articleObjs.append(articleClass('https://www.timesunion.com/business/article/State-sued-over-industrial-water-pollution-permit-12857605.php','article--body',True))
 articleObjs.append(articleClass('https://www.newstimes.com/business/article/State-unveils-16-6-million-pollution-cleanup-13503467.php','article-body',True))
 articleObjs.append(articleClass('https://www.sfchronicle.com/business/article/Troy-steel-plant-site-pollution-cleanup-finished-13037469.php','body',True))
 
 articleObjs.append(articleClass('https://www.timesunion.com/business/article/Two-decades-later-Schenectady-chemical-factory-12904019.php','article--body',True))
+#unsure
 #articleObjs.append(articleClass('https://www.houstonchronicle.com/business/energy/article/Houston-petrochemical-maker-fined-214-000-for-13592079.php','body',True))
 articleObjs.append(articleClass('https://www.mysanantonio.com/business/national/article/Pollution-fears-Swollen-rivers-swamp-ash-dumps-13236477.php','article-body',True))
 articleObjs.append(articleClass('https://www.ctpost.com/local/article/Malloy-Trump-plan-dumps-pollution-on-Northeast-13181098.php','article-body',True))
+#unsure
 #articleObjs.append(articleClass('https://www.sfchronicle.com/news/article/1-3M-air-pollution-fine-issued-to-Gorge-aluminum-14963008.php','body',True))
 articleObjs.append(articleClass('https://www.ourmidland.com/news/article/19-Iron-Companies-Accused-of-Pollution-7187186.php','article-body',True))
 articleObjs.append(articleClass('https://apnews.com/1e328a3c2f42d8bb7f8e182e10c84db8','Article',True))
+#unsure
 #articleObjs.append(articleClass('https://www.mlive.com/news/saginaw/2016/10/epa_seeks_public_comment_on_ne.html','entry-content',True))
 articleObjs.append(articleClass('https://www.ourmidland.com/news/article/Pollution-stretches-back-years-7047346.php','article-body',True))
 articleObjs.append(articleClass('https://www.oregonlive.com/environment/2016/02/oregon_senators_portlands_toxi.html','entry-content',True))
 
+#unsure
 #articleObjs.append(articleClass('epa.gov/newsreleases/state-alaska-and-fairbanks-north-star-borough-receive-5-million-epa-grant-improve-air','node',True))
 articleObjs.append(articleClass('https://www.ourmidland.com/news/article/Study-Methane-in-Colorado-water-isn-t-always-8368712.php','article-body',True))
 articleObjs.append(articleClass('https://www.stignacenews.com/articles/questions-swirl-around-leak-at-straits/','mp_wrapper',True))
@@ -401,6 +393,7 @@ articleObjs.append(articleClass('https://www.cheboygannews.com/ZZ/sponsored/2018
 articleObjs.append(articleClass('https://www.cheboygannews.com/news/20180813/state-house-hopeful-jailed-election-day-on-pollution-charge','inner',False))
 articleObjs.append(articleClass('https://www.cheboygannews.com/zz/news/20180329/us-plant-that-destroys-chemical-weapons-knee-deep-in-troubles','inner',False))
 articleObjs.append(articleClass('https://www.hollandsentinel.com/news/20190217/epa-too-slow-on-limiting-toxic-chemicals-critics-say','inner',False))
+#unsure
 #articleObjs.append(articleClass('https://www.sentinel-standard.com/ZZ/news/20190912/english-channel-dolphins-carry-toxic-cocktail-of-chemicals','inner',False))
 articleObjs.append(articleClass('https://www.hollandsentinel.com/news/20200104/backlog-of-toxic-superfund-cleanups-grows-under-trump','inner',False))
 articleObjs.append(articleClass('https://www.hollandsentinel.com/news/20200106/research-shows-top-five-ways-to-limit-climate-change','inner',False))
@@ -420,9 +413,11 @@ articleObjs.append(articleClass('https://www.hollandsentinel.com/news/20190730/p
 
 articleObjs.append(articleClass('https://www.lenconnect.com/news/20190925/high-pfos-result-near-deerfield-water-filtration-plant-intake-due-to-lab-error','inner',False))
 articleObjs.append(articleClass('https://www.cheboygannews.com/news/20181031/allor-pledges-continued-leadership-investigation-on-pfas-contaminated-deer-in-northern-michigan','inner',False))
+#unsure
 #articleObjs.append(articleClass('https://www.cheboygannews.com/news/20181031/allor-pledges-continued-leadership-investigation-on-pfas-contaminated-deer-in-northern-michigan','inner',False))
 articleObjs.append(articleClass('https://www.cheboygannews.com/zz/news/20180809/court-orders-ban-on-harmful-pesticide-says-epa-violated-law','inner',False))
 articleObjs.append(articleClass('https://www.hillsdale.net/ZZ/news/20190821/un-dont-worry-about-drinking-microplastics-in-water','inner',False))
+#unsure
 #articleObjs.append(articleClass('https://www.hillsdale.net/ZZ/news/20190912/english-channel-dolphins-carry-toxic-cocktail-of-chemicals','inner',False))
 articleObjs.append(articleClass('https://www.hillsdale.net/ZZ/news/20190912/report-says-airlines-carbon-emissions-are-growing-fast','inner',False))
 articleObjs.append(articleClass('https://www.hillsdale.net/ZZ/news/20190912/trump-administration-drops-obama-era-water-protection-rule','inner',False))
