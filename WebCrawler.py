@@ -20,7 +20,7 @@ def goToSearchUrl(link):
     print("Page")
     print(link)
     pageSource=driver.page_source
-    time.sleep(2)
+    time.sleep(5)
     driver.quit()
     return pageSource
 
@@ -33,8 +33,8 @@ def readFromFileWebLinks(key):
             #Imports the words from the key file to replace the keyword in every search url
             with open("Keyword.txt", "r") as keyFile:
                 for key in keyFile:
-                    line.replace("Pollution", key)
-                    for numbers in range(1,100):
+                    for numbers in range(60,100):
+                        line.replace("Pollution", key)
                         urls.append(line.replace("pageNum", str(numbers)).rstrip())
     print("Urls")
     print(urls)
@@ -75,13 +75,14 @@ finalClasses = readFromFileClasses()
 mappedClasses = mapClassesToTUrls(finalClasses)
 results = []
 resultsFile = open("Results.txt", "w")
+#for keys in range(1,5):
 for url in mappedClasses:
-    page=goToSearchUrl(url)
-    classSearchTerm = mappedClasses.get(url)
-    soup = BeautifulSoup(page, 'html.parser')
-    weblinks=soup.find_all(True, {'class': [finalClasses]})
-    for weblink in weblinks:
-        getHyperlinkToArticle(resultsFile)
+        page=goToSearchUrl(url)
+        classSearchTerm = mappedClasses.get(url)
+        soup = BeautifulSoup(page, 'html.parser')
+        weblinks=soup.find_all(True, {'class': [finalClasses]})
+        for weblink in weblinks:
+            getHyperlinkToArticle(resultsFile)
 
 resultsFile.close()
 
