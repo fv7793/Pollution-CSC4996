@@ -1,5 +1,5 @@
 def openAndParseCSV(CSVfile):
-    csv = open(CSVfile,"r")
+    csv = open(CSVfile,"r",errors='ignore')
     line = csv.readline()
     cnt = 1
 
@@ -19,16 +19,17 @@ def openAndParseCSV(CSVfile):
         else:
             #TODO: account for commas being used between #s (million) in sample corpus
             split = line.split(",")
-            if '\\' in split[len(split)-4]:
-                removeBS = split[len(split)-4].split('\\')
+            #print(split[len(split)-4])
+            if '\\' in split[len(split)-3]:
+                removeBS = split[len(split)-3].split('\\')
                 #print(removeBS)
                 if(removeBS[1]!=''):
-                    tuple = (removeBS[1][0],removeBS[1][0],split[len(split)-2])
+                    tuple = (removeBS[1][0],split[len(split)-2])
                     sent.append(tuple)
-                    tuple = (removeBS[1][1:],split[len(split)-3],split[len(split)-2])
+                    tuple = (removeBS[1][1:],split[len(split)-2])
                     sent.append(tuple)
             else:
-                tuple = (split[len(split)-4],split[len(split)-3],split[len(split)-2])
+                tuple = (split[len(split)-3],split[len(split)-2])
                 sent.append(tuple)
             #put it in a tuple and append to sent
         
@@ -38,12 +39,13 @@ def openAndParseCSV(CSVfile):
     return t_s
 
 
-CSVcontent = openAndParseCSV("CSVtags.csv")
+CSVcontent = openAndParseCSV("tags.csv")
 # format of CSV content:
 #[ [(word,POS,tag),...],...,[(word,POS,tag),...] ]
 for sentence in CSVcontent:
     for wordLine in sentence:
         print(wordLine)
+
 
 
 
