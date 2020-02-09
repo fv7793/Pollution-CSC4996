@@ -38,6 +38,8 @@ def newsTextToCSV(text, CSVfile):
                 firstWord=False
             else:
                 CSVline = "NaN,"
+            if tW[i]==',':
+                continue
             CSVline = CSVline+tW[i]+","+POS[i]+",O,\n"
             #write to file
             file.write(CSVline)
