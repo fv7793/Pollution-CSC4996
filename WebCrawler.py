@@ -25,7 +25,7 @@ def goToSearchUrl(link):
     return pageSource
 
 # Allows us to change the keyword for every website we need to collect data on.
-def readFromFileWebLinks(key):
+def readAndReplaceFromFileWebLinks(key):
     urls = []
     num= []
     with open("WebLinks.txt", "r") as file:
@@ -33,12 +33,24 @@ def readFromFileWebLinks(key):
             #Imports the words from the key file to replace the keyword in every search url
             with open("Keyword.txt", "r") as keyFile:
                 for key in keyFile:
-                    for numbers in range(60,100):
-                        line.replace("Pollution", key)
-                        urls.append(line.replace("pageNum", str(numbers)).rstrip())
+                    line.replace("Pollution", key)
+                    for numbers in range(1,100):
+                        urls.append(line.replace("Pollution", key.rstrip()).replace("pageNum", str(numbers)).rstrip())
     print("Urls")
     print(urls)
     return urls
+    print(url)
+# Allows us to change the keyword for every website we need to collect data on.
+def readFromFileWebLinks(key):
+    urls = []
+    num= []
+    with open("WebLinks.txt", "r") as file:
+        for line in file:
+            urls.append(line.rstrip())
+    print("Urls")
+    print(urls)
+    return urls
+    print(url)
 
 #Reads the classes which contain the article links in from classes.txt
 def readFromFileClasses():
@@ -52,12 +64,12 @@ def mapClassesToTUrls(finalClasses):
     dict = {}
     for x in range(len(finalClasses)-1):
         className = finalClasses[x]
-        url = finalUrls[x]
+        url = urlsFromFile[x]
         dict1 = {url: className}
         dict.update(dict1)
     return dict
 
-#Strips the artcile links of uneeded html and puts them in Results.txt
+#Strips the artcile links of unneeded html and puts them in Results.txt
 def getHyperlinkToArticle(file):
     hyperlink = str(weblink.find("a", href=True))
     if (hyperlink != "None"):
@@ -67,22 +79,24 @@ def getHyperlinkToArticle(file):
         file.writelines('\n')
         print(str(weblink.find("a", href=True)).split('"', 2)[1])
 
-# Allows the user to input a keyword to see what articles are on each site.
 key= []
 print(key)
-finalUrls = readFromFileWebLinks(key)
+#final urls replaced with urls from file
+urlsFromFile = readFromFileWebLinks(key)
 finalClasses = readFromFileClasses()
 mappedClasses = mapClassesToTUrls(finalClasses)
 results = []
 resultsFile = open("Results.txt", "w")
-#for keys in range(1,5):
 for url in mappedClasses:
-        page=goToSearchUrl(url)
-        classSearchTerm = mappedClasses.get(url)
-        soup = BeautifulSoup(page, 'html.parser')
-        weblinks=soup.find_all(True, {'class': [finalClasses]})
-        for weblink in weblinks:
-            getHyperlinkToArticle(resultsFile)
+        #generate correct urls using keyword and page
+        finalUrls = readAndReplaceFromFileWebLinks(key)
+        for link in finalUrls:
+            page=goToSearchUrl(link)
+            classSearchTerm = mappedClasses.get(link)
+            soup = BeautifulSoup(page, 'html.parser')
+            weblinks=soup.find_all(True, {'class': [finalClasses]})
+            for weblink in weblinks:
+                getHyperlinkToArticle(resultsFile)
 
 resultsFile.close()
 

@@ -1,1 +1,7 @@
-pollution
+pollute
+contaminate
+spill
+leak
+dump
+chemical
+toxic
