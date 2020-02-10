@@ -198,8 +198,8 @@ articleObjs.append(articleClass('https://www.mlive.com/news/saginaw/2018/09/chem
 articleObjs.append(articleClass('https://www.mlive.com/news/grand-rapids/2014/03/up_to_755_gallons_of_crude_oil.html', 'entry-content', True))
 #36
 articleObjs.append(articleClass('https://www.mlive.com/news/2019/09/110k-fine-levied-for-downtown-grand-rapids-air-pollution.html', 'entry-content', True))
-#37
-articleObjs.append(articleClass('https://www.record-eagle.com/state/superfund-cleanup-considered-for-detroit-green-goo-site/article_428248df-1ac8-5063-8ce0-02a4c1cf4481.html', 'asset-content', True))
+#37 ?????????
+#articleObjs.append(articleClass('https://www.record-eagle.com/state/superfund-cleanup-considered-for-detroit-green-goo-site/article_428248df-1ac8-5063-8ce0-02a4c1cf4481.html', 'asset-content', True))
 #38
 articleObjs.append(articleClass('https://www.mibiz.com/sections/manufacturing/state-continues-air-pollution-probe-at-grand-rapids-medical-sterilizer?highlight=WyJwb2xsdXRpb24iXQ==', 'pigeon-first-p', True))
 #39
