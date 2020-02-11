@@ -13,29 +13,34 @@ def convertScrapedtoSent(splitContent):
 
 def paragraphToWords(splitContent):
     tokenizedWords = []
+    POS = []
     NLPtxt = nlp(splitContent)
     for eachWord in NLPtxt:
         tokenizedWords.append(eachWord.text)
-        print(eachWord)
-    return tokenizedWords
+        POS.append(eachWord.tag_)
+    return tokenizedWords, POS
 
 def newsTextToCSV(text, CSVfile):
     #open CSV
+
+#TODO: REMOVE COMMAS FROM THE GIVEN TEXT BEFORE INSERTING INTO CSV
+    
     file = open(CSVfile, 'a+')
     tS = convertScrapedtoSent(text)
     sentNum = 1
     for sent in tS:
-        tW = paragraphToWords(sent)
+        tW, POS = paragraphToWords(sent)
         firstWord = True
-        for word in tW:
+        for i in range(len(tW)):
             CSVline = ""
             if(firstWord==True):
                 CSVline = "Sentence "+str(sentNum)+","
                 firstWord=False
             else:
                 CSVline = "NaN,"
-            CSVline = CSVline+word+",O,\n"
-            print(CSVline)
+            if tW[i]==','or tW[i]=='\\':
+                continue
+            CSVline = CSVline+tW[i]+","+POS[i]+",O,\n"
             #write to file
             file.write(CSVline)
         
