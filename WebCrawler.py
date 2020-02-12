@@ -1,4 +1,5 @@
 import random
+from lib2to3.pgen2 import driver
 
 import requests
 from bs4 import BeautifulSoup as soup, BeautifulSoup, SoupStrainer
@@ -14,14 +15,14 @@ from random_user_agent.params import SoftwareName, OperatingSystem
 def goToSearchUrl(link):
     chrome_options1 = Options()
     chrome_options1.add_argument("--headless")
-    chrome_options1.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36')
+    chrome_options1.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 Safari/537.36')
     driver = webdriver.Chrome('C:/Users/mhere/OneDrive/Desktop/chromedriver', options=chrome_options1)
     page1=driver.get(link)
     print("Page")
     print(link)
     pageSource=driver.page_source
-    time.sleep(5)
-    driver.quit()
+    time.sleep(2)
+    #driver.quit()
     return pageSource
 
 # Allows us to change the keyword for every website we need to collect data on.
@@ -34,7 +35,7 @@ def readAndReplaceFromFileWebLinks(key):
             with open("Keyword.txt", "r") as keyFile:
                 for key in keyFile:
                     line.replace("Pollution", key)
-                    for numbers in range(1,100):
+                    for numbers in range(1,2):
                         urls.append(line.replace("Pollution", key.rstrip()).replace("pageNum", str(numbers)).rstrip())
     print("Urls")
     print(urls)
@@ -50,7 +51,14 @@ def readFromFileWebLinks(key):
     print("Urls")
     print(urls)
     return urls
-    print(url)
+
+def getClassesForDates():
+    dates= []
+    with open("Date.txt", "r") as file:
+        for line in file:
+            dates.append(line.rstrip())
+    print(dates)
+    return dates
 
 #Reads the classes which contain the article links in from classes.txt
 def readFromFileClasses():
@@ -79,12 +87,20 @@ def getHyperlinkToArticle(file):
         file.writelines('\n')
         print(str(weblink.find("a", href=True)).split('"', 2)[1])
 
+def articlePusblishedIn2019To2020(dateSpan):
+    print(dateSpan.__contains__("2020"))
+    if dateSpan.contains("2019"):
+        return True
+    else:
+        return False
+
 key= []
 print(key)
 #final urls replaced with urls from file
 urlsFromFile = readFromFileWebLinks(key)
 finalClasses = readFromFileClasses()
 mappedClasses = mapClassesToTUrls(finalClasses)
+articleClasssesForDates = getClassesForDates()
 results = []
 resultsFile = open("Results.txt", "w")
 for url in mappedClasses:
@@ -95,8 +111,14 @@ for url in mappedClasses:
             classSearchTerm = mappedClasses.get(link)
             soup = BeautifulSoup(page, 'html.parser')
             weblinks=soup.find_all(True, {'class': [finalClasses]})
+           # soup1 = BeautifulSoup(page, 'html.parser')
+            #dates=soup1.find_all(True, {'class': [articleClasssesForDates]})
+            #print("Date")
+            #print(dates)
+            #counter=0
             for weblink in weblinks:
-                getHyperlinkToArticle(resultsFile)
-
+                #if articlePusblishedIn2019To2020(dates[counter]):
+                    getHyperlinkToArticle(resultsFile)
+                    #counter=counter+1
 resultsFile.close()
 
