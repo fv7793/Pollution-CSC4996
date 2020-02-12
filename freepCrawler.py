@@ -62,8 +62,13 @@ class FreepCrawler():
                             front = line.strip()
                 for link in links:
                     if "/story/news/" in link['href']:
-                        print(front + link['href'])
-                        self.urls.append(front + link['href'])
+                        if "https" not in link['href']:
+                            print(front + link['href'])
+                            self.urls.append(front + link['href'])
+                        else:
+                            print(link['href'])
+                            self.urls.append(link['href'])
+                        
 
         except requests.exceptions.ConnectionError:
             print("[-] Connection refused: too man requests")
