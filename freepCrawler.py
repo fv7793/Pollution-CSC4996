@@ -14,9 +14,12 @@ class FreepCrawler():
         self.baseURLs = []
         self.keywords = []
 
-        for key in keywords:
-            self.keywords.append(key)
-            self.baseURLs.append("https://www.freep.com/search/" + key + "/")
+        with open("searchUrls.txt", "r") as file:
+            for line in file:
+                for key in keywords:
+                    self.keywords.append(key)
+                    base = line.strip()
+                    self.baseURLs.append(base + key + "/")
 
 
     # print all urls that have been crawled
@@ -29,9 +32,7 @@ class FreepCrawler():
     def crawlURLs(self):
         try:
             for url in self.baseURLs:
-
-                print("\n[+] Crawling articles with keyword \"" + str(url.split("/")[4]) + "\"")
-
+                lessThanYear = True
                 if platform == "darwin":
                     chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_mac"
                 else:
@@ -39,36 +40,43 @@ class FreepCrawler():
 
                 options = Options()
                 options.add_argument('--headless')
-                driver = webdriver.Chrome(chromeDriverPath, options=options)
-                driver.get(url)
+                page = webdriver.Chrome(chromeDriverPath, options=options)
+                page.get(url)
 
-                withinLastYear = True
+                # This will visit any web browser you want, go to the url, and scroll the predetermined amount of times and then grab the page source after scrolling which will have all of the article links
+                while lessThanYear:
+                    i = 0
+                    while i < 4:
+                        page.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                        source = page.page_source
+                        # Will call the function that holds dates and catch a date that is from 2018 and end the loop, therefore only grabbing articles after 12/31/2018
+                        lessThanYear = self.getSearchPageDates(source)
+                        i += 1
 
-                while withinLastYear:
-                    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-                    soup_page = soup(driver.page_source, 'html.parser')
-                    articleDates = soup_page.find_all(class_="date-created meta-info-text")
-
-                    for date in articleDates:
-                        if "2019" in date.get_text():
-                            withinLastYear = False
-
-
-                source = driver.page_source
                 soup_page = soup(source, 'html.parser')
                 links = soup_page.find_all('a', href=True)
-
-            for link in links:
-                if "/story/news/local/michigan/" in link['href']:
-                    self.urls.append("https://www.freep.com" + link['href'])
-                    print("\t[+] retrieved " + "https://www.freep.com" + link['href'])
-                    time.sleep(0.5)
-
-            print("\n[+] Crawling complete.\n")
+                front = ""
+                with open("baseURLs.txt", "r") as file:
+                    for line in file:
+                        if line.strip() in url:
+                            front = line.strip()
+                for link in links:
+                    if "/story/news/" in link['href']:
+                        print(front + link['href'])
+                        self.urls.append(link['href'])
 
         except requests.exceptions.ConnectionError:
             print("[-] Connection refused: too man requests")
+
+    def getSearchPageDates(self, source):
+
+        dates = True
+        page = soup(source, 'html.parser')
+        articleDates = page.find_all(class_="date-created meta-info-text")
+        for date in articleDates:
+            if "2018" in date.get_text():
+                dates = False
+        return(dates)
 
 
     def getURLs(self):
