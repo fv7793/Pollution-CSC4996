@@ -68,7 +68,7 @@ class FreepCrawler():
                         else:
                             print(link['href'])
                             self.urls.append(link['href'])
-                        
+
 
         except requests.exceptions.ConnectionError:
             print("[-] Connection refused: too man requests")
