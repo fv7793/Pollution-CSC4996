@@ -13,34 +13,40 @@ def convertScrapedtoSent(splitContent):
 
 def paragraphToWords(splitContent):
     tokenizedWords = []
+    positions = []
+    tag = []
     POS = []
+    ent = []
     NLPtxt = nlp(splitContent)
     for eachWord in NLPtxt:
-        tokenizedWords.append(eachWord.text)
-        POS.append(eachWord.tag_)
-    return tokenizedWords, POS
+        tokenizedWords.append(eachWord.text.upper())
+        tag.append(eachWord.tag_)
+        positions.append(eachWord.ent_iob_)
+        ent.append(eachWord.ent_type_)
+    return tokenizedWords, tag, positions, ent
 
 def newsTextToCSV(text, CSVfile):
     #open CSV
 
 #TODO: REMOVE COMMAS FROM THE GIVEN TEXT BEFORE INSERTING INTO CSV
     
-    file = open(CSVfile, 'a+')
+    file = open("train.txt", 'a+')
     tS = convertScrapedtoSent(text)
     sentNum = 1
     for sent in tS:
-        tW, POS = paragraphToWords(sent)
+        tW, tag, position, ent = paragraphToWords(sent)
         firstWord = True
         for i in range(len(tW)):
             CSVline = ""
             if(firstWord==True):
-                CSVline = "Sentence "+str(sentNum)+","
+                CSVline = "\n"
                 firstWord=False
             else:
-                CSVline = "NaN,"
-            if tW[i]==',':
-                continue
-            CSVline = CSVline+tW[i]+","+POS[i]+",O,\n"
+                CSVline = ""
+            x = "-"
+            if position[i]=='O':
+                x = ""
+            CSVline = CSVline+tW[i]+" "+tag[i]+" "+position[i]+" "+position[i]+x+ent[i]+" "+"\n"
             #write to file
             file.write(CSVline)
         
