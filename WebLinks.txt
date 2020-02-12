@@ -17,3 +17,4 @@ https://www.leaderpub.com/site-search/?q=pollution
 http://www.marion-press.com/?s=a&x=0&y=0
 https://thecountypress.mihomepaper.com/?s=pollution
 https://www.lakecountystar.com/search/?action=search&firstRequest=1&searchindex=solr&query=pollution
+https://www.record-eagle.com/search/?l=25&sd=desc&s=start_time&f=html&app=editorial&q=pollution&nsa=eedition
