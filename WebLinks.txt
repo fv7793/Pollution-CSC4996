@@ -1,3 +1,5 @@
+https://www.michigansthumb.com/search/?action=search&searchindex=solr&query=Pollution&sort=date&page=pageNum
+https://www.stignacenews.com/page/pageNum/?s=Pollution
 https://www.lenconnect.com/search?text=Pollution&start=pageNum
 https://www.sooeveningnews.com/search?text=Pollution&start=pageNum
 https://www.cheboygannews.com/search?text=Pollution&start=pageNum
@@ -7,5 +9,11 @@ https://www.sentinel-standard.com/search?text=Pollution&start=pageNum
 https://www.sturgisjournal.com/search?text=Pollution&start=pageNum
 https://www.hollandsentinel.com/search?text=Pollution&start=pageNum
 https://www.monroenews.com/search?text=Pollution&start=pageNum
-https://www.stignacenews.com/page/pageNum/?s=Pollution
 https://www.ourmidland.com/search/?action=search&searchindex=solr&query=Pollution&sort=date&page=pagenum
+https://www.grbj.com/search?q=pollution
+https://www.candgnews.com/search?q=pollution
+https://www.mlive.com/search/?q=pollution
+https://www.leaderpub.com/site-search/?q=pollution
+http://www.marion-press.com/?s=a&x=0&y=0
+https://thecountypress.mihomepaper.com/?s=pollution
+https://www.lakecountystar.com/search/?action=search&firstRequest=1&searchindex=solr&query=pollution
