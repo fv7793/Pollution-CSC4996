@@ -5,8 +5,8 @@ import en_core_web_sm
 nlp = en_core_web_sm.load()
 
 def CSVConvert():
-    file = open("AustinCSVtest.csv",'r',encoding='cp437')
-    newfile = open("austin-tsv.txt","w",encoding='cp437')
+    file = open("IshaCSVtest.csv",'r',encoding='cp437')
+    newfile = open("isha-csvfile-tsv.txt","w",encoding='cp437')
     line = file.readline()
     sent = []
     POS = []
