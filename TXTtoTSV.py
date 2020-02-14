@@ -30,7 +30,7 @@ def newsTextToTSV(text, TSVfile):
 
 #TODO: REMOVE COMMAS FROM THE GIVEN TEXT BEFORE INSERTING INTO CSV
     
-    file = open(TSVfile, 'a+', encoding='cp437')
+    file = open(TSVfile, 'a+', encoding='cp437', errors='ignore')
     file.write('-DOCSTART-')
     tS = convertScrapedtoSent(text)
     sentNum = 1
@@ -56,12 +56,15 @@ def newsTextToTSV(text, TSVfile):
     file.close()
 
 
-txtfile = open("sophia-200-article-bodies.txt", 'r', encoding='cp437', errors='ignore')
+txtfile = open("Austin200ArticleBodies.txt", 'r', encoding='cp437', errors='ignore')
 line = txtfile.readline()
+i=0
 while line:
-    if "-DOCSTART-" not in line:
-        newsTextToTSV(line, "sophia-200-articles-tsv.txt")
+    if "-DOCSTART-" not in line and line!='\n':
+        newsTextToTSV(line, "austin-200-articles-tsv.txt")
+        i=i+1
     line=txtfile.readline()
+    print(i)
 
 
 

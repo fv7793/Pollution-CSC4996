@@ -26,11 +26,11 @@ def URLtoClassName(URL):
     elif 'lohud.com' in URL:
         className = "asset-double-wide"
     elif 'lenconnect.com' in URL:
-        className = "article-body"
+        className = "inner"
     elif 'jsonline.com' in URL:
         className = "asset-double-wide"
     elif 'hollandsentinel.com' in URL:
-        className = "article-body"
+        className = "inner"
     elif 'freep.com' in URL:
         className = "asset-double-wide"
     elif 'desmoinesregister.com' in URL:
