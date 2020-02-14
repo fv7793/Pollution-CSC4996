@@ -64,7 +64,7 @@ txtfile = open("sophia-positive200URLS.txt", 'r', encoding='utf-8')
 line = txtfile.readline()
 articles = []
 while line:
-    if line!='' and '*' not in line:
+    if line!='' and line!='\n' and '*' not in line:
         className = URLtoClassName(line)
         articles.append(articleClass(line[:-1], className))
     line=txtfile.readline()
