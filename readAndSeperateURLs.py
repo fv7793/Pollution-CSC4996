@@ -23,6 +23,26 @@ def URLtoClassName(URL):
         className = 'inner'
     elif 'mlive.com' in URL:
         className = 'entry-content'
+    elif 'lohud.com' in URL:
+        className = "asset-double-wide"
+    elif 'lenconnect.com' in URL:
+        className = "article-body"
+    elif 'jsonline.com' in URL:
+        className = "asset-double-wide"
+    elif 'hollandsentinel.com' in URL:
+        className = "article-body"
+    elif 'freep.com' in URL:
+        className = "asset-double-wide"
+    elif 'desmoinesregister.com' in URL:
+        className = "asset-double-wide"
+    elif 'cincinnati.com' in URL:
+        className = "asset-double-wide"
+    elif 'commercialappeal.com' in URL:
+        className = "asset-double-wide"
+    elif 'azcentral.com' in URL:
+        className = "asset-double-wide"
+    elif 'app.com' in URL:
+        className = "asset-double-wide"
     return className
 
 def convertScrapedtoSent(splitContent):
@@ -60,7 +80,7 @@ class articleClass:
 
 
 
-txtfile = open("sophia-positive200URLS.txt", 'r', encoding='utf-8')
+txtfile = open("AustinUniqueURLs.txt", 'r', encoding='utf-8')
 line = txtfile.readline()
 articles = []
 while line:
@@ -70,7 +90,7 @@ while line:
     line=txtfile.readline()
 txtfile.close()
 
-outfile = open("sophia-200-article-bodies.txt",'w',encoding='utf-8')
+outfile = open("Austin200ArticleBodies.txt",'w',encoding='utf-8')
 for article in articles:
     outfile.write("-DOCSTART-\n")
     outfile.write(article.getContent()+"\n")
