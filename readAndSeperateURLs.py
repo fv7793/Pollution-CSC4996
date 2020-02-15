@@ -43,6 +43,8 @@ def URLtoClassName(URL):
         className = "asset-double-wide"
     elif 'app.com' in URL:
         className = "asset-double-wide"
+    elif 'michigansthumb.com' in URL:
+        className = "article-body"
     return className
 
 def convertScrapedtoSent(splitContent):
@@ -80,7 +82,7 @@ class articleClass:
 
 
 
-txtfile = open("AustinUniqueURLs.txt", 'r', encoding='utf-8')
+txtfile = open("IshaUniqueURLs.txt", 'r', encoding='utf-8')
 line = txtfile.readline()
 articles = []
 while line:
@@ -90,7 +92,7 @@ while line:
     line=txtfile.readline()
 txtfile.close()
 
-outfile = open("Austin200ArticleBodies.txt",'w',encoding='utf-8')
+outfile = open("Isha-98-Article-Bodies.txt",'w',encoding='utf-8')
 for article in articles:
     outfile.write("-DOCSTART-\n")
     outfile.write(article.getContent()+"\n")
