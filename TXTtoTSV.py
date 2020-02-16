@@ -44,9 +44,7 @@ def newsTextToTSV(text, TSVfile):
                 firstWord=False
             else:
                 TSVline = ""
-    
-            if position[i]=='O':
-                x = ""
+
             TSVline = TSVline+tW[i]+" "+tag[i]+" "+position[i]+" "+position[i]+"\n"
             #write to file
             file.write(TSVline)
