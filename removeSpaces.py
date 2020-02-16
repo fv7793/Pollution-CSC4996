@@ -18,8 +18,8 @@ def removeTags():
     newfile.close()
 
 def removeSpaces():
-    file = open("sophia-200-articles-tsv.txt",encoding='utf-8', errors="ignore")
-    newfile = open("sophia-200-articles-tsv-no.txt","w",encoding='utf-8', errors="ignore")
+    file = open("michael-200-articles-tsv.txt",encoding='utf-8', errors="ignore")
+    newfile = open("michael-200-articles-tsv-no.txt","w",encoding='utf-8', errors="ignore")
     line = file.readline()
     while line:
         if line=='\n':
