@@ -54,12 +54,12 @@ def newsTextToTSV(text, TSVfile):
     file.close()
 
 
-txtfile = open("sophia-200-article-bodies.txt", 'r', encoding='cp437', errors='ignore')
+txtfile = open("saular-eventsBodyList.txt", 'r', encoding='cp437', errors='ignore')
 line = txtfile.readline()
 i=0
 while line:
     if "-DOCSTART-" not in line and line!='\n':
-        newsTextToTSV(line, "sophia-200-articles-tsv.txt")
+        newsTextToTSV(line, "saular-200-articles-tsv.txt")
         i=i+1
     line=txtfile.readline()
     print(i)
