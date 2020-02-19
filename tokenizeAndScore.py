@@ -117,6 +117,47 @@ def convertScrapedtoSent(splitContent):
             tokenizedSent.append(eachSent.string.strip())
     return tokenizedSent
 
+def URLtoClassName(URL):
+    className = ""
+    if 'michigansthumb.com' in URL:
+        className = "article-body"
+    elif 'monroenews.com' in URL:
+        className = "inner"
+    elif 'northjersey.com' in URL:
+        className = "asset-double-wide"
+    elif 'sentinel-standard.com' in URL:
+        className = "inner"
+    elif 'stignacenews.com' in URL:
+        className =  'entry-content'
+    elif 'sturgisjournal.com' in URL:
+        className = 'inner'
+    elif 'thedailyreporter.com' in URL:
+        className = 'inner'
+    elif 'mlive.com' in URL:
+        className = 'entry-content'
+    elif 'lohud.com' in URL:
+        className = "asset-double-wide"
+    elif 'lenconnect.com' in URL:
+        className = "inner"
+    elif 'jsonline.com' in URL:
+        className = "asset-double-wide"
+    elif 'hollandsentinel.com' in URL:
+        className = "inner"
+    elif 'freep.com' in URL:
+        className = "asset-double-wide"
+    elif 'desmoinesregister.com' in URL:
+        className = "asset-double-wide"
+    elif 'cincinnati.com' in URL:
+        className = "asset-double-wide"
+    elif 'commercialappeal.com' in URL:
+        className = "asset-double-wide"
+    elif 'azcentral.com' in URL:
+        className = "asset-double-wide"
+    elif 'app.com' in URL:
+        className = "asset-double-wide"
+    elif 'michigansthumb.com' in URL:
+        className = "article-body"
+    return className
 
 
 
@@ -124,6 +165,16 @@ def convertScrapedtoSent(splitContent):
 #for each URL
     #initialize an article class obj
 articleObjs = []
+
+txtfile = open("URLs.txt", 'r', encoding='utf-8')
+line = txtfile.readline()
+
+while line:
+    if line!='' and line!='\n' and '*' not in line:
+        className = URLtoClassName(line)
+        articleObjs.append(articleClass(line[:-1], className,True))
+    line=txtfile.readline()
+txtfile.close()
 
 #POSITIVES (key terms for identifying if “contamination event”)
 #1
@@ -165,13 +216,13 @@ articleObjs.append(articleClass('https://www.petoskeynews.com/news/community/mic
 #19
 articleObjs.append(articleClass('https://www.petoskeynews.com/charlevoix/black/toxic-land-one-family-s-story/article_0e18578b-66fa-56ff-9f4b-77666799cab1.html', 'asset-content', True))
 #20
-articleObjs.append(articleClass('https://www.petoskeynews.com/ap/state/cleanup-of-contaminated-site-is-expected-to-cost-millions/article_9d317aec-edf6-59ee-b35d-1351e5876012.html', 'asset-content', True))
+#articleObjs.append(articleClass('https://www.petoskeynews.com/ap/state/cleanup-of-contaminated-site-is-expected-to-cost-millions/article_9d317aec-edf6-59ee-b35d-1351e5876012.html', 'asset-content', True))
 #21
 articleObjs.append(articleClass('https://www.petoskeynews.com/featured-pnr/leak-reported-from-wastewater-pump-station-line-in-harbor-springs/article_c15ca4d0-6cdf-5dc6-ac94-ab259e9a2d77.html', 'asset-content', True))
 #22
 articleObjs.append(articleClass('https://www.petoskeynews.com/gaylord/news/local/crews-clean-up-fuel-oil-spill-along-walloon-lake-shore/article_ec93ee17-73f6-5461-911a-45164fc0ed79.html', 'asset-content', True))
 #23
-articleObjs.append(articleClass('https://www.petoskeynews.com/news/state-region/michigan-sues-m-dupont-over-forever-chemicals-in-water/article_5a3d491d-45cf-5876-b216-2d6417a0a63c.html', 'asset-content', True))
+#articleObjs.append(articleClass('https://www.petoskeynews.com/news/state-region/michigan-sues-m-dupont-over-forever-chemicals-in-water/article_5a3d491d-45cf-5876-b216-2d6417a0a63c.html', 'asset-content', True))
 #24
 #articleObjs.append(articleClass('https://michiganchronicle.com/2018/04/03/pollution-and-southwest-detroit/', 'entry-content', True))
 #25
