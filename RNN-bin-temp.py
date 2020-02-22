@@ -50,18 +50,32 @@ class Ner(BertForTokenClassification):
         else:
             return logits
 
+class DataProcessor(object):
+    """Base class for data converters for sequence classification data sets."""
 
-class NerProcessor():
+    def get_examples(self):
+        """Gets a collection of `InputExample`s for the train set."""
+        raise NotImplementedError()
+
+    @classmethod
+    def _read_tsv(cls, input_file, quotechar=None):
+        """Reads a tab separated value file."""
+        return readfile(input_file)
+
+
+class NerProcessor(DataProcessor):
     """Processor for the CoNLL-2003 data set."""
 
     def get_examples(self):
         """See base class."""
         return self._create_examples(
-            readfile("./test.txt"), "test") #----SHORTEN calls readfile
+            self._read_tsv("./test.txt"), "test") #----SHORTEN calls readfile
 
     def _create_examples(self,lines,set_type):
         examples = []
+        #print(lines)
         for i,(sentence,label) in enumerate(lines):
+            #print("SENT",sentence,"LABEL",label)
             guid = "%s-%s" % (set_type, i)
             text_a = ' '.join(sentence)
             text_b = None
@@ -155,13 +169,31 @@ def convert_examples_to_features(examples, label_list, max_seq_length, tokenizer
     return features
 
 class InputExample(object):
+    """A single training/test example for simple sequence classification."""
+
     def __init__(self, guid, text_a, text_b=None, label=None):
+        """Constructs a InputExample.
+
+        Args:
+            guid: Unique id for the example.
+            text_a: string. The untokenized text of the first sequence. For single
+            sequence tasks, only this sequence must be specified.
+            text_b: (Optional) string. The untokenized text of the second sequence.
+            Only must be specified for sequence pair tasks.
+            label: (Optional) string. The label of the example. This should be
+            specified for train and dev examples, but not for test examples.
+        """
         self.guid = guid
         self.text_a = text_a
+        #print("TEXT A ", self.text_a)
         self.text_b = text_b
+        #print("TEXT B ", self.text_b)
         self.label = label
+        #print("LABEL ", self.label)
 
 class InputFeatures(object):
+    """A single set of features of data."""
+
     def __init__(self, input_ids, input_mask, segment_ids, label_id, valid_ids=None, label_mask=None, origWords=[]):
         self.input_ids = input_ids
         self.input_mask = input_mask
@@ -172,21 +204,23 @@ class InputFeatures(object):
         self.origWords = origWords
 
 def readfile(filename):
-#FORMAT FOR FILE: word\nword\n...
+    '''
+    read file
+    '''
     f = open(filename, encoding='cp437')
     data = []
     sentence = []
     label= []
     for line in f:
-        if len(line)==0 or "DOCSTART" in line or line[0]=="\n":
+        if len(line)==0 or line.startswith('-DOCSTART') or line[0]=="\n":
             if len(sentence) > 0:
                 data.append((sentence,label))
                 sentence = []
                 label = []
             continue
         splits = line.split(' ')
-        sentence.append(splits[0][:-1]) #do not include the end line
-        label.append("O")
+        sentence.append(splits[0])
+        label.append(splits[-1][:-1])
 
     if len(sentence) >0:
         data.append((sentence,label))
@@ -202,7 +236,7 @@ tokenizer = BertTokenizer.from_pretrained("./out_base") #do lowercase??
 
 model.to(device)
 
-label_list = ["O", "B-chem", "I-chem", "B-PERCENT", "I-PERCENT", "B-EVENT", "I-EVENT","B-QUANTITY", "I-QUANTITY", "B-PRODUCT","I-PRODUCT","B-ORG", "I-ORG","B-LAW", "I-LAW","B-NORP", "I-NORP", "B-ORDINAL", "I-ORDINAL","B-WORK_OF_ART", "I-WORK_OF_ART","B-LOC", "I-LOC","B-DATE", "I-DATE","B-GPE", "I-GPE","B-CARDINAL", "I-CARDINAL","B-PERSON", "I-PERSON","B-FAC", "I-FAC","B-TIME", "I-TIME","B-MONEY", "I-MONEY","[CLS]", "[SEP]"]
+label_list = ["O", "B-chem", "I-chem", "B-quant", "I-quant", "[CLS]", "[SEP]"]
 
 eval_examples = processor.get_examples()
 eval_features = convert_examples_to_features(eval_examples, label_list, 128, tokenizer)
@@ -228,8 +262,7 @@ nb_eval_steps, nb_eval_examples = 0, 0
 y_true = []
 y_pred = []
 label_map = {i : label for i, label in enumerate(label_list,1)}
-
-for input_ids, input_mask, segment_ids, label_ids,valid_ids,l_mask in tqdm(eval_dataloader, desc="\nEvaluating"):
+for input_ids, input_mask, segment_ids, label_ids,valid_ids,l_mask in tqdm(eval_dataloader, desc="Evaluating"):
     input_ids = input_ids.to(device)
     input_mask = input_mask.to(device)
     segment_ids = segment_ids.to(device)
@@ -261,7 +294,7 @@ for input_ids, input_mask, segment_ids, label_ids,valid_ids,l_mask in tqdm(eval_
 
 for i in range(len(y_pred)):
     for j in range(len(y_pred[i])):
-        if('chem' in y_pred[i][j] or 'QUANTITY' in y_pred[i][j]): #and y_pred[i][j]==y_true[i][j]
+        if('chem' in y_pred[i][j] or 'quant' in y_pred[i][j]): #and y_pred[i][j]==y_true[i][j]
             print("FOUND: ",y_pred[i][j], words[i][j])
 
 
