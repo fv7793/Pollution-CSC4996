@@ -15,14 +15,12 @@ pPt = Matcher(nlp.vocab)
 pPt.add("pat1",None,
         [{"POS": "PROPN"},{"POS": "PUNCT", "OP":"?"}, {"POS": "DET", "OP":"?"},{"LEMMA": {"IN": [
                             "director","engineer","governer","mayor","manager",
-                           "official","CEO","COO","commissioner","spokesperson",
-                           "spokeswoman","spokesman","representative", "chief", "coordinator"]}}]
+                           "official","commissioner","representative", "chief", "coordinator"]}}]
         )
 pPt.add("pat2",None,
         [{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued", "warned"]}},
         {"POS":"NOUN","OP":"*"},{"LEMMA": {"IN": ["director","engineer","governer","mayor","manager",
-                           "official","CEO","COO","commissioner","spokesperson",
-                           "spokeswoman","spokesman","representative","cheif","coordinator"]}}]
+                           "official","commissioner","representative","cheif","coordinator"]}}]
         )
 pPt.add("pat3",None,[{"LEMMA": {"IN": ["official","Official"]}},
                      {"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued","warned"]}}]) #lemmatized words (said/discussed/etc.)
@@ -30,6 +28,10 @@ pPt.add("pat3",None,[{"LEMMA": {"IN": ["official","Official"]}},
 pPt.add("pat4",None,
         [{"LEMMA": {"IN": ["According", "according"]}}])
 
+negP = Matcher(nlp.vocab)
+negP.add("pat1",None,
+        [{"LEMMA": {"IN": ["foundation", "non-profit", "company","spokesperson",
+                           "spokeswoman","spokesman"]}}])
 class locatedData:
     def __init__(self):
         chemicals = []
@@ -62,12 +64,15 @@ while(line):
         print("\nArticle "+str(i)+":")
         i = i+1
     for sent in temp:
-        nER = nlp(sent)
-        
+        nER = nlp(sent)        
         matchesInSent = pPt(nER)
+        neg1 = negP(nER)
         temp = nlp(sent.lower())
         secondMatch = pPt(temp)
-        if matchesInSent or secondMatch:
+        neg2 = negP(nER)
+        if neg1 or neg2:
+            continue
+        elif matchesInSent or secondMatch:
             results.append(sent)
             print(sent)
             for entity in nER.ents:
