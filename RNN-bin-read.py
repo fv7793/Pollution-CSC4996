@@ -202,7 +202,7 @@ tokenizer = BertTokenizer.from_pretrained("./out_base") #do lowercase??
 
 model.to(device)
 
-label_list = ["O", "B-chem", "I-chem", "B-PERCENT", "I-PERCENT", "B-EVENT", "I-EVENT","B-QUANTITY", "I-QUANTITY", "B-PRODUCT","I-PRODUCT","B-ORG", "I-ORG","B-LAW", "I-LAW","B-NORP", "I-NORP", "B-ORDINAL", "I-ORDINAL","B-WORK_OF_ART", "I-WORK_OF_ART","B-LOC", "I-LOC","B-DATE", "I-DATE","B-GPE", "I-GPE","B-CARDINAL", "I-CARDINAL","B-PERSON", "I-PERSON","B-FAC", "I-FAC","B-TIME", "I-TIME","B-MONEY", "I-MONEY","[CLS]", "[SEP]"]
+label_list = ["O", "B-chem", "I-chem", "B-quant", "I-quant", "[CLS]", "[SEP]"]
 
 eval_examples = processor.get_examples()
 eval_features = convert_examples_to_features(eval_examples, label_list, 128, tokenizer)
@@ -261,7 +261,7 @@ for input_ids, input_mask, segment_ids, label_ids,valid_ids,l_mask in tqdm(eval_
 
 for i in range(len(y_pred)):
     for j in range(len(y_pred[i])):
-        if('chem' in y_pred[i][j] or 'QUANTITY' in y_pred[i][j]): #and y_pred[i][j]==y_true[i][j]
+        if('chem' in y_pred[i][j] or 'quant' in y_pred[i][j]): #and y_pred[i][j]==y_true[i][j]
             print("FOUND: ",y_pred[i][j], words[i][j])
 
 
