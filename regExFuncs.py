@@ -8,6 +8,7 @@ import re
 test = open("dateTest.txt", "r")
 regex = re.compile(r'(?:\d{1,2}[-/th|st|nd|rd\s]*)?(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)?[a-z\s,.]*(?:\d{1,2}[-/th|st|nd|rd)\s,]*)+(?:\d{2,4})+')
 
+#return all dates found in body of text from file
 for line in test:
     datePattern = regex.findall(line)
     for date in datePattern:
