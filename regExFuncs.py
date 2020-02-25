@@ -1,10 +1,14 @@
+import re
 
-#function to take a sentence and return the first date pattern in it
+#function to take a sentence and return the date in it - one format
 
+str = """A chemical was spilled on 10/10/2015"""
 
-#function to take a sentence and see if it contains address/st
-#optional num + proper noun/noun + st/rd/ave/etc
-#I/M - #
+#MM/DD/YYYY
+all = re.findall(r"[\d]{1,2}/[\d]{1,2}/[\d]{4}", str)
+
+for s in all:
+    print(s)
 
 
 
