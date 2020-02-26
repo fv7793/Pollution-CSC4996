@@ -6,7 +6,7 @@ import re
 
 #reading from a body a text to find dates
 test = open("dateTest.txt", "r")
-regex = re.compile(r'(?:April|May|June|July|August|)[\s,.]*(?:\d{1,2}[-/th|st|nd|rd\s]*)(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)?[a-z\s,.]*(?:\d{1,2}[-/th|st|nd|rd)\s,]*)+(?:\d{2,4})+')
+regex = re.compile(r'(?:January|Jan|February|Feb|March|Mar|April|Apr|May|June|Jun|July|Jul|August|Aug|September|Sept|October|Oct|November|Nov|December|Dec)*[\s,.]*(?:\d{1,2}[-/th|st|nd|rd\s]*)(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)?[a-z\s,.]*(?:\d{1,2}[-/th|st|nd|rd)\s,]*)+(?:\d{2,4})+')
 
 #return all dates found in body of text from file
 for line in test:
