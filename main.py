@@ -1,15 +1,24 @@
-from crawler import NewsWebsite
-from crawler import Crawler
+class Parent:
+    def __init__(self):
+        self.var = 3
+    def getVar(self):
+        return self.var
 
-links = open("resources/testURLs.txt", "r").readlines()
+class Parent2:
+    def __init__(self):
+        self.var2 = 6
+    def printSomething(self):
+        print("something")
 
-urls = []
 
-for link in links:
-    urls.append(link.strip())
+class Child(Parent, Parent2):
+    def __init__(self):
+        self.var = 5
 
-websiteObjects = []
 
-websiteObjects.append(NewsWebsite(urls[0], "lenconnect", "headline", "", "", "", "/search?text=", False))
+parent = Parent()
+print(parent.getVar())
 
-crawler = Crawler(websiteObjects, "Pollution")
+child = Child()
+print(child.getVar())
+child.printSomething()
