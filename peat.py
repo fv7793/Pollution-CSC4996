@@ -4,12 +4,17 @@ from dateutil import parser
 
 class Crawler:
     def __init__(self):
+        print("Crawler object created")
         self.baseUrl = ""
         self.keywords = []
-        self.searchQuery = ""
+        self.searchQueryStructure = ""
         self.articleLinks = []
         self.articleCount = 0
-        print("Crawler constructor")
+
+    def crawl(self):
+        # TODO: implement
+        print("crawling")
+        soupPage = self.getSoupPage("pollution")
 
     def setBaseUrl(self, url):
         self.baseUrl = url
@@ -20,14 +25,21 @@ class Crawler:
     def getKeywords(self):
         return self.keywords
 
-    def requestPage(self):
-        page = requests.get(self.searchQuery)
+    def setSearchQueryStructure(self, query):
+        # TODO: implement
+        self.searchQuery = query
+
+    def getSoupPage(self,keyword):
+        query = self.searchQuery.replace("PEATKEY", keyword)
+        page = requests.get(query)
         return soup(page.content, 'html.parser')
 
     def getNextPage(self):
+        # TODO: implement
         print("getting next page")
 
     def scrapeArticleLinks(self):
+        # TODO: implement
         print("scraping article links")
 
     def getArticleLinks(self):
@@ -37,16 +49,17 @@ class Crawler:
         return self.articleCount
 
     def storeInUrlsCollection(self):
+        # TODO: implement
         print("storing article urls")
 
 
 class Scraper(Crawler):
     def __init__(self):
         super().__init__()
+        print("Scraper object created")
         self.articleTitle = ""
         self.articleBody = []
         self.articleDate = ""
-        print("Scraper constructor")
 
     def scrape(self):
         self.scrapeTitle()
@@ -54,12 +67,15 @@ class Scraper(Crawler):
         self.scrapeBody()
 
     def scrapeTitle(self):
+        # TODO: implement
         print("scraping title")
 
     def scrapePublishingDate(self):
+        # TODO: implement
         print("scraping publishing date")
 
     def scrapeBody(self):
+        # TODO: implement
         print("scraping body")
 
     def normalizeDate(self, date):
@@ -76,6 +92,7 @@ class Scraper(Crawler):
         return self.articleBody
 
     def storeInArticlesCollection(self):
+        # TODO: implement
         print("storing scraped attributes")
 
 
@@ -84,7 +101,9 @@ class Ourmidland(Scraper):
         super().__init__()
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.ourmidland.com/")
-
+        self.setSearchQueryStructure("https://www.ourmidland.com/search/?action=search&firstRequest=1&searchindex=solr&query=PEATKEY")
+        self.crawl()
+        self.scrape()
 
 ourmidland = Ourmidland(["key1", "key2"])
 
