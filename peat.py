@@ -53,9 +53,8 @@ class Crawler:
         print("storing article urls")
 
 
-class Scraper(Crawler):
+class Scraper():
     def __init__(self):
-        super().__init__()
         print("Scraper object created")
         self.articleTitle = ""
         self.articleBody = []
@@ -96,14 +95,16 @@ class Scraper(Crawler):
         print("storing scraped attributes")
 
 
-class Ourmidland(Scraper):
+class Ourmidland(Crawler,Scraper):
     def __init__(self, keywords):
-        super().__init__()
+        Crawler.__init__(self)
+        Scraper.__init__(self)
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.ourmidland.com/")
         self.setSearchQueryStructure("https://www.ourmidland.com/search/?action=search&firstRequest=1&searchindex=solr&query=PEATKEY")
         self.crawl()
         self.scrape()
+
 
 ourmidland = Ourmidland(["key1", "key2"])
 
