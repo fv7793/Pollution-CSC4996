@@ -1,0 +1,791 @@
+Sentence 1
+IN             : O
+THE            : O
+WAKE           : O
+OF             : O
+THE            : O
+HURRICANE      : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 101
+CREWS          : O
+WORKED         : O
+TO             : O
+PLACE          : O
+A              : O
+DAM            : O
+UPSTREAM       : O
+TO             : O
+PREVENT        : O
+RUNOFF         : O
+INTO           : O
+DONNER         : O
+LAKE           : O
+.              : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 201
+BEFORE         : O
+THE            : O
+DREDGING       : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 301
+THE            : O
+MOTLEY         : O
+FOOL           : O
+HAS            : O
+A              : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 401
+IT             : O
+HAS            : O
+A              : O
+WATERSHED      : O
+AREA           : O
+OF             : O
+311            : O
+MILES          : O
+IN             : O
+PORTIONS       : O
+OF             : O
+27             : O
+TOWNS          : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 501
+BUT            : O
+IT             : O
+STILL          : O
+SHUT           : O
+DOWN           : O
+THE            : O
+HOUSTON        : O
+SHIP           : O
+CHANNEL        : O
+FOR            : O
+DAYS           : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 601
+TOLD           : O
+THE            : O
+ASSOCIATED     : O
+PRESS          : O
+.              : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 701
+<              : O
+STRONG         : O
+>              : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 801
+,``,O
+,THIS,DT,O
+,FLOW,NN,O
+,EXCEEDED,VBD,O
+,ANYTHING,NN,O
+,WE,PRP,O
+,'VE,VB,O
+,SEEN,VBN,O
+,AT,IN,O
+,THE,DT,O
+,PLANT,NN,O
+,PREVIOUSLY,RB,O
+Sentence: 3240,: O
+MARTIN         : O
+SAID           : O
+.              : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 901
+,``,O
+,WE,PRP,O
+,'RE,VBP,O
+,INDICATING,VBG,O
+,THERE,EX,O
+,IS,VBZ,O
+,NO,DT,O
+,NEED,NN,O
+,FOR,IN,O
+,LAWSUITS,NNS,O
+,BECAUSE,IN,O
+,WE,PRP,O
+,WILL,MD,O
+,PAY,VB,O
+,FOR,IN,O
+,ALL,DT,O
+,DAMAGES,NNS,O
+,RELATED,VBN,O
+,TO,IN,O
+,THE,DT,O
+,SPILL,NN,O
+,.,.,O
+,: O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 1001
+ATTORNEY       : O
+GEOFFREY       : O
+FIEGER         : O
+IS             : O
+SUING          : O
+A              : O
+HOSPITAL       : O
+AND            : O
+VARIOUS        : O
+PUBLIC         : O
+OFFICIALS      : O
+OVER           : O
+LEGIONNAIRES   : O
+'              : O
+DISEASE        : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 1101
+TEXAS          : O
+SITES          : O
+ON             : O
+THE            : O
+REGISTRY       : O
+.              : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 1201
+EXECUTIVE      : O
+DIRECTOR       : O
+MATT           : O
+O'MALLEY       : O
+TOLD           : O
+BUSINESS       : O
+INSIDER        : O
+IN             : O
+AN             : O
+EMAIL          : O
+:              : O
+,``,O
+,ITS,VB,O
+,OUTRAGEOUS,JJ,O
+,THAT,IN,O
+,WE,PRP,O
+,HAVE,VBP,O
+Sentence: 11959,SEWAGE,NN,B-chem
+,SPILLS,NNS,O
+,OF,IN,O
+,THIS,DT,O
+,MAGNITUDE,NN,O
+,OCCURRING,VBG,O
+,UNDER,IN,O
+,THE,DT,O
+,WATCH,NN,O
+,OF,IN,O
+,THE,DT,O
+,INTERNATIONAL,NNP,O
+,BOUNDARY,NNP,O
+,AND,CC,O
+,WATER,NNP,O
+,COMMISSION,NNP,O
+Sentence: 11960,AND,CC,O
+,IT,PRP,O
+,'S,VBZ,O
+,EQUALLY,RB,O
+,OUTRAGEOUS,JJ,O
+,THERE,EX,O
+,ARE,VBP,O
+,N'T,RB,O
+,PROPER,JJ,O
+,PROCEDURES,NNS,O
+,IN,IN,O
+,PLACE,NN,O
+,TO,TO,O
+,NOTIFY,VB,O
+,THE,DT,O
+,PUBLIC,NN,O
+,WHEN,WRB,O
+,SEWAGE,NN,B-chem
+,RELEASES,NNS,O
+,OCCUR,VBP,O
+,.,.,O
+,: O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+Sentence 1301
+WITHIN         : O
+THE            : O
+LAST           : O
+YEAR           : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
+ENDPAD         : O
