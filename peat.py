@@ -58,7 +58,7 @@ class Crawler:
 class Scraper(Crawler):
     def __init__(self):
         super().__init__()
-
+        self.titles = []
         self.scrapedArticles = []
 
     def scrapeAll(self):
@@ -71,13 +71,16 @@ class Scraper(Crawler):
         article.download()
         article.parse()
 
-        article = {
-            "url": url,
-            "title": self.scrapeTitle(article),
-            "publishDate": self.scrapePublishingDate(article),
-            "body": self.scrapeBody(article)}
+        if self.scrapeTitle(article) not in self.titles:
 
-        self.scrapedArticles.append(article)
+            article = {
+                "url": url,
+                "title": self.scrapeTitle(article),
+                "publishDate": self.scrapePublishingDate(article),
+                "body": self.scrapeBody(article)}
+
+            self.scrapedArticles.append(article)
+            self.titles.append(article["title"])
 
     def scrapeTitle(self, newspaperArticleObj=None):
         return newspaperArticleObj.title
