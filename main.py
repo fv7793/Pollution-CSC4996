@@ -3,12 +3,38 @@ import newspaper
 import requests
 from bs4 import BeautifulSoup as soup
 
-keywords = ["spill", "dump", "contamination"]
-# ourmidland = Ourmidland(keywords)
-marionPress = MarionPress(keywords)
+keywords = ["pollution"]
 
-for article in marionPress.getScrapedArticles():
-    print(article["title"])
+ourmidland = Ourmidland(keywords)
+marionPress = MarionPress(keywords)
+theCountyPress = TheCountyPress(keywords)
+lakeCountyStar = LakeCountyStar(keywords)
+northernExpress = NorthernExpress(keywords)
+manisteeNews = ManisteeNews(keywords)
+michiganChronicle = MichiganChronicle(keywords)
+clarkstonNews = ClarkstonNews(keywords)
+harborLightNews = HarborLightNews(keywords)
+theDailyNews = TheDailyNews(keywords)
+lakeOrionReview = LakeOrionReview(keywords)
+leelanauNews = LeelanauNews(keywords)
+houghtonLakeResorter = HoughtonLakeResorter(keywords)
+ironMountainDailyNews = IronMountainDailyNews(keywords)
+miningJournal = MiningJournal(keywords)
+theAlpenaNews = TheAlpenaNews(keywords)
+
+websites = [ourmidland,marionPress,theCountyPress,lakeCountyStar,northernExpress,manisteeNews,michiganChronicle,
+            clarkstonNews,harborLightNews,theDailyNews,lakeOrionReview,leelanauNews,houghtonLakeResorter,
+            ironMountainDailyNews,miningJournal,theAlpenaNews]
+
+for website in websites:
+    print("\n\n" + website.baseUrl)
+    for article in website.getArticleLinks():
+        print(article)
+
+
+
+
+
 
 
 # urls = \

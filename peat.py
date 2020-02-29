@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup as soup
 from dateutil import parser
 import newspaper
+import database
+import sys
 
 class Crawler:
     def __init__(self):
@@ -11,6 +13,7 @@ class Crawler:
         self.articleCount = 0
 
     def crawl(self):
+        print("Crawling: " + self.baseUrl)
         links = []
         for keyword in self.keywords:
             query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE","1")
@@ -23,6 +26,7 @@ class Crawler:
                     links.append(link['href'])
 
         self.articleLinks = self.filterLinksForArticles(links)
+        self.storeInUrlsCollection()
 
     def filterLinksForArticles(self, links):
         return links
@@ -40,7 +44,8 @@ class Crawler:
         self.searchQuery = query
 
     def scrapeArticleLinks(self, page):
-        # TODO: implement
+        # TODO: try overriding this in the website classes and use tree structure of search pages
+        #  to get article urls
         soupPage = soup(page.content, "html.parser")
         return soupPage.find_all('a', href=True)
 
@@ -50,9 +55,15 @@ class Crawler:
     def getArticleCount(self):
         return self.articleCount
 
+    def getArticleCount(self):
+        return self.baseUrl
+
     def storeInUrlsCollection(self):
-        # TODO: implement
-        pass
+        for url in self.getArticleLinks():
+            try:
+                database.Urls(url=url).save()
+            except:
+                pass
 
 
 class Scraper(Crawler):
@@ -81,30 +92,47 @@ class Scraper(Crawler):
 
             self.scrapedArticles.append(article)
             self.titles.append(article["title"])
+            self.storeInArticlesCollection(article["url"], article["publishDate"], article["title"])
 
     def scrapeTitle(self, newspaperArticleObj=None):
-        return newspaperArticleObj.title
+        title = newspaperArticleObj.title
+        if title is None:
+            return ""
+        else:
+            return title
 
     def scrapePublishingDate(self, newspaperArticleObj=None):
         date = newspaperArticleObj.publish_date
-        return self.normalizeDate(date)
+        if date is None:
+            return ""
+        else:
+            return self.normalizeDate(date)
 
     def scrapeBody(self, newspaperArticleObj=None):
-        return newspaperArticleObj.text
+        body = newspaperArticleObj.text
+        if body is None:
+            return ""
+        else:
+            return body
 
     def normalizeDate(self, date):
-        print(date)
-        if date is None:
-            return date
         d = parser.parse(date)
         return d.strftime("%m/%d/%Y")
 
     def getScrapedArticles(self):
         return self.scrapedArticles
 
-    def storeInArticlesCollection(self):
+    def storeInArticlesCollection(self,url,date,title):
         # TODO: implement
-        pass
+        try:
+            database.Articles(
+                publishingDate=date,
+                title=title,
+                url=url
+            ).save()
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            pass
 
 
 
