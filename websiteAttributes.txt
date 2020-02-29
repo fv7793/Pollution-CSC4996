@@ -55,6 +55,7 @@ https://www.record-eagle.com/
             body        : <p>
 
 https://www.macombdaily.com/
+---------------------------------------
     articleUrlStructure :
             searchQuery : This site doesn't use page numbers, it uses number of articles
             title       : <title>
@@ -73,17 +74,17 @@ https://www.manisteenews.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://www.manisteenews.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.theoaklandpress.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : This site doesn't use page numbers, it uses number of articles
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.shorelinemedia.net/
 ---------------------------------------
@@ -97,102 +98,102 @@ https://michiganchronicle.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://michiganchronicle.com/page/PEATPAGE/?s=PEATKEY
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p>
 
 https://clarkstonnews.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://clarkstonnews.com/page/PEATPAGE/?s=PEATKEY
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.harborlightnews.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://www.harborlightnews.com/page/PEATPAGE/?s=PEATKEY
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p>
 
 https://thedailynews.cc/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://thedailynews.cc/page/PEATPAGE/?s=PEATKEY
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p> ?
 
 https://lakeorionreview.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://lakeorionreview.com/page/PEATPAGE/?s=PEATKEY
-            title       :
+            title       : <title> [title] | Lake Orion Review </title>
             date        :
-            body        :
+            body        : <p> ?
 
 https://www.leelanaunews.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://www.leelanaunews.com/page/PEATPAGE/?s=PEATKEY
-            title       :
+            title       : <title> [title] | Leelanau Enterprise </title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.houghtonlakeresorter.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://www.houghtonlakeresorter.com/page/PEATPAGE/?s=PEATKEY
-            title       :
+            title       : <title> [title] | Houghton Lake Resorter</title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.detroitnews.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : dynamic loading
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.freep.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : dynamic loading
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.thetimesherald.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : dynamic loading
-            title       :
+            title       : <title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.ironmountaindailynews.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://www.ironmountaindailynews.com/search/PEATKEY/page/PEATPAGE/
-            title       :
+            title       : <title>  [title] | News, Sports, Jobs - The Daily news</title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.miningjournal.net/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://www.miningjournal.net/search/PEATKEY/page/PEATPAGE/
-            title       :
+            title       : <title>  [title] | News, Sports, Jobs - The Mining Journal</title>
             date        :
-            body        :
+            body        : <p>
 
 https://www.thealpenanews.com/
 ---------------------------------------
     articleUrlStructure :
             searchQuery : https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/
-            title       :
+            title       : <title>  [title] | News, Sports, Jobs - The Alpena News</title>
             date        :
-            body        :
+            body        : <p>

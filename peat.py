@@ -1,20 +1,31 @@
 import requests
 from bs4 import BeautifulSoup as soup
 from dateutil import parser
+import newspaper
 
 class Crawler:
     def __init__(self):
-        print("Crawler object created")
         self.baseUrl = ""
         self.keywords = []
-        self.searchQueryStructure = ""
         self.articleLinks = []
         self.articleCount = 0
 
     def crawl(self):
-        # TODO: implement
-        print("crawling")
-        soupPage = self.getSoupPage("pollution")
+        links = []
+        for keyword in self.keywords:
+            query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE","1")
+            page = requests.get(query)
+
+            soupLinks = self.scrapeArticleLinks(page)
+
+            for link in soupLinks:
+                if link['href'] not in links:
+                    links.append(link['href'])
+
+        self.articleLinks = self.filterLinksForArticles(links)
+
+    def filterLinksForArticles(self, links):
+        return links
 
     def setBaseUrl(self, url):
         self.baseUrl = url
@@ -26,21 +37,12 @@ class Crawler:
         return self.keywords
 
     def setSearchQueryStructure(self, query):
-        # TODO: implement
         self.searchQuery = query
 
-    def getSoupPage(self,keyword):
-        query = self.searchQuery.replace("PEATKEY", keyword)
-        page = requests.get(query)
-        return soup(page.content, 'html.parser')
-
-    def getNextPage(self):
+    def scrapeArticleLinks(self, page):
         # TODO: implement
-        print("getting next page")
-
-    def scrapeArticleLinks(self):
-        # TODO: implement
-        print("scraping article links")
+        soupPage = soup(page.content, "html.parser")
+        return soupPage.find_all('a', href=True)
 
     def getArticleLinks(self):
         return self.articleLinks
@@ -50,62 +52,59 @@ class Crawler:
 
     def storeInUrlsCollection(self):
         # TODO: implement
-        print("storing article urls")
+        pass
 
 
-class Scraper():
+class Scraper(Crawler):
     def __init__(self):
-        print("Scraper object created")
-        self.articleTitle = ""
-        self.articleBody = []
-        self.articleDate = ""
+        super().__init__()
 
-    def scrape(self):
-        self.scrapeTitle()
-        self.scrapePublishingDate()
-        self.scrapeBody()
+        self.scrapedArticles = []
 
-    def scrapeTitle(self):
-        # TODO: implement
-        print("scraping title")
+    def scrapeAll(self):
+        for article in self.articleLinks:
+            print("scraping: ",article)
+            self.scrape(article)
 
-    def scrapePublishingDate(self):
-        # TODO: implement
-        print("scraping publishing date")
+    def scrape(self, url):
+        article = newspaper.Article(url)
+        article.download()
+        article.parse()
 
-    def scrapeBody(self):
-        # TODO: implement
-        print("scraping body")
+        article = {
+            "url": url,
+            "title": self.scrapeTitle(article),
+            "publishDate": self.scrapePublishingDate(article),
+            "body": self.scrapeBody(article)}
+
+        self.scrapedArticles.append(article)
+
+    def scrapeTitle(self, newspaperArticleObj=None):
+        return newspaperArticleObj.title
+
+    def scrapePublishingDate(self, newspaperArticleObj=None):
+        date = newspaperArticleObj.publish_date
+        return self.normalizeDate(date)
+
+    def scrapeBody(self, newspaperArticleObj=None):
+        return newspaperArticleObj.text
 
     def normalizeDate(self, date):
+        print(date)
+        if date is None:
+            return date
         d = parser.parse(date)
         return d.strftime("%m/%d/%Y")
 
-    def getArticleTitle(self):
-        return self.articleTitle
-
-    def getArticleDate(self):
-        return self.articleDate
-
-    def getArticleBody(self):
-        return self.articleBody
+    def getScrapedArticles(self):
+        return self.scrapedArticles
 
     def storeInArticlesCollection(self):
         # TODO: implement
-        print("storing scraped attributes")
+        pass
 
 
-class Ourmidland(Crawler,Scraper):
-    def __init__(self, keywords):
-        Crawler.__init__(self)
-        Scraper.__init__(self)
-        self.setKeywords(keywords)
-        self.setBaseUrl("https://www.ourmidland.com/")
-        self.setSearchQueryStructure("https://www.ourmidland.com/search/?action=search&firstRequest=1&searchindex=solr&query=PEATKEY")
-        self.crawl()
-        self.scrape()
 
 
-ourmidland = Ourmidland(["key1", "key2"])
 
 
