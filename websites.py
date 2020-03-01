@@ -8,7 +8,7 @@ class Ourmidland(Scraper):
         self.setBaseUrl("https://www.ourmidland.com/")
         self.setSearchQueryStructure("https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -26,7 +26,7 @@ class MarionPress(Scraper):
         self.setBaseUrl("http://www.marion-press.com/")
         self.setSearchQueryStructure("http://www.marion-press.com/page/PEATPAGE/?s=PEATKEY&x=0&y=0")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -45,7 +45,7 @@ class TheCountyPress(Scraper):
         self.setBaseUrl("https://thecountypress.mihomepaper.com/")
         self.setSearchQueryStructure("https://thecountypress.mihomepaper.com/page/PEATPAGE/?s=PEATKEY")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -62,7 +62,7 @@ class LakeCountyStar(Scraper):
         self.setBaseUrl("https://www.lakecountystar.com/")
         self.setSearchQueryStructure("https://www.lakecountystar.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -80,7 +80,7 @@ class NorthernExpress(Scraper):
         self.setBaseUrl("https://www.northernexpress.com/")
         self.setSearchQueryStructure("https://www.northernexpress.com/search/?query=PEATKEY&content=news&page=PEATPAGE")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -100,7 +100,7 @@ class ManisteeNews(Scraper):
         self.setBaseUrl("https://www.manisteenews.com/")
         self.setSearchQueryStructure("https://www.manisteenews.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -119,7 +119,7 @@ class MichiganChronicle(Scraper):
         self.setBaseUrl("https://michiganchronicle.com/")
         self.setSearchQueryStructure("https://michiganchronicle.com/page/PEATPAGE/?s=PEATKEY")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
 
 class ClarkstonNews(Scraper):
@@ -129,7 +129,7 @@ class ClarkstonNews(Scraper):
         self.setBaseUrl("https://clarkstonnews.com/")
         self.setSearchQueryStructure("https://clarkstonnews.com/page/PEATPAGE/?s=PEATKEY")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     # TODO: not the best way to scrape articles
     def filterLinksForArticles(self, links):
@@ -148,7 +148,7 @@ class HarborLightNews(Scraper):
         self.setBaseUrl("https://www.harborlightnews.com/")
         self.setSearchQueryStructure("https://www.harborlightnews.com/page/PEATPAGE/?s=PEATKEY")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -165,7 +165,7 @@ class TheDailyNews(Scraper):
         self.setBaseUrl("https://thedailynews.cc/")
         self.setSearchQueryStructure("https://thedailynews.cc/page/PEATPAGE/?s=PEATKEY")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -183,7 +183,7 @@ class LakeOrionReview(Scraper):
         self.setBaseUrl("https://lakeorionreview.com/")
         self.setSearchQueryStructure("https://lakeorionreview.com/page/PEATPAGE/?s=PEATKEY")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
 
 class LeelanauNews(Scraper):
@@ -193,7 +193,7 @@ class LeelanauNews(Scraper):
         self.setBaseUrl("https://www.leelanaunews.com/")
         self.setSearchQueryStructure("https://www.leelanaunews.com/page/PEATPAGE/?s=PEATKEY")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -212,7 +212,7 @@ class HoughtonLakeResorter(Scraper):
         self.setBaseUrl("https://www.houghtonlakeresorter.com/")
         self.setSearchQueryStructure("https://www.houghtonlakeresorter.com/page/PEATPAGE/?s=PEATKEY")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -229,7 +229,7 @@ class IronMountainDailyNews(Scraper):
         self.setBaseUrl("https://www.ironmountaindailynews.com/")
         self.setSearchQueryStructure("https://www.ironmountaindailynews.com/search/PEATKEY/page/PEATPAGE/")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -248,7 +248,7 @@ class MiningJournal(Scraper):
         self.setBaseUrl("https://www.miningjournal.net/")
         self.setSearchQueryStructure("https://www.miningjournal.net/search/PEATKEY/page/PEATPAGE/")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -260,8 +260,6 @@ class MiningJournal(Scraper):
         return filteredLinks
 
 
-# https://www.thealpenanews.com/
-# https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/
 class TheAlpenaNews(Scraper):
     def __init__(self, keywords):
         super().__init__()
@@ -269,7 +267,7 @@ class TheAlpenaNews(Scraper):
         self.setBaseUrl("https://www.thealpenanews.com/")
         self.setSearchQueryStructure("https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/")
         self.crawl()
-        # self.scrapeAll()
+        self.scrapeAll()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []

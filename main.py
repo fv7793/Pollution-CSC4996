@@ -12,10 +12,10 @@ lakeCountyStar = LakeCountyStar(keywords)
 northernExpress = NorthernExpress(keywords)
 manisteeNews = ManisteeNews(keywords)
 michiganChronicle = MichiganChronicle(keywords)
-clarkstonNews = ClarkstonNews(keywords)
+# clarkstonNews = ClarkstonNews(keywords)
 harborLightNews = HarborLightNews(keywords)
 theDailyNews = TheDailyNews(keywords)
-lakeOrionReview = LakeOrionReview(keywords)
+# lakeOrionReview = LakeOrionReview(keywords)
 leelanauNews = LeelanauNews(keywords)
 houghtonLakeResorter = HoughtonLakeResorter(keywords)
 ironMountainDailyNews = IronMountainDailyNews(keywords)
@@ -23,13 +23,10 @@ miningJournal = MiningJournal(keywords)
 theAlpenaNews = TheAlpenaNews(keywords)
 
 websites = [ourmidland,marionPress,theCountyPress,lakeCountyStar,northernExpress,manisteeNews,michiganChronicle,
-            clarkstonNews,harborLightNews,theDailyNews,lakeOrionReview,leelanauNews,houghtonLakeResorter,
-            ironMountainDailyNews,miningJournal,theAlpenaNews]
+            harborLightNews,theDailyNews,leelanauNews,houghtonLakeResorter,ironMountainDailyNews,miningJournal,
+            theAlpenaNews]
 
-for website in websites:
-    print("\n\n" + website.baseUrl)
-    for article in website.getArticleLinks():
-        print(article)
+
 
 
 

@@ -17,6 +17,7 @@ class Crawler:
         links = []
         for keyword in self.keywords:
             query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE","1")
+
             page = requests.get(query)
 
             soupLinks = self.scrapeArticleLinks(page)
@@ -102,11 +103,13 @@ class Scraper(Crawler):
             return title
 
     def scrapePublishingDate(self, newspaperArticleObj=None):
-        date = newspaperArticleObj.publish_date
-        if date is None:
-            return ""
-        else:
-            return self.normalizeDate(date)
+        # TODO: improve
+        # date = newspaperArticleObj.publish_date
+        # if date is None:
+        #     return ""
+        # else:
+        #     return self.normalizeDate(date)
+        return ""
 
     def scrapeBody(self, newspaperArticleObj=None):
         body = newspaperArticleObj.text
