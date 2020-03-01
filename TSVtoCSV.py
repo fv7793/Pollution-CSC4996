@@ -4,8 +4,8 @@ import en_core_web_sm
 nlp = en_core_web_sm.load()
 
 def CSVConvert():
-    file = open("tsv-file.txt",'r',encoding='cp437')
-    newfile = open("csv-file.csv","w",encoding='cp437')
+    file = open("testing.txt",'r',encoding='cp437')
+    newfile = open("testing.csv","w",encoding='cp437')
     line = file.readline()
     while(line=="\n"):
         line = file.readline() #skip any initial enters
@@ -15,7 +15,7 @@ def CSVConvert():
     while line:
         if("\n" != line and "-DOCSTART-" not in line and "," not in line):
             splits = line.split(" ")
-            if(splits[0]==""):
+            if(splits[0]=="" or len(splits)<2):
                 line = file.readline()
                 continue
 

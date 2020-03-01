@@ -2,17 +2,26 @@ import pandas as pd
 import numpy as np
 
 data = pd.read_csv("csv-file.csv", encoding="latin1")
+test = pd.read_csv("testing.csv", encoding='latin1')
 
 data = data.fillna(method="ffill")
+test = test.fillna(method="ffill")
 data.tail(10)
+test.tail(10)
 print(data)
 words = list(set(data["Word"].values))
+testwords = list(set(test["Word"].values))
 words.append("ENDPAD")
+testwords.append("ENDPAD")
 n_words = len(words);
-print(n_words)
+tn_words = len(testwords)
+print(tn_words)
 tags = list(set(data["Tag"].values))
+testtags = list(set(test["Tag"].values))
 n_tags = len(tags);
-print(tags)
+tn_tags = len(testtags)
+print(testwords)
+print(testtags)
 
 class SentenceGetter(object):
     
@@ -41,6 +50,9 @@ sent = getter.get_next()
 
 
 sentences = getter.sentences
+
+testGet = SentenceGetter(test)
+testsents = testGet.sentences
 print(len(sentences))
 import matplotlib.pyplot as plt
 plt.style.use("ggplot")
@@ -52,7 +64,8 @@ max_len = 50
 word2idx = {w: i for i, w in enumerate(words)}
 tag2idx = {t: i for i, t in enumerate(tags)}
 
-
+word2idxtest = {w: i for i, w in enumerate(testwords)}
+tag2idxtest = {t: i for i, t in enumerate(testtags)}
 
 
 
@@ -63,17 +76,23 @@ X = pad_sequences(maxlen=max_len, sequences=X, padding="post", value=n_words - 1
 y = [[tag2idx[w[2]] for w in s] for s in sentences]
 y = pad_sequences(maxlen=max_len, sequences=y, padding="post", value=tag2idx["O"])
 
+tx = [[word2idxtest[w[0]] for w in s] for s in testsents]
+tx = pad_sequences(maxlen=max_len, sequences=tx, padding="post", value=tn_words - 1)
 
+ty = [[tag2idxtest[w[2]] for w in s] for s in testsents]
+ty = pad_sequences(maxlen=max_len, sequences=ty, padding="post", value=tag2idxtest["O"])
 
 
 
 from keras.utils import to_categorical
 
 y = [to_categorical(i, num_classes=n_tags) for i in y]
+ty = [to_categorical(i, num_classes=n_tags) for i in ty]
 from sklearn.model_selection import train_test_split
 
 X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.1)
 
+Xtst, Xbl, ytst, ybl = train_test_split(tx, ty, test_size=0.999)
 
 
 from keras.models import Model, Input
@@ -96,17 +115,17 @@ history = model.fit(X_tr, np.array(y_tr), batch_size=32, epochs=5, validation_sp
 ##plt.plot(hist["val_acc"])
 ##plt.show()
 
-newfile = open("record.txt", "w",errors="ignore")
+newfile = open("recordtest.txt", "w",errors="ignore")
 numPred = 0
-for i in range(1, len(X_te), 100):
+for i in range(1, len(Xbl)-1, 100):
     numPred+=1
-    p = model.predict(np.array([X_te[i]]))
+    p = model.predict(np.array([Xbl[i]]))
     p = np.argmax(p, axis=-1)
-    print("{:15} ({:5}): {}".format("Sentence: #","Word", "True", "Pred"))
+    #print("{:15} ({:5}): {}".format("Sentence: #","Word", "True", "Pred"))
     newfile.write("Sentence " + str(i)+"\n")
-    for w, pred in zip(X_te[i], p[0]):
-        #print("{:15}: {}".format(words[w], tags[pred]))
-        newfile.write("{:15}: {}".format(words[w], tags[pred])+"\n")
+    for w, pred in zip(Xbl[i], p[0]):
+        newfile.write("{:15}: {}".format(testwords[w], testtags[pred])+"\n")
+
 newfile.close()
 
 
