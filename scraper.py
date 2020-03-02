@@ -7,31 +7,6 @@ import sys
 from crawler import Crawler
 
 
-# class Article:
-#     def __init__(self):
-#         self.title = ""
-#         self.publishingDate = ""
-#         self.body = ""
-#
-#     def setTitle(self, title):
-#         self.title = title
-#
-#     def setPublishingDate(self, date):
-#         self.publishingDate = date
-#
-#     def setBody(self, body):
-#         self.body = body
-#
-#     def getTitle(self):
-#         return self.title
-#
-#     def getPublishingDate(self):
-#         return self.publishingDate
-#
-#     def getBody(self):
-#         return self.body
-
-
 class Scraper(Crawler):
     def __init__(self):
         super().__init__()
@@ -62,7 +37,6 @@ class Scraper(Crawler):
 
             self.scrapedArticles.append(article)
             self.titles.append(article["title"])
-            # self.storeInArticlesCollection(article["url"], article["publishingDate"], article["title"])
 
     def scrapeTitle(self, newspaperArticleObj=None):
         title = newspaperArticleObj.title
@@ -106,16 +80,3 @@ class Scraper(Crawler):
 
     def getScrapedArticles(self):
         return self.scrapedArticles
-
-    # def storeInArticlesCollection(self,url,date,title):
-    #     try:
-    #         database.Articles(
-    #             url=url,
-    #             title=title,
-    #             publishingDate=date
-    #         ).save()
-    #     except:
-    #         print("Unexpected error:", sys.exc_info()[0])
-    #         pass
-
-
