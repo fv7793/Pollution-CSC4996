@@ -17,13 +17,6 @@ class Ourmidland(Scraper):
                 filteredLinks.append(link)
         return filteredLinks
 
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("time", {"itemprop": "datePublished"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text())
-
 
 class MarionPress(Scraper):
     def __init__(self, keywords):
@@ -43,13 +36,6 @@ class MarionPress(Scraper):
                     filteredLinks.append(link)
         return filteredLinks
 
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("p")
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text())
-
 
 class TheCountyPress(Scraper):
     def __init__(self, keywords):
@@ -66,13 +52,6 @@ class TheCountyPress(Scraper):
             if "/articles/" in link:
                 filteredLinks.append(link)
         return filteredLinks
-
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("span", {"class": "byline__time"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text())
 
 
 class LakeCountyStar(Scraper):
@@ -91,13 +70,6 @@ class LakeCountyStar(Scraper):
                 link = "https://www.lakecountystar.com" + link
                 filteredLinks.append(link)
         return filteredLinks
-
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("time", {"itemprop": "datePublished"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text())
 
 
 class NorthernExpress(Scraper):
@@ -119,15 +91,6 @@ class NorthernExpress(Scraper):
                     filteredLinks.append(link)
         return filteredLinks
 
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("h6")
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         date = date.get_text()
-    #         date = date.split("|")[1].strip()
-    #         return self.normalizeDate(date)
-
 
 class ManisteeNews(Scraper):
     def __init__(self, keywords):
@@ -145,13 +108,6 @@ class ManisteeNews(Scraper):
                 link = "https://www.manisteenews.com" + link
                 filteredLinks.append(link)
         return filteredLinks
-
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("time", {"itemprop": "datePublished"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text())
 
 
 # TODO: not scraping links
@@ -183,13 +139,6 @@ class ClarkstonNews(Scraper):
                 filteredLinks.append(link)
         return filteredLinks
 
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("time", {"itemprop": "datePublished"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text())
-
 
 class HarborLightNews(Scraper):
     def __init__(self, keywords):
@@ -207,13 +156,6 @@ class HarborLightNews(Scraper):
                 filteredLinks.append(link)
         return filteredLinks
 
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("span", {"class": "byline__time"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text().strip())
-
 
 class TheDailyNews(Scraper):
     def __init__(self, keywords):
@@ -230,13 +172,6 @@ class TheDailyNews(Scraper):
             if "/articles/" in link:
                 filteredLinks.append(link)
         return filteredLinks
-
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("span", {"class": "byline__time"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text().strip())
 
 
 # TODO: not working
@@ -266,13 +201,6 @@ class LeelanauNews(Scraper):
                 filteredLinks.append(link)
         return filteredLinks
 
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("span", {"class": "byline__time"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text().strip())
-
 
 class HoughtonLakeResorter(Scraper):
     def __init__(self, keywords):
@@ -289,13 +217,6 @@ class HoughtonLakeResorter(Scraper):
             if "/articles/" in link:
                 filteredLinks.append(link)
         return filteredLinks
-
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("span", {"class": "byline__time"})
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text().strip())
 
 
 class IronMountainDailyNews(Scraper):
@@ -316,13 +237,6 @@ class IronMountainDailyNews(Scraper):
                     filteredLinks.append(link)
         return filteredLinks
 
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("time")
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text().strip())
-
 
 class MiningJournal(Scraper):
     def __init__(self, keywords):
@@ -342,13 +256,6 @@ class MiningJournal(Scraper):
                     filteredLinks.append(link)
         return filteredLinks
 
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("time")
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text().strip())
-
 
 class TheAlpenaNews(Scraper):
     def __init__(self, keywords):
@@ -367,13 +274,6 @@ class TheAlpenaNews(Scraper):
                 if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
                     filteredLinks.append(link)
         return filteredLinks
-
-    # def scrapePublishingDate(self, soupPage=None):
-    #     date = soupPage.find("time")
-    #     if date is None:
-    #         return ""
-    #     else:
-    #         return self.normalizeDate(date.get_text().strip())
 
 
 

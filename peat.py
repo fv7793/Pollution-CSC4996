@@ -7,20 +7,20 @@ class Peat:
         self.keywords = keywords
         self.websites = []
 
-        # self.websites.append(Ourmidland(keywords))
-        # self.websites.append(MarionPress(keywords))
+        self.websites.append(Ourmidland(keywords))
+        self.websites.append(MarionPress(keywords))
         self.websites.append(TheCountyPress(keywords))
-        # self.websites.append(LakeCountyStar(keywords))
-        # self.websites.append(NorthernExpress(keywords))
-        # self.websites.append(ManisteeNews(keywords))
-        # self.websites.append(MichiganChronicle(keywords))
-        # self.websites.append(HarborLightNews(keywords))
-        # self.websites.append(TheDailyNews(keywords))
-        # self.websites.append(LeelanauNews(keywords))
-        # self.websites.append(HoughtonLakeResorter(keywords))
-        # self.websites.append(IronMountainDailyNews(keywords))
-        # self.websites.append(MiningJournal(keywords))
-        # self.websites.append(TheAlpenaNews(keywords))
+        self.websites.append(LakeCountyStar(keywords))
+        self.websites.append(NorthernExpress(keywords))
+        self.websites.append(ManisteeNews(keywords))
+        self.websites.append(MichiganChronicle(keywords))
+        self.websites.append(HarborLightNews(keywords))
+        self.websites.append(TheDailyNews(keywords))
+        self.websites.append(LeelanauNews(keywords))
+        self.websites.append(HoughtonLakeResorter(keywords))
+        self.websites.append(IronMountainDailyNews(keywords))
+        self.websites.append(MiningJournal(keywords))
+        self.websites.append(TheAlpenaNews(keywords))
 
         # TODO: not working
         # self.websites.append(LakeOrionReview(keywords))
