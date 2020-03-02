@@ -43,8 +43,8 @@ class Peat:
     def storeInArticlesCollection(self, article):
         try:
             database.Articles(
-                url=['url'],
-                title=['title'],
+                url=article['url'],
+                title=article['title'],
                 publishingDate=article['publishingDate']
             ).save()
         except:
