@@ -12,9 +12,9 @@ mongoengine.connect(
 )
 
 class Articles(mongoengine.Document):
-    publishingDate = mongoengine.StringField(required=True)
-    title = mongoengine.StringField(required=True)
     url = mongoengine.StringField(required=True)
+    title = mongoengine.StringField(required=True)
+    publishingDate = mongoengine.StringField(required=True)
 
     meta = {
         'indexes': [

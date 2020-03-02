@@ -9,3 +9,13 @@ from dateutil import parser
 # for link in h3:
 #     print(link.a['href'])
 
+page = requests.get("https://thecountypress.mihomepaper.com/articles/howell-bill-improves-technical-error-in-2018-solid-waste-statute/")
+soupPage = soup(page.content, 'html.parser')
+date = soupPage.find("span", {"class": "byline__time"})
+d = parser.parse(date.get_text())
+
+links = newspaper.build('https://thecountypress.mihomepaper.com/', memoize_articles=False)
+for article in links.articles:
+    print(article.url)
+
+

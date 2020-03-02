@@ -1,30 +1,23 @@
-from websites import *
-import newspaper
-import requests
-from bs4 import BeautifulSoup as soup
+from mongoengine import connect
+from peat import Peat
 
-keywords = ["pollution"]
+db = connect(db="Pollution")
+db.drop_database("Pollution")
 
-ourmidland = Ourmidland(keywords)
-marionPress = MarionPress(keywords)
-theCountyPress = TheCountyPress(keywords)
-lakeCountyStar = LakeCountyStar(keywords)
-northernExpress = NorthernExpress(keywords)
-manisteeNews = ManisteeNews(keywords)
-michiganChronicle = MichiganChronicle(keywords)
-# clarkstonNews = ClarkstonNews(keywords)
-harborLightNews = HarborLightNews(keywords)
-theDailyNews = TheDailyNews(keywords)
-# lakeOrionReview = LakeOrionReview(keywords)
-leelanauNews = LeelanauNews(keywords)
-houghtonLakeResorter = HoughtonLakeResorter(keywords)
-ironMountainDailyNews = IronMountainDailyNews(keywords)
-miningJournal = MiningJournal(keywords)
-theAlpenaNews = TheAlpenaNews(keywords)
+peat = Peat(["pollution"])
 
-websites = [ourmidland,marionPress,theCountyPress,lakeCountyStar,northernExpress,manisteeNews,michiganChronicle,
-            harborLightNews,theDailyNews,leelanauNews,houghtonLakeResorter,ironMountainDailyNews,miningJournal,
-            theAlpenaNews]
+articles = peat.getScrapedArticles()
+print("\n\n")
+print(articles[0]['url'])
+print(articles[0]['title'])
+print(articles[0]['publishingDate'])
+# peat.storeInArticlesCollection(articles[0])
+
+
+
+
+
+
 
 
 
