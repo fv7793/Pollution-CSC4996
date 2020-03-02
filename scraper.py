@@ -56,13 +56,13 @@ class Scraper(Crawler):
             article = {
                 "url": url,
                 "title": self.scrapeTitle(article),
-                "publishDate": self.scrapePublishingDate(soupPage),
+                "publishingDate": self.scrapePublishingDate(soupPage),
                 "body": self.scrapeBody(article)
             }
 
             self.scrapedArticles.append(article)
             self.titles.append(article["title"])
-            # self.storeInArticlesCollection(article["url"], article["publishDate"], article["title"])
+            # self.storeInArticlesCollection(article["url"], article["publishingDate"], article["title"])
 
     def scrapeTitle(self, newspaperArticleObj=None):
         title = newspaperArticleObj.title

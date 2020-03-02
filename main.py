@@ -11,7 +11,7 @@ print("\n\n")
 print(articles[0]['url'])
 print(articles[0]['title'])
 print(articles[0]['publishingDate'])
-# peat.storeInArticlesCollection(articles[0])
+peat.storeInArticlesCollection(articles[0])
 
 
 
