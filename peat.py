@@ -6,6 +6,7 @@ class Peat:
     def __init__(self, keywords):
         self.keywords = keywords
         self.websites = []
+        self.validArticles = []
 
         self.websites.append(Ourmidland(keywords))
         self.websites.append(MarionPress(keywords))
@@ -40,6 +41,15 @@ class Peat:
                 articles.append(article)
         return articles
 
+    def addValidArticles(self, article):
+        self.validArticles.append(article)
+
+    def setValidArticles(self, articles):
+        self.validArticles = articles
+
+    def getValidArticles(self):
+        return self.validArticles
+
     def storeInArticlesCollection(self, article):
         try:
             database.Articles(
@@ -51,6 +61,21 @@ class Peat:
             print("Unexpected error:", sys.exc_info()[0])
             # raise
             pass
+
+    def storeInIncidentsCollection(self, chems, date, location, statement, links):
+        try:
+            database.Incidents(
+                chemicals=chems,
+                date=date,
+                location=location,
+                officialStatement=statement,
+                articleLinks=links
+            ).save()
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
+            # raise
+            pass
+
 
 
 

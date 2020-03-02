@@ -4,14 +4,24 @@ from peat import Peat
 db = connect(db="Pollution")
 db.drop_database("Pollution")
 
-peat = Peat(["pollution"])
+'''
+Usage:
+------------
 
-articles = peat.getScrapedArticles()
-print("\n\n")
-print(articles[0]['url'])
-print(articles[0]['title'])
-print(articles[0]['publishingDate'])
-peat.storeInArticlesCollection(articles[0])
+keywords = [key1,key2,key3,...]
+peat = Peat(keywords)
+
+for url in peat.getUrls():
+    ...
+
+for article in peat.getScrapedArticles():
+    if valid article:
+        peat.storeInArticlesCollection(article)
+
+for article in peat.getValidArticles()
+    peat.storeInArticlesCollection(chems, date, location, statement, links)
+'''
+
 
 
 
