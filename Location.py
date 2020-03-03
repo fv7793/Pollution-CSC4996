@@ -7,6 +7,7 @@ def locationsInfo(articleBody):
     lakes = re.compile(r'(?i)\S*lake\S*(?:\s([a-zA-Z]+))?')
     rivers = re.compile(r'(?i)(?:\S+\s)?\S*river')
     schools = re.compile(r'(?i)(?:\S+\s)(?:\S+\s)(?:\S+\s)?\S*school')
+    highways = re.compile(r'(?i) I-(?:\S+\s)?|M-(?:\S+\s)?')
 
     #store all locations in array
     local = []
@@ -25,5 +26,9 @@ def locationsInfo(articleBody):
             school=schools.findall(sent)
             for School in school:
                 local.append(School)
+                break
+            highway = highways.findall(sent)
+            for Highway in highway:
+                local.append(Highway)
                 break
     return local
