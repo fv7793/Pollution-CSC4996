@@ -60,3 +60,5 @@ for article in peat.getValidArticles()
 #     page = requests.get(url)
 #     soupPage = soup(page.content, 'html.parser')
 #     print(soupPage.find("title"))
+
+
